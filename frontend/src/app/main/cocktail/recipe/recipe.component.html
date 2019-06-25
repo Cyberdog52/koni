@@ -1,0 +1,10 @@
+<mat-card *ngIf="cocktail" class="cocktail-card">
+  <mat-card-title>
+    {{cocktail.strDrink}}
+    <mat-icon matTooltip={{getAlcoholicStr()}}>{{getAlcoholicIcon()}}</mat-icon>
+    <cocktail-instructions [cocktail]="cocktail"></cocktail-instructions>
+  </mat-card-title>
+  <mat-card-content>
+    <img class="cocktail-image" mat-card-image src={{cocktail.strDrinkThumb}} alt="Cocktail Image">
+  </mat-card-content>
+</mat-card>

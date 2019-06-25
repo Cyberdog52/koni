@@ -1,0 +1,3 @@
+// staging task for heroku
+task stage(dependsOn: ['clean', 'build'])
+build.mustRunAfter clean

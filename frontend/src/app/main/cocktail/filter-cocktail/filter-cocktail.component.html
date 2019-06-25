@@ -1,0 +1,76 @@
+<mat-card>
+  <mat-card-title>
+    Filter
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field class="cocktail-form-field">
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let ingredient of selectedIngredients"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(ingredient)">
+          {{ingredient}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Neue Zutat..."
+          #fruitInput
+          [formControl]="ingredientCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let ingredient of filteredIngredients | async" [value]="ingredient">
+          {{ingredient}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="cocktail-form-field">
+      <mat-label>Anzahl Zutaten, die nicht vorkommen dürfen</mat-label>
+      <mat-select [(value)]="numberOfIngredientsThatDontMatch" (valueChange)="changedNumberOfNonMatchingIngredients()">
+        <div *ngFor="let nonMatchingOption of nonMatchingIngredientOptions">
+          <mat-option value="{{nonMatchingOption}}">{{ingredientOptionsToStr(nonMatchingOption)}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <mat-card class="filterCard" *ngIf="cocktails.length > 0">
+      <mat-card-title >
+        {{getFilterCocktailTitle()}}
+
+        <span>
+          <mat-icon (click)="generateRandom()" class="random_icon">casino</mat-icon>
+          <mat-icon *ngIf="randomCocktail" (click)="deleteRandom()" class="random_icon">cancel</mat-icon>
+        </span>
+      </mat-card-title>
+      <mat-card-content>
+        <mat-card *ngIf="randomCocktail">
+          <mat-card-title>
+            Zufälliges Getränk mit gewählten Zutaten
+          </mat-card-title>
+          <mat-card-content>
+            <recipe [cocktail]="randomCocktail"></recipe>
+          </mat-card-content>
+        </mat-card>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let cocktail of cocktails">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <img class="icon_image" [src]="cocktail.strDrinkThumb">
+                <div class="cocktail_title">{{cocktail.strDrink}}</div>
+              </mat-panel-title>
+              <mat-panel-description>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <recipe [cocktail]="cocktail"></recipe>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+    </mat-card>
+
+  </mat-card-content>
+</mat-card>

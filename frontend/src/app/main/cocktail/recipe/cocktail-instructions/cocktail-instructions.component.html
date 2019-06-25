@@ -1,0 +1,18 @@
+
+<mat-icon class="instruction-icon" matTooltip="Rezept anzeigen" (click)="toggleShowInstructions()">info</mat-icon>
+
+<mat-card *ngIf="showInstructions" (click)="toggleShowInstructions()">
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let ingredient of getIngredients()">
+        <a>{{ingredient.name}} </a>
+        <a *ngIf="ingredient.measure.length>0"> : </a>
+        <a *ngIf="ingredient.measure.length>0">{{ingredient.measure}}</a>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <div class="cocktail-text">{{cocktail.strInstructions}}</div>
+    <mat-divider style="margin-top: 10px"></mat-divider>
+    <div class="cocktail-text">{{getGlassText()}}</div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,48 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+apply from: file("$rootProject.projectDir/gradle/heroku/stage.gradle")
+
+group = 'com.andreskonrad'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+bootJar {
+    into('static') {
+        from('frontend/dist/frontend/')
+    }
+}
+bootJar.dependsOn ":frontend:npm_run_dist"
+
+
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.kafka:spring-kafka'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    compile 'org.springframework.boot:spring-boot-starter-data-rest'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.postgresql:postgresql'
+    //testImplementation 'org.springframework.security:spring-security-test'
+}

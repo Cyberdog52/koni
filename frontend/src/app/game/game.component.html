@@ -1,0 +1,12 @@
+<mat-card class="game-card">
+  <mat-card-title>
+    {{getGameName()}}
+  </mat-card-title>
+  <mat-card-content>
+    <werwoerter *ngIf="isWerwoerter()"></werwoerter>
+    <secret *ngIf="isSecret()"></secret>
+  </mat-card-content>
+  <mat-card-footer>
+    <a>Anzahl Spieler: {{getNumberOfPlayers()}}</a>
+  </mat-card-footer>
+</mat-card>

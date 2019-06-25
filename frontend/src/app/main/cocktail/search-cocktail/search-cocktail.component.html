@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-title>
+    Suche
+  </mat-card-title>
+  <mat-card-content>
+    <mat-form-field >
+      <input [(ngModel)]="searchStr" (keyup)="searchCocktail()" matInput type="text" placeholder="Suche">
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <mat-accordion *ngIf="drinks">
+      <mat-expansion-panel *ngFor="let cocktail of drinks.drinks">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <img class="icon_image" [src]="cocktail.strDrinkThumb">
+            <div class="cocktail_title">{{cocktail.strDrink}}</div>
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <recipe [cocktail]="cocktail"></recipe>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>
