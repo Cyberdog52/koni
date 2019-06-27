@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Cocktail, Drinks, Ingredient} from "../../../shared/model/cocktail-dtos";
+import {Cocktail, Drinks, CocktailAsIngredient} from "../../../shared/model/cocktail-dtos";
 import {CocktailService} from "../cocktail.service";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormControl} from "@angular/forms";
@@ -31,7 +31,7 @@ export class FilterCocktailComponent implements OnInit {
   selectedIngredients: string[] = [];
   allIngredients: string[] = [];
 
-  @ViewChild('fruitInput', {static: false}) fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('cocktailInput', {static: false}) cocktailInupt: ElementRef<HTMLInputElement>;
   @ViewChild('auto', {static: false}) matAutocomplete: MatAutocomplete;
   nonMatchingIngredientOptions: number[] =  [0, 1, 2, 3, 4, 5, 9999];
 
@@ -46,9 +46,14 @@ export class FilterCocktailComponent implements OnInit {
 
   getIngredients() {
     this.cocktailService.getIngredients().subscribe(response => {
-      response.drinks.forEach(ingredient => {
-        this.allIngredients.push(ingredient.strIngredient1);
-      });
+      if (response.drinks) {
+        response.drinks.forEach(ingredient => {
+          this.allIngredients.push(ingredient.strIngredient1);
+          //assign allIngredients new such that it will get loaded again by the frontend
+          //the sorting is not necessary
+          this.allIngredients = this.allIngredients.sort((a, b) => {return a.localeCompare(b)});
+        });
+      }
     })
   }
 
@@ -81,7 +86,7 @@ export class FilterCocktailComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.selectedIngredients.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
+    this.cocktailInupt.nativeElement.value = '';
     this.ingredientCtrl.setValue(null);
     this.getMatchingIds();
   }
@@ -91,12 +96,14 @@ export class FilterCocktailComponent implements OnInit {
     var counter = this.selectedIngredients.length;
     this.selectedIngredients.forEach(ingredientStr => {
       this.cocktailService.filter(ingredientStr).subscribe( response =>{
-          response.drinks.forEach( cocktail => {
-            const id = cocktail.idDrink;
-            if (!this.matchingIds.includes(id)) {
-              this.matchingIds.push(id);
-            }
-          });
+          if (response.drinks) {
+            response.drinks.forEach( cocktail => {
+              const id = cocktail.idDrink;
+              if (!this.matchingIds.includes(id)) {
+                this.matchingIds.push(id);
+              }
+            });
+          }
         counter = counter -1;
         if (counter == 0) {
           this.getDrinksForMatchingIds();
@@ -110,9 +117,11 @@ export class FilterCocktailComponent implements OnInit {
     this.cocktails = [];
     this.matchingIds.forEach(idStr => {
       this.cocktailService.getDrinkById(idStr).subscribe( response => {
-        const cocktail = response.drinks[0];
-        if (this.isOk(cocktail)) {
-          this.cocktails.push(cocktail);
+        if (response.drinks) {
+          const cocktail = response.drinks[0];
+          if (this.isOk(cocktail)) {
+            this.cocktails.push(cocktail);
+          }
         }
       });
     });
@@ -185,7 +194,7 @@ export class FilterCocktailComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allIngredients.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.allIngredients.filter(cocktail => cocktail.toLowerCase().indexOf(filterValue) === 0);
   }
 
 
@@ -226,5 +235,21 @@ export class FilterCocktailComponent implements OnInit {
 
   deleteRandom() {
     this.randomCocktail = null;
+  }
+
+  pressedKey() {
+    const stringInput = this.cocktailInupt.nativeElement.value;
+    this.cocktailService.getIngredientsThatStartWith(stringInput).subscribe( response => {
+      if (response.ingredients) {
+        response.ingredients.forEach( ingredient => {
+          if (this.allIngredients.includes(ingredient.strIngredient)) {
+            console.log("already contains", ingredient.strIngredient)
+          } else {
+            this.allIngredients.push(ingredient.strIngredient);
+            console.log("pushing ", ingredient.strIngredient)
+          }
+        });
+      }
+    })
   }
 }

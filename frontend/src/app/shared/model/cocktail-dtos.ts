@@ -1,7 +1,7 @@
 
 
 export interface Drinks {
-  "drinks": [Cocktail]
+  "drinks": Cocktail[]
 }
 
 export interface Cocktail {
@@ -45,12 +45,23 @@ export interface Cocktail {
   "strMeasure15": string,
 }
 
-export interface Ingredient {
+export interface CocktailAsIngredient {
   "strIngredient1": string
 }
 
+export interface CocktailAsIngredients {
+  "drinks": CocktailAsIngredient[]
+}
+
+export interface Ingredient {
+  "idIngredient": string,
+  "strIngredient": string,
+  "strDescription": string
+  "strType": string
+}
+
 export interface Ingredients {
-  "drinks": [Ingredient]
+  "ingredients": Ingredient[]
 }
 
 

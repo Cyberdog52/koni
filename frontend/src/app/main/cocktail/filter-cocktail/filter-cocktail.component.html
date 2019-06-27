@@ -13,9 +13,9 @@
           {{ingredient}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input
+        <input (keyup)="pressedKey()"
           placeholder="Neue Zutat..."
-          #fruitInput
+          #cocktailInput
           [formControl]="ingredientCtrl"
           [matAutocomplete]="auto"
           [matChipInputFor]="chipList"

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
 import {WerwoerterGame} from "../../shared/model/werwoerter-dtos";
 import {HttpClient} from "@angular/common/http";
-import {Drinks, Ingredients} from "../../shared/model/cocktail-dtos";
+import {Drinks, CocktailAsIngredients, Ingredients} from "../../shared/model/cocktail-dtos";
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +28,18 @@ export class CocktailService {
     return this.httpClient.get<Drinks>(url);
   }
 
-  getIngredients(): Observable<Ingredients> {
+  getIngredients(): Observable<CocktailAsIngredients> {
     let url = `${this.cocktailUrl}list.php?i=list`;
-    return this.httpClient.get<Ingredients>(url);
+    return this.httpClient.get<CocktailAsIngredients>(url);
   }
 
   getDrinkById(idStr: string): Observable<Drinks> {
     let url = `${this.cocktailUrl}lookup.php?i=${idStr}`;
     return this.httpClient.get<Drinks>(url);
+  }
+
+  getIngredientsThatStartWith(stringInput: string): Observable<Ingredients>  {
+    let url = `${this.cocktailUrl}search.php?i=${stringInput}`;
+    return this.httpClient.get<Ingredients>(url);
   }
 }
