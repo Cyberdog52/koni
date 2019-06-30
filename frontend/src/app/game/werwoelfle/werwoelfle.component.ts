@@ -78,16 +78,16 @@ export class WerwoelfleComponent implements OnInit {
     return false;
   }
 
-  showCitizenVote() : Boolean {
+  showDayPhase() : Boolean {
     if (this.werwoelfleGame != null) {
-      return this.werwoelfleGame.phase==WerwoelflePhase.CITIZENWON;
+      return this.werwoelfleGame.phase==WerwoelflePhase.DAYPHASE;
     }
     return false;
   }
 
-  showWerevote() : Boolean {
+  showWerewolfPhase() : Boolean {
     if (this.werwoelfleGame != null) {
-      return this.werwoelfleGame.phase==WerwoelflePhase.WEREVOTE;
+      return this.werwoelfleGame.phase==WerwoelflePhase.WEREWOLFPHASE;
     }
     return false;
   }
