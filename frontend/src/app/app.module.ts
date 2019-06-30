@@ -35,6 +35,11 @@ import { CocktailInstructionsComponent } from './main/cocktail/recipe/cocktail-i
 import { SearchCocktailComponent } from './main/cocktail/search-cocktail/search-cocktail.component';
 import { CompletelyRandomCocktailComponent } from './main/cocktail/completely-random-cocktail/completely-random-cocktail.component';
 import { FilterCocktailComponent } from './main/cocktail/filter-cocktail/filter-cocktail.component';
+import { WerwoelfleComponent } from './game/werwoelfle/werwoelfle.component';
+import {DayPhaseComponent} from "./game/werwoelfle/dayphase/day-phase.component";
+import {WerwoelfleRoleComponent} from "./game/werwoelfle/role/werwoelfle-role.component";
+import {WerewolfPhaseComponent} from "./game/werwoelfle/werewolf-phase/werewolf-phase.component";
+import {WerwoelfleConfirmComponent} from "./game/werwoelfle/werwoelfle-confirm/werwoelfle-confirm.component";
 
 @NgModule({
   declarations: [
@@ -61,7 +66,12 @@ import { FilterCocktailComponent } from './main/cocktail/filter-cocktail/filter-
     CocktailInstructionsComponent,
     SearchCocktailComponent,
     CompletelyRandomCocktailComponent,
-    FilterCocktailComponent
+    FilterCocktailComponent,
+    WerwoelfleComponent,
+    DayPhaseComponent,
+    WerwoelfleRoleComponent,
+    WerewolfPhaseComponent,
+    WerwoelfleConfirmComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,6 @@
+<werwoelfle-role [werwoelfleGame]="werwoelfleGame" *ngIf="showRole()"></werwoelfle-role>
+<day-phase [werwoelfleGame]="werwoelfleGame" *ngIf="showCitizenVote()"></day-phase>
+<werewolf-phase [werwoelfleGame]="werwoelfleGame" *ngIf="showWerevote()"></werewolf-phase>
+<werewolfswon *ngIf="showWerewolfsWon()"></werewolfswon>
+<citizenwon *ngIf="showCitizenWon()"></citizenwon>
+<werwoelfle-confirm [werwoelfleGame]="werwoelfleGame" *ngIf="showConfirm()"></werwoelfle-confirm>

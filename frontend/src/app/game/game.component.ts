@@ -32,6 +32,13 @@ export class GameComponent implements OnInit {
     return this.gameService.currentGame.gameType == GameType.SECRET;
   }
 
+  isWerwoelfle() : Boolean {
+    if (this.gameService.currentGame == null || this.gameService.currentGame.gameType == null) {
+      return false;
+    }
+    return this.gameService.currentGame.gameType == GameType.WERWOELFLE;
+  }
+
   getGameName(): string {
     const game = this.gameService.currentGame;
     if (game == null) {

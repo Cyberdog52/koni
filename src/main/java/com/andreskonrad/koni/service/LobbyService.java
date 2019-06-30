@@ -14,12 +14,14 @@ import java.util.List;
 public class LobbyService {
 
     private final WerwoerterService werwoerterService;
+    private final WerwoelfleService werwoelfleService;
 
     private List<Game> games = new ArrayList<Game>();
 
     @Autowired
-    public LobbyService(WerwoerterService werwoerterService) {
+    public LobbyService(WerwoerterService werwoerterService, WerwoelfleService werwoelfleService) {
         this.werwoerterService = werwoerterService;
+        this.werwoelfleService = werwoelfleService;
     }
 
     public List<Game> getGames() {
@@ -71,6 +73,16 @@ public class LobbyService {
         Game game = getGame(gameName);
         if (game == null) return;
         game.setGameState(GameState.RUNNING);
-        werwoerterService.start(game);
+
+        switch(game.getGameType()) {
+            case WERWOERTER: {
+                werwoerterService.start(game);
+                break;
+            }
+            case WERWOELFLE: {
+                werwoelfleService.start(game);
+            }
+        }
+
     }
 }

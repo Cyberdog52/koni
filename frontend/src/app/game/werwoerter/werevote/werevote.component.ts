@@ -70,7 +70,7 @@ export class WerevoteComponent implements OnInit {
     console.log("sending selected playerName: ", this.selectedPlayerName);
     const playerName = this.profileService.getCurrentIdentity().name;
     this.werwoerterService.sendGuessPlayer(this.werwoerterGame.game.name, playerName, this.selectedPlayerName).subscribe(response => {
-      console.log("received sendGuessPlayer response: ", response);
+      console.log("received vote response: ", response);
     })
   }
 

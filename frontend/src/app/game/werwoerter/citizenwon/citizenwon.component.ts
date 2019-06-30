@@ -8,8 +8,6 @@ import {WerwoerterGame} from "../../../shared/model/werwoerter-dtos";
 })
 export class CitizenwonComponent implements OnInit {
 
-  @Input() werwoerterGame : WerwoerterGame;
-
   constructor() { }
 
   ngOnInit() {

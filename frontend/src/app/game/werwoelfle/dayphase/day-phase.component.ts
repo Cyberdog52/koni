@@ -1,31 +1,31 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Player} from "../../../shared/model/dtos";
 import {ProfileService} from "../../../shared/profile.service";
-import {WerwoerterGame, WerwoerterRole} from "../../../shared/model/werwoerter-dtos";
-import {WerwoerterService} from "../werwoerter.service";
+import {WerwoelfleGame} from "../../../shared/model/werwoelfle-dtos";
+import {WerwoelfleService} from "../werwoelfle.service";
 
 @Component({
-  selector: 'citizenvote',
-  templateUrl: './citizenvote.component.html',
-  styleUrls: ['./citizenvote.component.scss']
+  selector: 'day-phase',
+  templateUrl: './day-phase.component.html',
+  styleUrls: ['./day-phase.component.scss']
 })
-export class CitizenvoteComponent implements OnInit {
+export class DayPhaseComponent implements OnInit {
 
-  @Input() werwoerterGame : WerwoerterGame;
+  @Input() werwoelfleGame : WerwoelfleGame;
   selectedPlayerName: string;
 
-  constructor(private werwoerterService: WerwoerterService,
+  constructor(private werwoelfleService: WerwoelfleService,
               private profileService: ProfileService) { }
 
   ngOnInit() {
   }
 
   getSelectablePlayers(): Player[] {
-    if (this.werwoerterGame == null) {
+    if (this.werwoelfleGame == null) {
       return [];
     }
     const playerName = this.profileService.getCurrentIdentity().name;
-    return this.werwoerterGame.game.players.filter(player => player.identity.name.localeCompare(playerName) != 0);
+    return this.werwoelfleGame.game.players.filter(player => player.identity.name.localeCompare(playerName) != 0);
   }
 
   playerToStr(player: Player): string {
@@ -43,18 +43,18 @@ export class CitizenvoteComponent implements OnInit {
   sendSelectedPlayer() {
     console.log("sending selected playerName: ", this.selectedPlayerName);
     const playerName = this.profileService.getCurrentIdentity().name;
-    this.werwoerterService.sendGuessPlayer(this.werwoerterGame.game.name, playerName, this.selectedPlayerName).subscribe(response => {
+    this.werwoelfleService.vote(this.werwoelfleGame.game.name, playerName, this.selectedPlayerName).subscribe(response => {
       console.log("received vote response: ", response);
     })
   }
 
   hasAlreadyVoted() {
-    if (this.werwoerterGame == null) {
+    if (this.werwoelfleGame == null) {
       return true;
     }
     const playerName = this.profileService.getCurrentIdentity().name;
-    return this.werwoerterGame.playersThatVoted.filter(player => {
-      return player.identity.name.localeCompare(playerName) == 0;
+    return this.werwoelfleGame.votes.filter(vote => {
+      return vote.fromName.localeCompare(playerName) == 0;
     }).length > 0;
   }
 

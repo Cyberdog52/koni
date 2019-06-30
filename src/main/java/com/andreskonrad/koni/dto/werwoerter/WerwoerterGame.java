@@ -11,18 +11,13 @@ import java.util.stream.Collectors;
 public class WerwoerterGame {
 
     private final Game game;
-
     private final HashMap<String, WerwoerterRole> playerToWerwoerterRoleMap = new HashMap<>();
     private Player mayor;
     private Set<Player> playersThatNeedToConfirm;
-
     private Set<Player> playersThatVoted;
-
     private WerwoerterPhase phase;
     private List<WerwoerterMarker> markers;
-
     private String word;
-
     private List<Player> guessedPlayers;
 
     public WerwoerterGame(Game game) {
