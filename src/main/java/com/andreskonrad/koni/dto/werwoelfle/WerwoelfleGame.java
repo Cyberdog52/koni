@@ -19,7 +19,7 @@ public class WerwoelfleGame {
     private WerwoelflePhase phase;
     private Set<Vote> votes;
     private Set<Player> dyingPlayers;
-    private List<HistoryBlock> history;
+    private List<WerwoelfleHistoryBlock> history;
 
     public WerwoelfleGame(Game game) {
         this.game = game;
@@ -55,7 +55,7 @@ public class WerwoelfleGame {
         return dyingPlayers;
     }
 
-    public List<HistoryBlock> getHistory() {
+    public List<WerwoelfleHistoryBlock> getHistory() {
         return history;
     }
 
@@ -120,7 +120,7 @@ public class WerwoelfleGame {
     }
 
     private void addHistory() {
-        HistoryBlock block = new HistoryBlock(this.phase, new HashSet<>(this.votes));
+        WerwoelfleHistoryBlock block = new WerwoelfleHistoryBlock(this.phase, new HashSet<>(this.votes));
         history.add(block);
     }
 

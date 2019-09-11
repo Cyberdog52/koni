@@ -18,6 +18,7 @@ export interface Game {
 }
 
 export enum GameType {
+  LEITERLI = "LEITERLI",
   WERWOERTER = "WERWOERTER",
   SECRET = "SECRET",
   WERWOELFLE = "WERWOELFLE"

@@ -3,11 +3,11 @@ package com.andreskonrad.koni.dto.werwoelfle;
 import java.util.Objects;
 import java.util.Set;
 
-public class HistoryBlock {
+public class WerwoelfleHistoryBlock {
     private final WerwoelflePhase phase;
     private final Set<Vote> votes;
 
-    public HistoryBlock(WerwoelflePhase phase, Set<Vote> votes) {
+    public WerwoelfleHistoryBlock(WerwoelflePhase phase, Set<Vote> votes) {
         this.phase = phase;
         this.votes = votes;
     }
@@ -24,7 +24,7 @@ public class HistoryBlock {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HistoryBlock that = (HistoryBlock) o;
+        WerwoelfleHistoryBlock that = (WerwoelfleHistoryBlock) o;
         return phase == that.phase &&
                 Objects.equals(votes, that.votes);
     }

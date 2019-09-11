@@ -15,13 +15,15 @@ public class LobbyService {
 
     private final WerwoerterService werwoerterService;
     private final WerwoelfleService werwoelfleService;
+    private final LeiterliService leiterliService;
 
     private List<Game> games = new ArrayList<Game>();
 
     @Autowired
-    public LobbyService(WerwoerterService werwoerterService, WerwoelfleService werwoelfleService) {
+    public LobbyService(WerwoerterService werwoerterService, WerwoelfleService werwoelfleService, LeiterliService leiterliService) {
         this.werwoerterService = werwoerterService;
         this.werwoelfleService = werwoelfleService;
+        this.leiterliService = leiterliService;
     }
 
     public List<Game> getGames() {
@@ -81,6 +83,9 @@ public class LobbyService {
             }
             case WERWOELFLE: {
                 werwoelfleService.start(game);
+            }
+            case LEITERLI: {
+                leiterliService.start(game);
             }
         }
 

@@ -51,9 +51,9 @@ public class WerwoerterGameTest {
         Player werwolfPlayer = wgs.getPlayersForRole(WerwoerterRole.WEREWOLF).get(0);
         Player seerPlayer = wgs.getPlayersForRole(WerwoerterRole.SEER).get(0);
 
-        wgs.guessPlayer(werwolfPlayer.getName());
-        wgs.guessPlayer(werwolfPlayer.getName());
-        wgs.guessPlayer(seerPlayer.getName());
+        wgs.guessPlayer("0", werwolfPlayer.getName());
+        wgs.guessPlayer("1", werwolfPlayer.getName());
+        wgs.guessPlayer("2", seerPlayer.getName());
 
         Set<WerwoerterRole> roles = wgs.getMajorityRoleForPlayers();
 
@@ -62,7 +62,7 @@ public class WerwoerterGameTest {
         assertThat(roles.contains(WerwoerterRole.CITIZEN), is(false));
         assertThat(roles.size(), is(1));
 
-        wgs.guessPlayer(seerPlayer.getName());
+        wgs.guessPlayer("4", seerPlayer.getName());
         roles = wgs.getMajorityRoleForPlayers();
         assertThat(roles.contains(WerwoerterRole.WEREWOLF), is(true));
         assertThat(roles.contains(WerwoerterRole.SEER), is(true));
@@ -77,11 +77,11 @@ public class WerwoerterGameTest {
         profiles.forEach(game::join);
         WerwoerterGame wgs = new WerwoerterGame(game);
 
-        wgs.guessPlayer("0");
-        wgs.guessPlayer("1");
-        wgs.guessPlayer("2");
-        wgs.guessPlayer("3");
-        wgs.guessPlayer("4");
+        wgs.guessPlayer("0","0");
+        wgs.guessPlayer("1","1");
+        wgs.guessPlayer("2","2");
+        wgs.guessPlayer("3","3");
+        wgs.guessPlayer("4","4");
 
         Set<WerwoerterRole> roles = wgs.getMajorityRoleForPlayers();
 

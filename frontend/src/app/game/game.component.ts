@@ -60,4 +60,11 @@ export class GameComponent implements OnInit {
       return game.players.length;
     }
   }
+
+  isLeiterli() {
+    if (this.gameService.currentGame == null || this.gameService.currentGame.gameType == null) {
+      return false;
+    }
+    return this.gameService.currentGame.gameType == GameType.LEITERLI;
+  }
 }

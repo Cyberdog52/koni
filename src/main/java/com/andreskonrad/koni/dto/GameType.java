@@ -1,5 +1,5 @@
 package com.andreskonrad.koni.dto;
 
 public enum GameType {
-    WERWOERTER, SECRET, WERWOELFLE
+    WERWOERTER, SECRET, WERWOELFLE, LEITERLI
 }

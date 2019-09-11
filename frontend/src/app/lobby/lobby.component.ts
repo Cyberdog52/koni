@@ -18,7 +18,7 @@ export class LobbyComponent implements OnInit {
   allGames: Game[] = [];
 
   selectedGameType: GameType;
-  gameTypes = [GameType.SECRET, GameType.WERWOERTER, GameType.WERWOELFLE];
+  gameTypes = [GameType.WERWOERTER, GameType.LEITERLI];
 
   //TODO: adjust per game
   MIN_PLAYER_PER_GAME: number = 1;
@@ -176,6 +176,9 @@ export class LobbyComponent implements OnInit {
       case GameType.WERWOELFLE: {
         return "assets/werwoelfle/icon.jpg";
       }
+      case GameType.LEITERLI : {
+        return "assets/leiterli/ladder.jpg";
+      }
     }
   }
 
@@ -214,6 +217,9 @@ export class LobbyComponent implements OnInit {
       }
       case GameType.WERWOELFLE: {
         return "Werwölfle";
+      }
+      case GameType.LEITERLI: {
+        return "Leiterli";
       }
     }
   }
