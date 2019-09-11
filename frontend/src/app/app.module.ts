@@ -41,6 +41,9 @@ import {WerwoelfleRoleComponent} from "./game/werwoelfle/role/werwoelfle-role.co
 import {WerewolfPhaseComponent} from "./game/werwoelfle/werewolf-phase/werewolf-phase.component";
 import {WerwoelfleConfirmComponent} from "./game/werwoelfle/werwoelfle-confirm/werwoelfle-confirm.component";
 import { LeiterliComponent } from './game/leiterli/leiterli.component';
+import { BoardComponent } from './game/leiterli/board/board.component';
+import { FieldComponent } from './game/leiterli/field/field.component';
+import { RollComponent } from './game/leiterli/roll/roll.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +76,10 @@ import { LeiterliComponent } from './game/leiterli/leiterli.component';
     WerwoelfleRoleComponent,
     WerewolfPhaseComponent,
     WerwoelfleConfirmComponent,
-    LeiterliComponent
+    LeiterliComponent,
+    BoardComponent,
+    FieldComponent,
+    RollComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,10 @@ public class LeiterliField {
         return number;
     }
 
+    public boolean isVisited() {
+        return visited;
+    }
+
     public int getMove() {
         return move;
     }

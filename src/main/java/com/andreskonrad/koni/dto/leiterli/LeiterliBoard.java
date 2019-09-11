@@ -1,32 +1,54 @@
 package com.andreskonrad.koni.dto.leiterli;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class LeiterliBoard {
 
     private final Set<LeiterliField> fields;
 
-    public LeiterliBoard(Set<LeiterliField> fields) {
-        this.fields = fields;
-    }
-
-    private LeiterliField getField(int number) {
+    public LeiterliField getField(int number) {
         return fields.stream().
                 filter(leiterliField -> leiterliField.getNumber()==number).
                 findFirst().
                 get();
     }
 
+    private int getRandomElement(List<Integer> list) {
+        return list.get(ThreadLocalRandom.current()
+                .nextInt(list.size()));
+    }
+
     public LeiterliBoard(int maxFields) {
         Set<LeiterliField> fields = new HashSet<>();
         for (int i = 1; i <= maxFields; i++) {
-            //TODO add random moves
-            LeiterliField newField = new LeiterliField(i, 0);
+            int move = calculateMove(maxFields, i);
+            LeiterliField newField = new LeiterliField(i, move);
+            if (newField.getNumber() == 1) {
+                newField.visit();
+            }
             fields.add(newField);
         }
         this.fields = fields;
+    }
+
+    private int calculateMove(int maxFields, int i) {
+        double moveD = (new Random().nextGaussian() * getRandomElement(Arrays.asList(0,0,0,5,5,10,10,20)));
+        int move = (int) moveD;
+        if (move > maxFields || move * -1 > maxFields ) {
+            move = 0;
+        }
+        if (i + move < 1) {
+            move = move * -1;
+        }
+        if (i + move > maxFields) {
+            move = move * -1;
+        }
+        return move;
+    }
+
+    public Set<LeiterliField> getFields() {
+        return fields;
     }
 
     @Override
@@ -42,8 +64,8 @@ public class LeiterliBoard {
         return Objects.hash(fields);
     }
 
-    public LeiterliField move(LeiterliField previousField, int roll) {
-        LeiterliField firstField = getField(previousField.getNumber() + roll);
+    public LeiterliField move(int previousNumber, int roll) {
+        LeiterliField firstField = getField(previousNumber + roll);
         firstField.visit();
         return getField(firstField.getNumber() + firstField.getMove());
     }

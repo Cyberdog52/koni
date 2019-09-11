@@ -4,12 +4,13 @@ import com.andreskonrad.koni.dto.Game;
 import com.andreskonrad.koni.dto.GameState;
 import com.andreskonrad.koni.dto.Player;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 public class LeiterliGame {
 
     private final Game game;
-    private final HashMap<String, LeiterliField> playerToLeiterliFieldMap= new HashMap<>();
+    private final HashMap<String, Integer> playerToNumberMap = new HashMap<>();
     private Set<Player> playersThatNeedToRoll;
     private final LeiterliBoard board;
     private List<LeiterliHistoryBlock> history;
@@ -17,18 +18,38 @@ public class LeiterliGame {
 
     public LeiterliGame(Game game) {
         this.game = game;
+        maxFields = 100;
         this.board = new LeiterliBoard(maxFields);
         this.playersThatNeedToRoll = new HashSet<>();
         history = new ArrayList<>();
-        maxFields = 100;
+        this.assignNewPlayersThatNeedToRoll();
+        this.assignStartPositions();
+    }
+
+    private void assignStartPositions() {
+        for (Player player : this.game.getPlayers()) {
+            playerToNumberMap.put(player.getName(), 1);
+        }
+    }
+
+    public HashMap<String, Integer> getPlayerToNumberMap() {
+        return playerToNumberMap;
+    }
+
+    public LeiterliBoard getBoard() {
+        return board;
+    }
+
+    public int getMaxFields() {
+        return maxFields;
     }
 
     public Game getGame() {
         return this.game;
     }
 
-    public HashMap<String, LeiterliField> getplayerToLeiterliFieldMap() {
-        return playerToLeiterliFieldMap;
+    public HashMap<String, Integer> getplayerToNumberMapMap() {
+        return playerToNumberMap;
     }
 
     public Set<Player> getPlayersThatNeedToRoll() {
@@ -39,8 +60,8 @@ public class LeiterliGame {
         return history;
     }
 
-    private void addHistory(Player player, int roll, LeiterliField previousField, LeiterliField currentField) {
-        LeiterliHistoryBlock block = new LeiterliHistoryBlock(player, roll, previousField, currentField);
+    private void addHistory(Player player, int roll, int previousNumber, int currentNumber) {
+        LeiterliHistoryBlock block = new LeiterliHistoryBlock(player, roll, previousNumber, currentNumber);
         history.add(block);
     }
 
@@ -49,21 +70,20 @@ public class LeiterliGame {
     }
 
     public void roll(String playerName) {
-
         Player player = this.game.getPlayer(playerName);
         if (!playersThatNeedToRoll.contains(player)) {
             return;
         }
         playersThatNeedToRoll.removeIf(player1 -> player1.getName().equals(playerName));
 
-        LeiterliField previousField = playerToLeiterliFieldMap.get(playerName);
+        int previousNumber = playerToNumberMap.get(playerName);
         int roll = new Random().nextInt(6) + 1;
-        LeiterliField currentField = board.move(previousField, roll);
+        LeiterliField currentField = board.move(previousNumber, roll);
         currentField.visit();
 
-        this.playerToLeiterliFieldMap.put(playerName, currentField);
+        this.playerToNumberMap.put(playerName, currentField.getNumber());
 
-        addHistory(player, roll, previousField, currentField );
+        addHistory(player, roll, previousNumber, currentField.getNumber() );
 
         if (playersThatNeedToRoll.size() == 0) {
             assignNewPlayersThatNeedToRoll();
@@ -73,8 +93,8 @@ public class LeiterliGame {
 
     private void checkIfWon() {
         for (Player player : this.game.getPlayers() ) {
-            LeiterliField leiterliField = playerToLeiterliFieldMap.get(player.getName());
-            if (leiterliField.getNumber() == this.maxFields){
+            Integer number = playerToNumberMap.get(player.getName());
+            if (number == this.maxFields){
                 this.game.setGameState(GameState.FINISHED);
             }
         }

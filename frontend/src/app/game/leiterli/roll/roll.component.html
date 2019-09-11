@@ -1,0 +1,6 @@
+<a *ngIf=hasToRoll()>
+  <button mat-raised-button color="primary" (click)="roll()">Roll</button>
+</a>
+<a *ngIf=!hasToRoll()>
+  Waiting for other players...
+</a>
