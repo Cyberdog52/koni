@@ -17,14 +17,8 @@ export class RollComponent implements OnInit {
               private leiterliService: LeiterliService) {
   }
 
-  public getPlayer(): Player {
-    const playerName = this.profileService.getCurrentIdentity().name;
-    if (this.leiterliGame == null) {
-      return null;
-    }
-    return this.leiterliGame.game.players.copyWithin(0, 0).filter(player => {
-      return player.identity.name.localeCompare(playerName) == 0
-    }).pop();
+  public getPlayerName(): string {
+    return this.profileService.getCurrentIdentity().name;
   }
 
   ngOnInit() {
@@ -32,14 +26,14 @@ export class RollComponent implements OnInit {
 
   hasToRoll(): boolean {
     if (this.leiterliGame == null) return false;
-    if (this.getPlayer() == null) return false;
+    if (this.getPlayerName() == null) return false;
     return this.leiterliGame.playersThatNeedToRoll.filter(player => {
-      return player.identity.name.localeCompare(this.getPlayer().identity.name) == 0;
+      return player.identity.name.localeCompare(this.getPlayerName()) == 0;
     }).length > 0;
   }
 
   roll(): void {
-    this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayer().identity.name).subscribe(next=> {
+    this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayerName()).subscribe(next=> {
       console.log("Rolled");
     });
   }

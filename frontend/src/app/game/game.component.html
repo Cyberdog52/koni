@@ -1,4 +1,4 @@
-<mat-card class="game-card">
+<mat-card class="game-card" *ngIf="!isLeiterli()">
   <mat-card-title>
     {{getGameName()}}
   </mat-card-title>
@@ -6,9 +6,10 @@
     <werwoerter *ngIf="isWerwoerter()"></werwoerter>
     <secret *ngIf="isSecret()"></secret>
     <werwoelfle *ngIf="isWerwoelfle()"></werwoelfle>
-    <leiterli *ngIf="isLeiterli()"></leiterli>
+
   </mat-card-content>
   <mat-card-footer>
     <a>Anzahl Spieler: {{getNumberOfPlayers()}}</a>
   </mat-card-footer>
 </mat-card>
+<leiterli *ngIf="isLeiterli()"></leiterli>

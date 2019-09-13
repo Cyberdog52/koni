@@ -32,17 +32,20 @@ public class LeiterliBoard {
         this.fields = fields;
     }
 
-    private int calculateMove(int maxFields, int i) {
+    private int calculateMove(int maxFields, int fieldNumber) {
         double moveD = (new Random().nextGaussian() * getRandomElement(Arrays.asList(0,0,0,5,5,10,10,20)));
         int move = (int) moveD;
         if (move > maxFields || move * -1 > maxFields ) {
             move = 0;
         }
-        if (i + move < 1) {
+        if (fieldNumber + move < 1) {
             move = move * -1;
         }
-        if (i + move > maxFields) {
+        if (fieldNumber + move > maxFields) {
             move = move * -1;
+        }
+        if (fieldNumber == maxFields) {
+            move = 0;
         }
         return move;
     }

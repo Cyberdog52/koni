@@ -1,11 +1,17 @@
-<a class="field">
-  {{leiterliField.number}}
-  <mat-divider></mat-divider>
-  <mat-list>
-    <mat-list-item *ngFor="let player of players">
-      <h4>{{player.identity.name}}</h4>
-    </mat-list-item>
-  </mat-list>
-</a>
+<mat-grid-list cols="1" rowHeight="33px">
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <h1>{{leiterliField.number}}</h1>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    {{leiterliField.move}}
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-list>
+      <mat-list-item *ngFor="let player of players">
+        <a>{{player.identity.name}}</a>
+      </mat-list-item>
+    </mat-list>
+  </mat-grid-tile>
+</mat-grid-list>
 
 

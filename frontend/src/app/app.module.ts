@@ -44,6 +44,9 @@ import { LeiterliComponent } from './game/leiterli/leiterli.component';
 import { BoardComponent } from './game/leiterli/board/board.component';
 import { FieldComponent } from './game/leiterli/field/field.component';
 import { RollComponent } from './game/leiterli/roll/roll.component';
+import { RankingComponent } from './game/leiterli/ranking/ranking.component';
+import { StatsComponent } from './game/leiterli/stats/stats.component';
+import { HistoryComponent } from './game/leiterli/history/history.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +82,10 @@ import { RollComponent } from './game/leiterli/roll/roll.component';
     LeiterliComponent,
     BoardComponent,
     FieldComponent,
-    RollComponent
+    RollComponent,
+    RankingComponent,
+    StatsComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
