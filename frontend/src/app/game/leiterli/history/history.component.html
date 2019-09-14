@@ -1,3 +1,7 @@
-<p>
-  history works!
-</p>
+<mat-list>
+  <mat-list-item *ngFor="let history of getHistory()">
+    <mat-icon matListIcon>{{getDiceIcon(history.roll)}}</mat-icon>
+    <h1>{{history.player.identity.name}}</h1>
+    <h3 matLine> {{history.previousField}} ->  {{history.currentField}}</h3>
+  </mat-list-item>
+</mat-list>
