@@ -2,6 +2,7 @@
   <mat-label>Avatar ändern</mat-label>
   <mat-select (selectionChange)="pickAvatar()" [(value)]="pickedAvatar">
     <mat-option *ngFor="let avatar of avatarOptions" value={{avatar.title}}>
+      <span><img src={{getPathForAvatarName(avatar.title)}} alt="Avatar"></span>
       {{avatar.title}}
     </mat-option>
   </mat-select>

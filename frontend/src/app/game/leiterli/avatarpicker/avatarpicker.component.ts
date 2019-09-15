@@ -52,7 +52,7 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
 
       const avatarOption = {
         title: avatarName,
-        path: "../../../../assets/leiterli/profiles/" + avatarName + ".PNG",
+        path: this.getPathForAvatarName(avatarName),
         alreadyPicked: this.isAlreadyPicked(avatarName)
       };
       avatarOptions.push(avatarOption);
@@ -63,6 +63,10 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
 
   public getPlayerName(): string {
     return this.profileService.getCurrentIdentity().name;
+  }
+
+  getPathForAvatarName(avatarName: string): string {
+    return "../../../../assets/leiterli/profiles/" + avatarName + ".PNG"
   }
 
   pickAvatar() {
