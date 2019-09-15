@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-label>Avatar ändern</mat-label>
+  <mat-select (selectionChange)="pickAvatar()" [(value)]="pickedAvatar">
+    <mat-option *ngFor="let avatar of avatarOptions" value={{avatar.title}}>
+      {{avatar.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

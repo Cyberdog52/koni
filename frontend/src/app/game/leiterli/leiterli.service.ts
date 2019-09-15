@@ -24,4 +24,9 @@ export class LeiterliService {
     let url = `${this.backendUrl}roll?gameName=${gameName}`;
     return this.httpClient.post<HttpResponse<string>>(url, playerName);
   }
+
+  avatar(gameName: string, playerName: string, avatarName: string): Observable<HttpResponse<string>>  {
+    let url = `${this.backendUrl}avatar?gameName=${gameName}&playerName=${playerName}`;
+    return this.httpClient.post<HttpResponse<string>>(url, avatarName);
+  }
 }

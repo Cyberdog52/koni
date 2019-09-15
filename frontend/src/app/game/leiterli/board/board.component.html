@@ -4,6 +4,6 @@
     [colspan]="tile.cols"
     [rowspan]="tile.rows"
     [style.background]="tile.color">
-    <leiterli-field [leiterliField]=tile.leiterliField [players]=getPlayers(tile.leiterliField)></leiterli-field>
+    <leiterli-field [leiterliGame]="leiterliGame" [leiterliField]=tile.leiterliField [players]=getPlayers(tile.leiterliField)></leiterli-field>
   </mat-grid-tile>
 </mat-grid-list>

@@ -7,6 +7,8 @@ export interface LeiterliGame {
   board: LeiterliBoard
   history: LeiterliHistoryBlock[]
   maxFields: number
+  avatarNames: string[]
+  playerToAvatarMap: Map<string, string>
 }
 
 export interface LeiterliField {

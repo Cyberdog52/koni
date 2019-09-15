@@ -47,6 +47,7 @@ import { RollComponent } from './game/leiterli/roll/roll.component';
 import { RankingComponent } from './game/leiterli/ranking/ranking.component';
 import { StatsComponent } from './game/leiterli/stats/stats.component';
 import { HistoryComponent } from './game/leiterli/history/history.component';
+import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { HistoryComponent } from './game/leiterli/history/history.component';
     RollComponent,
     RankingComponent,
     StatsComponent,
-    HistoryComponent
+    HistoryComponent,
+    AvatarpickerComponent
   ],
   imports: [
     BrowserModule,

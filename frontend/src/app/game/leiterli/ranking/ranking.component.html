@@ -1,6 +1,6 @@
 <mat-list>
   <mat-list-item *ngFor="let rankedPlayer of getRankedPlayers()">
-    <mat-icon matListIcon>folder</mat-icon>
+    <img matListAvatar src={{getImageForPlayer(rankedPlayer.name)}} alt="Avatar">
     <h1>{{rankedPlayer.rank}}</h1>
     <h3 matLine> {{rankedPlayer.name}} </h3>
     <p matLine>

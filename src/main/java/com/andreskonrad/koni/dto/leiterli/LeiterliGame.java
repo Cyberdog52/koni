@@ -15,6 +15,16 @@ public class LeiterliGame {
     private final LeiterliBoard board;
     private List<LeiterliHistoryBlock> history;
     private int maxFields;
+    private final List<String> avatarNames = Arrays.asList("Bowser",
+            "DK",
+            "Luigi",
+            "Mario",
+            "Peach",
+            "Toad",
+            "Wario",
+            "Yoshi");
+
+    private final HashMap<String, String> playerToAvatarMap = new HashMap<>();
 
     public LeiterliGame(Game game) {
         this.game = game;
@@ -24,6 +34,19 @@ public class LeiterliGame {
         history = new ArrayList<>();
         this.assignNewPlayersThatNeedToRoll();
         this.assignStartPositions();
+        this.assignAvatarsToPlayers();
+    }
+
+    public HashMap<String, String> getPlayerToAvatarMap() {
+        return playerToAvatarMap;
+    }
+
+    private void assignAvatarsToPlayers() {
+        Collections.shuffle(avatarNames);
+        int i = 0;
+        for (Player player : this.game.getPlayers()) {
+            this.playerToAvatarMap.put(player.getName(), this.avatarNames.get(i % avatarNames.size()));
+        }
     }
 
     private void assignStartPositions() {
@@ -69,7 +92,7 @@ public class LeiterliGame {
         this.playersThatNeedToRoll = this.game.createPlayersCopy();
     }
 
-    public void roll(String playerName) {
+    public synchronized void  roll(String playerName) {
         Player player = this.game.getPlayer(playerName);
         if (!playersThatNeedToRoll.contains(player)) {
             return;
@@ -98,6 +121,14 @@ public class LeiterliGame {
                 this.game.setGameState(GameState.FINISHED);
             }
         }
+    }
+
+    public List<String> getAvatarNames() {
+        return avatarNames;
+    }
+
+    public void pickAvatar(String playerName, String avatarName) {
+        this.playerToAvatarMap.put(playerName, avatarName);
     }
 }
 

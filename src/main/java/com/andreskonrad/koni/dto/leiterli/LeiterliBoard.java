@@ -6,10 +6,16 @@ import java.util.concurrent.ThreadLocalRandom;
 public class LeiterliBoard {
 
     private final Set<LeiterliField> fields;
+    private int maxFields;
 
     public LeiterliField getField(int number) {
+        int numberNotHigherThanMaxFields = number;
+        if (number > this.maxFields) {
+            numberNotHigherThanMaxFields = this.maxFields;
+        }
+        int finalNumberNotHigherThanMaxFields = numberNotHigherThanMaxFields;
         return fields.stream().
-                filter(leiterliField -> leiterliField.getNumber()==number).
+                filter(leiterliField -> leiterliField.getNumber()== finalNumberNotHigherThanMaxFields).
                 findFirst().
                 get();
     }
@@ -20,6 +26,7 @@ public class LeiterliBoard {
     }
 
     public LeiterliBoard(int maxFields) {
+        this.maxFields = maxFields;
         Set<LeiterliField> fields = new HashSet<>();
         for (int i = 1; i <= maxFields; i++) {
             int move = calculateMove(maxFields, i);

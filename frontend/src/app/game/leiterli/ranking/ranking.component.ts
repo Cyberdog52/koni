@@ -39,10 +39,8 @@ export class RankingComponent implements OnInit {
       rankedPlayers.push(rankedPlayer);
     });
 
-    console.log(rankedPlayers);
-
     const sortedRankedPlayers = rankedPlayers.sort((p1, p2) => {
-      return p1.field - p2.field;
+      return p2.field - p1.field;
     });
 
     let rank = 1;
@@ -51,9 +49,13 @@ export class RankingComponent implements OnInit {
       rank = rank + 1;
     });
 
-    console.log(sortedRankedPlayers);
-
     return sortedRankedPlayers;
+  }
+
+  getImageForPlayer(playerName: string): string {
+    if (this.leiterliGame == null) return "";
+    const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
+    return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
   }
 }
 

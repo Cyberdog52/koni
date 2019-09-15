@@ -13,8 +13,14 @@ export class FieldComponent implements OnInit {
 
   @Input() leiterliField : LeiterliField;
   @Input() players : Player[];
+  @Input() leiterliGame : LeiterliGame;
 
   ngOnInit() {
   }
 
+  getImageForPlayer(playerName: string): string {
+    if (this.leiterliGame == null) return "";
+    const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
+    return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
+  }
 }

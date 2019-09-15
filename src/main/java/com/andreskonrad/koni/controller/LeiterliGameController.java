@@ -47,4 +47,18 @@ public class LeiterliGameController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("avatar")
+    public ResponseEntity<HttpStatus> avatar(@RequestParam("gameName") String gameName, @RequestParam("playerName") String playerName, @RequestBody String avatarName) {
+        try {
+            LeiterliGame game = this.leiterliService.get(gameName);
+            game.pickAvatar(playerName, avatarName);
+
+            String message = gameName + " vote";
+            this.template.convertAndSend("/game", message);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

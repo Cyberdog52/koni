@@ -8,7 +8,7 @@
   <mat-grid-tile [colspan]="1" [rowspan]="1">
     <mat-list>
       <mat-list-item *ngFor="let player of players">
-        <a>{{player.identity.name}}</a>
+        <img src={{getImageForPlayer(player.identity.name)}} alt="Avatar">
       </mat-list-item>
     </mat-list>
   </mat-grid-tile>
