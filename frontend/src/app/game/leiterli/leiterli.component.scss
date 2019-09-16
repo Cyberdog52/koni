@@ -7,3 +7,8 @@
 mat-drawer {
   width: 30%;
 }
+
+* {
+  font-family: Impact /* Replace with your custom font */, sans-serif !important;
+  /* Add !important to overwrite all elements */
+}

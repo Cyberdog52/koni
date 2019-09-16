@@ -4,7 +4,6 @@ import {LeiterliField, LeiterliGame} from "../../../shared/model/leiterli-dtos";
 import {Player} from "../../../shared/model/dtos";
 
 export interface Tile {
-  color: string;
   cols: number;
   rows: number;
   text: string;
@@ -31,7 +30,7 @@ export class BoardComponent implements OnInit {
       return tiles;
     }
     this.leiterliGame.board.fields.forEach(field => {
-      tiles.push({text: field.number, cols: 1, rows: 1, color: 'lightblue', leiterliField: field});
+      tiles.push({text: field.number, cols: 1, rows: 1, leiterliField: field});
     });
     return tiles;
   }

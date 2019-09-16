@@ -1,23 +1,65 @@
 mat-grid-list {
-  background-color: whitesmoke;
+  background-color: transparent;
   width: 100%;
   height: 100%;
 }
 
-mat-card {
-  width: 100% !important;
-  height: 100% !important;
-  padding: 0 0 0 0;
-  margin: 0 0 0 0;
-}
-
-mat-card-footer {
-  width: 100% !important;
-  height: 100% !important;
+mat-grid-tile {
+  background-color: transparent;
 }
 
 img {
   border-radius: 50%;
   width: 30px;
   height: 30px;
+}
+
+.fieldNumber {
+  background-color: whitesmoke;
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.moveNumber {
+  background-color: rgba(100,100,255,0.5);
+  border-radius: 50%;
+  overflow: visible;
+  color: white;
+}
+
+.field {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.green_bad {
+  background: url("../../../../assets/leiterli/fields/Green_shell.png") no-repeat;
+  background-size: contain;
+}
+.green_good {
+  background: url("../../../../assets/leiterli/fields/Green_mushroom.jpg") no-repeat;
+  background-size: contain;
+}
+
+.red_bad {
+  background: url("../../../../assets/leiterli/fields/Red_shell.jpg") no-repeat;
+  background-size: contain;
+}
+.red_good {
+  background: url("../../../../assets/leiterli/fields/Red_mushroom.jpg") no-repeat;
+  background-size: contain;
+}
+.blue_bad {
+  background: url("../../../../assets/leiterli/fields/Blue_shell.png") no-repeat;
+  background-size: contain;
+}
+.blue_good {
+  background: url("../../../../assets/leiterli/fields/Golden_mushroom.jpg") no-repeat;
+  background-size: contain;
+}
+.normal {
+  background: url("../../../../assets/leiterli/fields/Coin.jpg") no-repeat;
+  background-size: contain;
 }

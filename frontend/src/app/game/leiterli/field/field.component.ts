@@ -23,4 +23,31 @@ export class FieldComponent implements OnInit {
     const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
     return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
   }
+
+  getFieldType(): string {
+    if (this.leiterliField == null) return "";
+    const move = this.leiterliField.move;
+
+    if (move == 0) {
+      return "normal"
+    }
+    if (move > 20) {
+      return "blue_good"
+    }
+    if (move > 10) {
+      return "red_good"
+    }
+    if (move > 0) {
+      return "green_good"
+    }
+    if (move < -20) {
+      return "blue_bad"
+    }
+    if (move < -10) {
+      return "red_bad"
+    }
+    if (move < 0) {
+      return "green_bad"
+    }
+  }
 }
