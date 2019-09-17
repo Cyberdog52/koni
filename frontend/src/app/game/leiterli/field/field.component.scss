@@ -10,56 +10,116 @@ mat-grid-tile {
 
 img {
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
 }
 
 .fieldNumber {
+  position: absolute;
+  width: 12pt;
+  height: 12pt;
+  z-index: 2;
   background-color: whitesmoke;
   border-radius: 50%;
   overflow: visible;
+  text-align: center;
 }
 
 .moveNumber {
+  position: absolute;
+  width: 10pt;
+  height: 10pt;
+  z-index: 2;
   background-color: rgba(100,100,255,0.5);
   border-radius: 50%;
-  overflow: visible;
   color: white;
+  text-align: center;
+  top: 2pt;
+  right: 4pt;
+  font-size: 8pt;
 }
 
 .field {
   width: 100%;
   height: 100%;
-  background-size: 100%;
   background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.item {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  width: 20pt;
+  height: 20pt;
+  left: 50%; /* relative to nearest positioned ancestor or body element *//*  relative to nearest positioned ancestor or body element */
+  transform: translate(-50%, 0);
+  border-radius: 50%;
+  border: 4pt #555555;
+  background-color: transparent;
+}
+
+.players {
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: space-around;
+  padding: 4pt 4pt 4pt 4pt;
+}
+
+.player {
+ width: 40%;
+  padding: 1pt 1pt 1pt 1pt;
 }
 
 .green_bad {
-  background: url("../../../../assets/leiterli/fields/Green_shell.png") no-repeat;
-  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_green.png") no-repeat center;
+  background-size: 100% 100%;
 }
 .green_good {
-  background: url("../../../../assets/leiterli/fields/Green_mushroom.jpg") no-repeat;
-  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_green.png") no-repeat center;
+  background-size: 100% 100%;
 }
 
 .red_bad {
-  background: url("../../../../assets/leiterli/fields/Red_shell.jpg") no-repeat;
-  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_red.png") no-repeat center;
+  background-size: 100% 100%;
 }
 .red_good {
-  background: url("../../../../assets/leiterli/fields/Red_mushroom.jpg") no-repeat;
-  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_red.png") no-repeat center;
+  background-size: 100% 100%;
 }
 .blue_bad {
-  background: url("../../../../assets/leiterli/fields/Blue_shell.png") no-repeat;
-  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_blue.png") no-repeat center;
+  background-size: 100% 100%;
 }
 .blue_good {
-  background: url("../../../../assets/leiterli/fields/Golden_mushroom.jpg") no-repeat;
-  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_blue.png") no-repeat center;
+  background-size: 100% 100%;
 }
 .normal {
-  background: url("../../../../assets/leiterli/fields/Coin.jpg") no-repeat;
-  background-size: contain;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_yellow.png") no-repeat center;
+  background-size: 100% 100%;
+}
+
+.purple {
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/leiterli/fields/Field_purple.png") no-repeat center;
+  background-size: 100% 100%;
 }

@@ -1,23 +1,21 @@
 <div class="field">
   <div class={{getFieldType()}}>
-    <mat-grid-list cols="5" rowHeight="10px">
-      <mat-grid-tile class="fieldNumber" [colspan]="1" [rowspan]="2">
-          <h4>{{leiterliField.number}}</h4>
-      </mat-grid-tile>
-      <mat-grid-tile class="moveNumber" *ngIf="leiterliField.move!=0" [colspan]="1" [rowspan]="2">
-        <h6>{{leiterliField.move}}</h6>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="5" [rowspan]="8">
-        <mat-list>
-          <mat-list-item *ngFor="let player of players">
-            <img src={{getImageForPlayer(player.identity.name)}} alt="Avatar">
-          </mat-list-item>
-        </mat-list>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <div class="fieldNumber">
+      <span>{{leiterliField.number}}</span>
+    </div>
+    <div class="moveNumber" *ngIf="leiterliField.move!=0 && leiterliField.visited">
+      <span>{{leiterliField.move}}</span>
+    </div>
+    <div class="players">
+      <div *ngFor="let player of players" class="player">
+        <img src={{getImageForPlayer(player.identity.name)}} alt="Avatar">
+      </div>
+    </div>
+    <div class="item">
+      <img src="{{itemImage()}}">
+    </div>
   </div>
 </div>
-
 
 
 

@@ -28,6 +28,9 @@ export class FieldComponent implements OnInit {
     if (this.leiterliField == null) return "";
     const move = this.leiterliField.move;
 
+    if (!this.leiterliField.visited) {
+      return "purple"
+    }
     if (move == 0) {
       return "normal"
     }
@@ -48,6 +51,36 @@ export class FieldComponent implements OnInit {
     }
     if (move < 0) {
       return "green_bad"
+    }
+  }
+
+  itemImage() {
+    if (this.leiterliField == null) return "";
+    const move = this.leiterliField.move;
+
+    if (!this.leiterliField.visited) {
+      return "../../../../assets/leiterli/fields/Question_purple.png"
+    }
+    if (move == 0) {
+      return "../../../../assets/leiterli/fields/Coin.png"
+    }
+    if (move > 20) {
+      return "../../../../assets/leiterli/fields/Golden_mushroom.png"
+    }
+    if (move > 10) {
+      return "../../../../assets/leiterli/fields/Red_mushroom.png"
+    }
+    if (move > 0) {
+      return "../../../../assets/leiterli/fields/Green_mushroom.png"
+    }
+    if (move < -20) {
+      return "../../../../assets/leiterli/fields/Blue_shell.png"
+    }
+    if (move < -10) {
+      return "../../../../assets/leiterli/fields/Red_shell.png"
+    }
+    if (move < 0) {
+      return "../../../../assets/leiterli/fields/Green_shell.png"
     }
   }
 }
