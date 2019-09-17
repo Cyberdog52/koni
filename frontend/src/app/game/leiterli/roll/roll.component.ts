@@ -3,6 +3,8 @@ import {LeiterliGame} from "../../../shared/model/leiterli-dtos";
 import {ProfileService} from "../../../shared/profile.service";
 import {Player} from "../../../shared/model/dtos";
 import {LeiterliService} from "../leiterli.service";
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import {RollresultComponent} from "../rollresult/rollresult.component";
 
 @Component({
   selector: 'leiterli-roll',
@@ -14,11 +16,22 @@ export class RollComponent implements OnInit {
   @Input() leiterliGame: LeiterliGame;
 
   constructor(private profileService: ProfileService,
-              private leiterliService: LeiterliService) {
+              private leiterliService: LeiterliService,
+              public rollResultDialog: MatDialog) {
   }
 
   public getPlayerName(): string {
     return this.profileService.getCurrentIdentity().name;
+  }
+
+  openDialog(leiterliGame: LeiterliGame) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = leiterliGame;
+    const dialogRef = this.rollResultDialog.open(RollresultComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   ngOnInit() {
@@ -34,7 +47,9 @@ export class RollComponent implements OnInit {
 
   roll(): void {
     this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayerName()).subscribe(next=> {
-      console.log("Rolled");
+      this.leiterliService.getGame(this.leiterliGame.game.name).subscribe(result => {
+        this.openDialog(result);
+      });
     });
   }
 

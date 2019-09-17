@@ -9,7 +9,7 @@ import { LobbyComponent } from './lobby/lobby.component';
 import {IsLoggedInGuard} from "./is-logged-in.guard";
 import {LoginScreenGuard} from "./login-screen.guard";
 import {ToastrModule} from "ngx-toastr";
-import {MatCardModule, MatIconModule} from "@angular/material";
+import {MatCardModule, MatDialogModule, MatIconModule} from "@angular/material";
 import {MaterialModule} from "./material/material.module";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
@@ -48,6 +48,7 @@ import { RankingComponent } from './game/leiterli/ranking/ranking.component';
 import { StatsComponent } from './game/leiterli/stats/stats.component';
 import { HistoryComponent } from './game/leiterli/history/history.component';
 import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker.component';
+import { RollresultComponent } from './game/leiterli/rollresult/rollresult.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker
     RankingComponent,
     StatsComponent,
     HistoryComponent,
-    AvatarpickerComponent
+    AvatarpickerComponent,
+    RollresultComponent
   ],
   imports: [
     BrowserModule,
@@ -99,12 +101,16 @@ import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker
     HttpClientModule,
     FormsModule,
     MatIconModule,
+    MatDialogModule,
     ReactiveFormsModule
   ],
   providers: [
     IsLoggedInGuard,
     LoginScreenGuard,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
+  ],
+  entryComponents: [
+    RollresultComponent
   ],
   bootstrap: [AppComponent]
 })
