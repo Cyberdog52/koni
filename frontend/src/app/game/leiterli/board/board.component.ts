@@ -43,9 +43,6 @@ export class BoardComponent implements OnInit {
     this.leiterliGame.game.players.forEach(player => {
       if (this.leiterliGame.playerToNumberMap[player.identity.name] == field.number) {
         players.push(player);
-        players.push(player);
-        players.push(player);
-        players.push(player);
       }
     });
     return players;

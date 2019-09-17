@@ -60,12 +60,16 @@ img {
 }
 
 .players {
-  z-index: 1;
+  z-index: 3;
+  position: absolute;
   display: flex;
   flex-wrap: wrap;
-  align-content: space-around;
-  justify-content: space-around;
+  align-content: center;
+  justify-content: center;
   padding: 4pt 4pt 4pt 4pt;
+  background: deeppink;
+  top: 50%;
+  transform: translate(0, -50%);
 }
 
 .player {
