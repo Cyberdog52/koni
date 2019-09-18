@@ -31,4 +31,10 @@ export class HistoryComponent implements OnInit {
 
   }
 
+  getImageForPlayer(playerName: string): string {
+    if (this.leiterliGame == null) return "";
+    const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
+    return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
+  }
+
 }

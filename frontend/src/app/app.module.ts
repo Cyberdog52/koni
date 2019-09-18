@@ -50,6 +50,7 @@ import { HistoryComponent } from './game/leiterli/history/history.component';
 import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker.component';
 import { RollresultComponent } from './game/leiterli/rollresult/rollresult.component';
 import { TopbarComponent } from './game/leiterli/topbar/topbar.component';
+import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/move-visualisation.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { TopbarComponent } from './game/leiterli/topbar/topbar.component';
     HistoryComponent,
     AvatarpickerComponent,
     RollresultComponent,
-    TopbarComponent
+    TopbarComponent,
+    MoveVisualisationComponent
   ],
   imports: [
     BrowserModule,

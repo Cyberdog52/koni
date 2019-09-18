@@ -54,11 +54,12 @@ export class FieldComponent implements OnInit {
     }
   }
 
-  itemImage() {
-    if (this.leiterliField == null) return "";
-    const move = this.leiterliField.move;
+  getItemImage() {
+    return FieldComponent.itemImage(this.leiterliField.move,this.leiterliField.visited)
+  }
 
-    if (!this.leiterliField.visited) {
+  public static itemImage(move: number, visited: boolean) {
+    if (!visited) {
       return "../../../../assets/leiterli/fields/Question_purple.png"
     }
     if (move == 0) {

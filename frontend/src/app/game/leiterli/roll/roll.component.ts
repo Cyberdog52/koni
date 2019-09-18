@@ -5,6 +5,7 @@ import {Player} from "../../../shared/model/dtos";
 import {LeiterliService} from "../leiterli.service";
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {RollresultComponent} from "../rollresult/rollresult.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'leiterli-roll',
@@ -17,6 +18,7 @@ export class RollComponent implements OnInit {
 
   constructor(private profileService: ProfileService,
               private leiterliService: LeiterliService,
+              private toastrService: ToastrService,
               public rollResultDialog: MatDialog) {
   }
 
@@ -48,6 +50,7 @@ export class RollComponent implements OnInit {
   roll(): void {
     this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayerName()).subscribe(next=> {
       this.leiterliService.getGame(this.leiterliGame.game.name).subscribe(result => {
+        //TODO toastrService.
         this.openDialog(result);
       });
     });
