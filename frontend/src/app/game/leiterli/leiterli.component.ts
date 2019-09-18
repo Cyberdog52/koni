@@ -7,6 +7,10 @@ import * as Stomp from "stompjs";
 import {LeiterliService} from "./leiterli.service";
 import {LeiterliGame} from "../../shared/model/leiterli-dtos";
 
+export enum SideMode {
+  None, Share, Full
+}
+
 @Component({
   selector: 'leiterli',
   templateUrl: './leiterli.component.html',
@@ -16,6 +20,8 @@ export class LeiterliComponent implements OnInit {
 
   private stompClient;
   public leiterliGame: LeiterliGame;
+
+  public sideMode : SideMode = SideMode.None;
 
   constructor(private gameService: GameService,
               private leiterliService: LeiterliService,
@@ -61,4 +67,19 @@ export class LeiterliComponent implements OnInit {
     )
   }
 
+  sideModeChangedHandler(mode: SideMode) {
+    this.sideMode = mode;
+  }
+
+  showSide() {
+    return this.sideMode == SideMode.Share;
+  }
+
+  showStatsFull() {
+    return this.sideMode == SideMode.Full;
+  }
+
+  showBoard() {
+    return this.sideMode != SideMode.Full;
+  }
 }
