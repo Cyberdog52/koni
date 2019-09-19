@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LeiterliGame} from "../../../shared/model/leiterli-dtos";
+import {LeiterliGame, LeiterliHistoryBlock} from "../../../shared/model/leiterli-dtos";
 import {ProfileService} from "../../../shared/profile.service";
 import {Player} from "../../../shared/model/dtos";
 import {LeiterliService} from "../leiterli.service";
@@ -47,11 +47,22 @@ export class RollComponent implements OnInit {
     }).length > 0;
   }
 
+  getDiceRollHistory(): LeiterliHistoryBlock {
+    if (this.leiterliGame == null) return null;
+    const thisPlayersDiceRolls = this.leiterliGame.history.filter(h => {
+      return h.player.identity.name.localeCompare(this.getPlayerName()) == 0;
+    });
+    return thisPlayersDiceRolls[thisPlayersDiceRolls.length-1];
+  }
+
   roll(): void {
     this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayerName()).subscribe(next=> {
       this.leiterliService.getGame(this.leiterliGame.game.name).subscribe(result => {
+
+        this.leiterliService.animate(this.getDiceRollHistory())
         //TODO toastrService.
-        this.openDialog(result);
+        //this.toastrService.info()
+        //this.openDialog(result);
       });
     });
   }
