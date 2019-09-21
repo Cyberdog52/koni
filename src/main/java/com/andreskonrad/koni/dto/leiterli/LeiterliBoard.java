@@ -51,9 +51,10 @@ public class LeiterliBoard {
         if (fieldNumber + move > maxFields) {
             move = move * -1;
         }
-        if (fieldNumber == maxFields) {
+        if (fieldNumber == maxFields || fieldNumber == 1) {
             move = 0;
         }
+
         return move;
     }
 

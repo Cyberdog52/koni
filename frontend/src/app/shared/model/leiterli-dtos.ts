@@ -26,4 +26,5 @@ export interface LeiterliHistoryBlock {
   roll: number
   previousField: number
   currentField: number
+  id: number
 }

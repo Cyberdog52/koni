@@ -10,12 +10,18 @@ public class LeiterliHistoryBlock {
     private final int roll;
     private final int previousField;
     private final int currentField;
+    private final int id;
 
-    public LeiterliHistoryBlock(Player player, int roll, int previousField, int currentField) {
+    public LeiterliHistoryBlock(Player player, int roll, int previousField, int currentField, int id) {
         this.player = player;
         this.roll = roll;
         this.previousField = previousField;
         this.currentField = currentField;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Player getPlayer() {

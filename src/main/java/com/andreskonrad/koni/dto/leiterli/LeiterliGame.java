@@ -83,8 +83,8 @@ public class LeiterliGame {
         return history;
     }
 
-    private void addHistory(Player player, int roll, int previousNumber, int currentNumber) {
-        LeiterliHistoryBlock block = new LeiterliHistoryBlock(player, roll, previousNumber, currentNumber);
+    private synchronized void addHistory(Player player, int roll, int previousNumber, int currentNumber) {
+        LeiterliHistoryBlock block = new LeiterliHistoryBlock(player, roll, previousNumber, currentNumber, history.size());
         history.add(block);
     }
 

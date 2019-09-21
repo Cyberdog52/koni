@@ -19,7 +19,11 @@ export class HistoryComponent implements OnInit {
     if (this.leiterliGame == null) {
       return null;
     }
-    return this.leiterliGame.history.reverse();
+
+    return this.leiterliGame.history.sort((block1, block2) => {
+      return block1.id - block2.id;
+    });
+    return this.leiterliGame.history;
   }
 
   getDiceIcon(dice: number): string {
