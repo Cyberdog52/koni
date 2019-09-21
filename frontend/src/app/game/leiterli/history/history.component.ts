@@ -21,7 +21,7 @@ export class HistoryComponent implements OnInit {
     }
 
     return this.leiterliGame.history.sort((block1, block2) => {
-      return block1.id - block2.id;
+      return block2.id - block1.id;
     });
     return this.leiterliGame.history;
   }
