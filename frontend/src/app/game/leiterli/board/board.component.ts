@@ -55,12 +55,50 @@ export class BoardComponent implements OnInit {
     return tiles;
   }
 
+  static getLeiterliHeadIconForRoll(roll: number): LeiterliHeadIcon {
+    switch (roll) {
+      case 1: return LeiterliHeadIcon.Dice1;
+      case 2: return LeiterliHeadIcon.Dice2;
+      case 3: return LeiterliHeadIcon.Dice3;
+      case 4: return LeiterliHeadIcon.Dice4;
+      case 5: return LeiterliHeadIcon.Dice5;
+      case 6: return LeiterliHeadIcon.Dice6;
+      default: return LeiterliHeadIcon.None;
+    }
+  }
+
+  static getLeiterliHeadIconForMove(move: number): LeiterliHeadIcon {
+    if (move == 0) {
+      return LeiterliHeadIcon.None;
+    }
+    if (move > 20) {
+      return LeiterliHeadIcon.Golden_Mushroom;
+    }
+    if (move > 10) {
+      return LeiterliHeadIcon.Red_Mushroom;
+    }
+    if (move > 0) {
+      return LeiterliHeadIcon.Green_Mushroom;
+    }
+    if (move < -20) {
+      return LeiterliHeadIcon.Blue_Shell;
+    }
+    if (move < -10) {
+      return LeiterliHeadIcon.Red_Shell;
+    }
+    if (move < 0) {
+      return LeiterliHeadIcon.Green_Shell;
+    }
+  }
+
   async prepareAnimation() {
     this.leiterliService.subscribeToAnimation().subscribe(async diceRollHistory => {
+      const playerName = diceRollHistory.player.identity.name;
       const temporaryTarget = diceRollHistory.previousField + diceRollHistory.roll;
-      for(var counter:number = diceRollHistory.previousField; counter<temporaryTarget; counter++){
-        //this.toastrService.info(counter.toString(), "You are at: ");
-        this.animationPlayerToNumberMap[diceRollHistory.player.identity.name] = counter;
+
+      this.animationPlayerToHeadIconMap[playerName] = BoardComponent.getLeiterliHeadIconForRoll(diceRollHistory.roll);
+      for(var counter:number = diceRollHistory.previousField; counter<=temporaryTarget; counter++){
+        this.animationPlayerToNumberMap[playerName] = counter;
         await this.delay(this.maxAnimationTimeInMs);
       }
 
@@ -69,10 +107,15 @@ export class BoardComponent implements OnInit {
       delayForSpecialAnimation = Math.min(delayForSpecialAnimation, this.maxAnimationTimeInMs);
       console.log("Delay: ", delayForSpecialAnimation);
 
+      if (BoardComponent.getMoveDifference(diceRollHistory) != 0) {
+        this.animationPlayerToHeadIconMap[playerName] = BoardComponent.getLeiterliHeadIconForMove(BoardComponent.getMoveDifference(diceRollHistory));
+        await this.delay(500);
+      }
+
       if (BoardComponent.getMoveDifference(diceRollHistory) > 0) {
         for(var counter:number = temporaryTarget; counter<diceRollHistory.currentField; counter++){
           //this.toastrService.info(counter.toString(), "You are at: ");
-          this.animationPlayerToNumberMap[diceRollHistory.player.identity.name] = counter;
+          this.animationPlayerToNumberMap[playerName] = counter;
           await this.delay(delayForSpecialAnimation);
         }
       }
@@ -80,12 +123,13 @@ export class BoardComponent implements OnInit {
       if (BoardComponent.getMoveDifference(diceRollHistory) < 0) {
         for(var counter:number = temporaryTarget; counter>diceRollHistory.currentField; counter--){
           //this.toastrService.info(counter.toString(), "You are at: ");
-          this.animationPlayerToNumberMap[diceRollHistory.player.identity.name] = counter;
+          this.animationPlayerToNumberMap[playerName] = counter;
           await this.delay(delayForSpecialAnimation);
         }
       }
 
-      this.animationPlayerToNumberMap[diceRollHistory.player.identity.name] = -1;
+      this.animationPlayerToNumberMap[playerName] = -1;
+      this.animationPlayerToHeadIconMap[playerName] = LeiterliHeadIcon.None;
     });
   }
 

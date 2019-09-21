@@ -48,7 +48,6 @@ import { RankingComponent } from './game/leiterli/ranking/ranking.component';
 import { StatsComponent } from './game/leiterli/stats/stats.component';
 import { HistoryComponent } from './game/leiterli/history/history.component';
 import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker.component';
-import { RollresultComponent } from './game/leiterli/rollresult/rollresult.component';
 import { TopbarComponent } from './game/leiterli/topbar/topbar.component';
 import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/move-visualisation.component';
 
@@ -91,7 +90,6 @@ import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/m
     StatsComponent,
     HistoryComponent,
     AvatarpickerComponent,
-    RollresultComponent,
     TopbarComponent,
     MoveVisualisationComponent
   ],
@@ -112,9 +110,6 @@ import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/m
     IsLoggedInGuard,
     LoginScreenGuard,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
-  ],
-  entryComponents: [
-    RollresultComponent
   ],
   bootstrap: [AppComponent]
 })

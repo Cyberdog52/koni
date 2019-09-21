@@ -46,6 +46,21 @@ img {
   background-size: contain;
 }
 
+.headIcon {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  width: 20pt;
+  height: 20pt;
+  left: 50%; /* relative to nearest positioned ancestor or body element *//*  relative to nearest positioned ancestor or body element */
+  transform: translate(-50%, 0);
+  background-color: transparent;
+
+  img {
+    border-radius: 0;
+  }
+}
+
 .item {
   position: absolute;
   z-index: 1;

@@ -4,7 +4,6 @@ import {ProfileService} from "../../../shared/profile.service";
 import {Player} from "../../../shared/model/dtos";
 import {LeiterliService} from "../leiterli.service";
 import {MatDialog, MatDialogConfig} from "@angular/material";
-import {RollresultComponent} from "../rollresult/rollresult.component";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -17,23 +16,11 @@ export class RollComponent implements OnInit {
   @Input() leiterliGame: LeiterliGame;
 
   constructor(private profileService: ProfileService,
-              private leiterliService: LeiterliService,
-              private toastrService: ToastrService,
-              public rollResultDialog: MatDialog) {
+              private leiterliService: LeiterliService) {
   }
 
   public getPlayerName(): string {
     return this.profileService.getCurrentIdentity().name;
-  }
-
-  openDialog(leiterliGame: LeiterliGame) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = leiterliGame;
-    const dialogRef = this.rollResultDialog.open(RollresultComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   ngOnInit() {
@@ -60,11 +47,18 @@ export class RollComponent implements OnInit {
       this.leiterliService.getGame(this.leiterliGame.game.name).subscribe(result => {
 
         this.leiterliService.animate(this.getDiceRollHistory())
-        //TODO toastrService.
-        //this.toastrService.info()
-        //this.openDialog(result);
       });
     });
   }
 
+  getWaitingPlayerText(): string {
+    let text = "Waiting for players: ";
+    if (this.leiterliGame == null) {
+      return "";
+    }
+    this.leiterliGame.playersThatNeedToRoll.forEach( player => {
+      text = text + player.identity.name + " "
+    });
+    return text;
+  }
 }

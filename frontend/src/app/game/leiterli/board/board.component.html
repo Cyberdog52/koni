@@ -2,8 +2,7 @@
   <mat-grid-tile
     *ngFor="let tile of getTiles()"
     [colspan]="tile.cols"
-    [rowspan]="tile.rows"
-    >
-    <leiterli-field [leiterliGame]="leiterliGame" [leiterliField]=tile.leiterliField [players]=getPlayers(tile.leiterliField)></leiterli-field>
+    [rowspan]="tile.rows">
+    <leiterli-field [leiterliGame]="leiterliGame" [leiterliField]=tile.leiterliField [players]=getPlayers(tile.leiterliField) [animationPlayerToHeadIcon]=animationPlayerToHeadIconMap></leiterli-field>
   </mat-grid-tile>
 </mat-grid-list>

@@ -11,6 +11,9 @@
         <img src={{getImageForPlayer(player.identity.name)}} alt="Avatar">
       </div>
     </div>
+    <div class="headIcon" *ngIf="hasHeadIcon()">
+      <img src="{{getHeadIconImage()}}">
+    </div>
     <div class="item">
       <img src="{{getItemImage()}}">
     </div>

@@ -257,10 +257,6 @@ export class LobbyComponent implements OnInit {
     this.switchToJoinedGame(game);
   }
 
-  destroyGame(game: Game) {
-    //TODO
-  }
-
   isDestroyGameEnabled(game: Game): boolean {
     const playerName = this.profileService.getCurrentIdentity().name;
     return game.players.filter( player => {

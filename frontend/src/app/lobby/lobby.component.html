@@ -63,7 +63,6 @@
         <div class="button-bar">
           <button mat-button (click)="$event.stopPropagation(); reconnect(game)" [disabled]="!isReconnectEnabled(game)">Erneut verbinden</button>
           <span class="filler"></span>
-          <button mat-button (click)="destroyGame(game)" [disabled]="!isDestroyGameEnabled(game)">Spielabbruch</button>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
