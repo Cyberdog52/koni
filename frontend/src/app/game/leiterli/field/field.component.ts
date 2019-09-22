@@ -81,7 +81,6 @@ export class FieldComponent implements OnInit {
   }
 
   hasHeadIcon() : boolean {
-    console.log("Headicons: ", this.getHeadIcons());
     return this.getHeadIcons().length > 0;
   }
 

@@ -44,10 +44,7 @@ export class RollComponent implements OnInit {
 
   roll(): void {
     this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayerName()).subscribe(next=> {
-      this.leiterliService.getGame(this.leiterliGame.game.name).subscribe(result => {
-
-        this.leiterliService.animate(this.getDiceRollHistory())
-      });
+      console.log("rolled");
     });
   }
 

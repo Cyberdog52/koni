@@ -5,7 +5,7 @@ import * as SockJS from "sockjs-client";
 import {AppComponent} from "../../app.component";
 import * as Stomp from "stompjs";
 import {LeiterliService} from "./leiterli.service";
-import {LeiterliGame} from "../../shared/model/leiterli-dtos";
+import {LeiterliGame, LeiterliHistoryBlock} from "../../shared/model/leiterli-dtos";
 
 export enum SideMode {
   None, Share, Full
@@ -60,11 +60,29 @@ export class LeiterliComponent implements OnInit {
   }
 
   private getLeiterliGame() {
+    let previousHistory = undefined;
+    if (this.leiterliGame != null) {
+      previousHistory = this.leiterliGame.history;
+    }
+
     this.leiterliService.getGame(this.getGameName()).subscribe( (game: LeiterliGame) => {
         this.leiterliGame = game;
         console.log("Game: ", this.leiterliGame);
+        this.handleUpdate(previousHistory, this.leiterliGame.history)
       }
     )
+  }
+
+  private handleUpdate(previousHistory: LeiterliHistoryBlock[], currentHistory: LeiterliHistoryBlock[]) {
+      if (previousHistory == undefined) return;
+      if (previousHistory.length < currentHistory.length) {
+
+        currentHistory.forEach( history => {
+          if (history.id > previousHistory.length -1) {
+            this.leiterliService.animate(history);
+          }
+        })
+      }
   }
 
   sideModeChangedHandler(mode: SideMode) {

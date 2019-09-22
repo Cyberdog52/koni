@@ -105,7 +105,6 @@ export class BoardComponent implements OnInit {
       let delayForSpecialAnimation = this.targetAnimationTimeInMs / Math.abs(BoardComponent.getMoveDifference(diceRollHistory))
       delayForSpecialAnimation = Math.max(delayForSpecialAnimation, this.minAnimationTimeInMs);
       delayForSpecialAnimation = Math.min(delayForSpecialAnimation, this.maxAnimationTimeInMs);
-      console.log("Delay: ", delayForSpecialAnimation);
 
       if (BoardComponent.getMoveDifference(diceRollHistory) != 0) {
         this.animationPlayerToHeadIconMap[playerName] = BoardComponent.getLeiterliHeadIconForMove(BoardComponent.getMoveDifference(diceRollHistory));
