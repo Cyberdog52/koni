@@ -43,7 +43,6 @@ import {WerwoelfleConfirmComponent} from "./game/werwoelfle/werwoelfle-confirm/w
 import { LeiterliComponent } from './game/leiterli/leiterli.component';
 import { BoardComponent } from './game/leiterli/board/board.component';
 import { FieldComponent } from './game/leiterli/field/field.component';
-import { RollComponent } from './game/leiterli/roll/roll.component';
 import { RankingComponent } from './game/leiterli/ranking/ranking.component';
 import { StatsComponent } from './game/leiterli/stats/stats.component';
 import { HistoryComponent } from './game/leiterli/history/history.component';
@@ -85,7 +84,6 @@ import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/m
     LeiterliComponent,
     BoardComponent,
     FieldComponent,
-    RollComponent,
     RankingComponent,
     StatsComponent,
     HistoryComponent,

@@ -1,7 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {LeiterliField, LeiterliGame} from "../../../shared/model/leiterli-dtos";
+import {LeiterliField, LeiterliGame, LeiterliHistoryBlock} from "../../../shared/model/leiterli-dtos";
 import {Player} from "../../../shared/model/dtos";
 import {LeiterliHeadIcon} from "../board/board.component";
+import {ProfileService} from "../../../shared/profile.service";
+import {LeiterliService} from "../leiterli.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'leiterli-field',
@@ -10,7 +13,10 @@ import {LeiterliHeadIcon} from "../board/board.component";
 })
 export class FieldComponent implements OnInit {
 
-  constructor() { }
+  constructor(private profileService: ProfileService,
+              private leiterliService: LeiterliService,
+              private toastrService: ToastrService) {
+  }
 
   @Input() leiterliField : LeiterliField;
   @Input() players : Player[];
@@ -109,7 +115,7 @@ export class FieldComponent implements OnInit {
     }
     this.players.forEach(player => {
       const playerName = player.identity.name;
-      if (this.animationPlayerToHeadIcon[playerName] != null && this.animationPlayerToHeadIcon[playerName] != LeiterliHeadIcon.None) {
+      if (this.isAnimated(playerName)) {
         icons.push(this.animationPlayerToHeadIcon[playerName]);
       }
     });
@@ -121,5 +127,68 @@ export class FieldComponent implements OnInit {
       return ""
     }
     return FieldComponent.headIconToImageSrc(this.getHeadIcons()[0])
+  }
+
+  public getPlayerName(): string {
+    return this.profileService.getCurrentIdentity().name;
+  }
+
+  isAnimated(playerName: string): boolean {
+    return this.animationPlayerToHeadIcon[playerName] != null && this.animationPlayerToHeadIcon[playerName] != LeiterliHeadIcon.None;
+  }
+
+  hasToRoll(): boolean {
+    if (this.leiterliGame == null) return false;
+    if (this.getPlayerName() == null) return false;
+    return this.leiterliGame.playersThatNeedToRoll.filter(player => {
+      return player.identity.name.localeCompare(this.getPlayerName()) == 0;
+    }).length > 0;
+  }
+
+  getDiceRollHistory(): LeiterliHistoryBlock {
+    if (this.leiterliGame == null) return null;
+    const thisPlayersDiceRolls = this.leiterliGame.history.filter(h => {
+      return h.player.identity.name.localeCompare(this.getPlayerName()) == 0;
+    });
+    return thisPlayersDiceRolls[thisPlayersDiceRolls.length-1];
+  }
+
+  wantsToRollOnCorrectField(): boolean {
+    let playerEqualstoLoggedInPlayer = false;
+    this.players.forEach(player => {
+      console.log(player);
+      if (player.identity.name.localeCompare(this.getPlayerName())==0 ) {
+        playerEqualstoLoggedInPlayer = true;
+      }
+    });
+    return playerEqualstoLoggedInPlayer;
+  }
+
+  tryToRoll(): void {
+    if (!this.wantsToRollOnCorrectField()) {
+      return;
+    }
+    if (this.isAnimated(this.getPlayerName())) {
+      this.toastrService.info("Warten", "Warte, bis deine Figur fertig gefahren ist, bevor du wieder Würfeln willst.");
+      return;
+    }
+    if (!this.hasToRoll()) {
+      this.toastrService.info("Warten", this.getWaitingPlayerText());
+      return;
+    }
+    this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayerName()).subscribe(next=> {
+      console.log("rolled");
+    });
+  }
+
+  getWaitingPlayerText(): string {
+    let text = "Warten auf Spieler: ";
+    if (this.leiterliGame == null) {
+      return "";
+    }
+    this.leiterliGame.playersThatNeedToRoll.forEach( player => {
+      text = text + player.identity.name + " "
+    });
+    return text;
   }
 }
