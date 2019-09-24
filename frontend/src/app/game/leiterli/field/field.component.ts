@@ -59,12 +59,18 @@ export class FieldComponent implements OnInit {
   }
 
   getItemImage() {
+    if (this.leiterliField.number == 100) {
+      return "../../../../assets/leiterli/fields/Star_door.png"
+    }
     return FieldComponent.itemImage(this.leiterliField.move,this.leiterliField.visited)
   }
 
   public static itemImage(move: number, visited: boolean) {
     if (move == 0) {
       return "../../../../assets/leiterli/fields/Coin.png"
+    }
+    if (move == 100) {
+      return "../../../../assets/leiterli/fields/Star.png"
     }
     if (move > 20) {
       return "../../../../assets/leiterli/fields/Golden_mushroom.png"
@@ -173,7 +179,7 @@ export class FieldComponent implements OnInit {
       return;
     }
     if (!this.hasToRoll()) {
-      this.toastrService.info("Warten", this.getWaitingPlayerText());
+      this.toastrService.info(this.getWaitingPlayerText(), "Warten");
       return;
     }
     this.leiterliService.roll(this.leiterliGame.game.name, this.getPlayerName()).subscribe(next=> {
@@ -182,7 +188,7 @@ export class FieldComponent implements OnInit {
   }
 
   getWaitingPlayerText(): string {
-    let text = "Warten auf Spieler: ";
+    let text = "Warten auf ";
     if (this.leiterliGame == null) {
       return "";
     }

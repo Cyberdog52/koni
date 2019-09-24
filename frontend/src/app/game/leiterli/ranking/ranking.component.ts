@@ -40,7 +40,10 @@ export class RankingComponent implements OnInit {
     });
 
     const sortedRankedPlayers = rankedPlayers.sort((p1, p2) => {
-      return p2.field - p1.field;
+      if (this.getNumberOfStars(p1.name) == this.getNumberOfStars(p2.name)) {
+        return p2.field - p1.field;
+      }
+      return this.getNumberOfStars(p2.name) - this.getNumberOfStars(p1.name);
     });
 
     let rank = 1;
@@ -56,6 +59,14 @@ export class RankingComponent implements OnInit {
     if (this.leiterliGame == null) return "";
     const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
     return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
+  }
+
+  hasStar(name: string): boolean {
+    return this.getNumberOfStars(name) > 0;
+  }
+
+  getNumberOfStars(name: string): number {
+    return this.leiterliGame.playerToStarsMap[name];
   }
 }
 

@@ -3,6 +3,7 @@ import {Game, Player} from "./dtos";
 export interface LeiterliGame {
   game: Game
   playerToNumberMap: Map<string, number>
+  playerToStarsMap: Map<string, number>
   playersThatNeedToRoll: Player[]
   board: LeiterliBoard
   history: LeiterliHistoryBlock[]

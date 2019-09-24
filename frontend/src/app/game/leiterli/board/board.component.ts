@@ -91,10 +91,42 @@ export class BoardComponent implements OnInit {
     }
   }
 
+
+  static async playAudio(source: string){
+    let audio = new Audio();
+    audio.src = source;
+    audio.load();
+    audio.play();
+  }
+
+  getSoundSource(move: number) : string{
+    if (move == 0) {
+      return "../../../../assets/leiterli/sounds/Coin.mp3";
+    }
+    if (move > 20) {
+      return "../../../../assets/leiterli/sounds/Star.mp3";
+    }
+    if (move > 10) {
+      return "../../../../assets/leiterli/sounds/Mushroom.mp3";
+    }
+    if (move > 0) {
+      return "../../../../assets/leiterli/sounds/Mushroom.mp3";
+    }
+    if (move < -20) {
+      return "../../../../assets/leiterli/sounds/MammaMia2.wav";
+    }
+    if (move < -10) {
+      return "../../../../assets/leiterli/sounds/MammaMia.wav";
+    }
+    if (move < 0) {
+      return "../../../../assets/leiterli/sounds/MammaMia.wav";
+    }
+  }
+
   async prepareAnimation() {
     this.leiterliService.subscribeToAnimation().subscribe(async diceRollHistory => {
       const playerName = diceRollHistory.player.identity.name;
-      const temporaryTarget = diceRollHistory.previousField + diceRollHistory.roll;
+      const temporaryTarget = Math.min(100, diceRollHistory.previousField + diceRollHistory.roll);
 
       this.animationPlayerToHeadIconMap[playerName] = BoardComponent.getLeiterliHeadIconForRoll(diceRollHistory.roll);
       for(var counter:number = diceRollHistory.previousField; counter<=temporaryTarget; counter++){
@@ -102,7 +134,7 @@ export class BoardComponent implements OnInit {
         await this.delay(this.maxAnimationTimeInMs);
       }
 
-      let delayForSpecialAnimation = this.targetAnimationTimeInMs / Math.abs(BoardComponent.getMoveDifference(diceRollHistory))
+      let delayForSpecialAnimation = this.targetAnimationTimeInMs / Math.abs(BoardComponent.getMoveDifference(diceRollHistory));
       delayForSpecialAnimation = Math.max(delayForSpecialAnimation, this.minAnimationTimeInMs);
       delayForSpecialAnimation = Math.min(delayForSpecialAnimation, this.maxAnimationTimeInMs);
 
@@ -111,17 +143,22 @@ export class BoardComponent implements OnInit {
         await this.delay(500);
       }
 
+      if (diceRollHistory.currentField == 100) {
+        BoardComponent.playAudio("../../../../assets/leiterli/sounds/Clear.mp3");
+      } else {
+        BoardComponent.playAudio(this.getSoundSource(BoardComponent.getMoveDifference(diceRollHistory)));
+
+      }
+
       if (BoardComponent.getMoveDifference(diceRollHistory) > 0) {
-        for(var counter:number = temporaryTarget; counter<diceRollHistory.currentField; counter++){
-          //this.toastrService.info(counter.toString(), "You are at: ");
+        for(let counter:number = temporaryTarget; counter<diceRollHistory.currentField; counter++){
           this.animationPlayerToNumberMap[playerName] = counter;
           await this.delay(delayForSpecialAnimation);
         }
       }
 
       if (BoardComponent.getMoveDifference(diceRollHistory) < 0) {
-        for(var counter:number = temporaryTarget; counter>diceRollHistory.currentField; counter--){
-          //this.toastrService.info(counter.toString(), "You are at: ");
+        for(let counter:number = temporaryTarget; counter>diceRollHistory.currentField; counter--){
           this.animationPlayerToNumberMap[playerName] = counter;
           await this.delay(delayForSpecialAnimation);
         }

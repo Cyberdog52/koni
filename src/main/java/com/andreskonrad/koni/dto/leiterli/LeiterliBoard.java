@@ -10,7 +10,7 @@ public class LeiterliBoard {
 
     public LeiterliField getField(int number) {
         int numberNotHigherThanMaxFields = number;
-        if (number > this.maxFields) {
+        if (number >= this.maxFields) {
             numberNotHigherThanMaxFields = this.maxFields;
         }
         if (number < 1) {

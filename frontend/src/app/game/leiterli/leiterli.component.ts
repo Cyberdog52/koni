@@ -97,7 +97,7 @@ export class LeiterliComponent implements OnInit {
     return this.sideMode == SideMode.Full;
   }
 
-  showBoard() {
-    return this.sideMode != SideMode.Full;
+  showBoardFull() {
+    return this.sideMode == SideMode.None;
   }
 }

@@ -177,7 +177,7 @@ export class LobbyComponent implements OnInit {
         return "assets/werwoelfle/icon.jpg";
       }
       case GameType.LEITERLI : {
-        return "assets/leiterli/ladder.jpg";
+        return "assets/leiterli/logoleiterli.png";
       }
     }
   }

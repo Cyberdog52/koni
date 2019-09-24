@@ -1,18 +1,17 @@
 package com.andreskonrad.koni.dto.leiterli;
 
 import com.andreskonrad.koni.dto.Game;
-import com.andreskonrad.koni.dto.GameState;
 import com.andreskonrad.koni.dto.Player;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 public class LeiterliGame {
 
     private final Game game;
     private final HashMap<String, Integer> playerToNumberMap = new HashMap<>();
+    private final HashMap<String, Integer> playerToStarsMap = new HashMap<>();
     private Set<Player> playersThatNeedToRoll;
-    private final LeiterliBoard board;
+    private LeiterliBoard board;
     private List<LeiterliHistoryBlock> history;
     private int maxFields;
     private final List<String> avatarNames = Arrays.asList("Bowser",
@@ -35,6 +34,7 @@ public class LeiterliGame {
         this.assignNewPlayersThatNeedToRoll();
         this.assignStartPositions();
         this.assignAvatarsToPlayers();
+        this.assignStars();
     }
 
     public HashMap<String, String> getPlayerToAvatarMap() {
@@ -53,6 +53,12 @@ public class LeiterliGame {
     private void assignStartPositions() {
         for (Player player : this.game.getPlayers()) {
             playerToNumberMap.put(player.getName(), 1);
+        }
+    }
+
+    private void assignStars() {
+        for (Player player : this.game.getPlayers()) {
+            playerToStarsMap.put(player.getName(), 0);
         }
     }
 
@@ -93,7 +99,7 @@ public class LeiterliGame {
         this.playersThatNeedToRoll = this.game.createPlayersCopy();
     }
 
-    public synchronized void  roll(String playerName) {
+    public synchronized void roll(String playerName) {
         Player player = this.game.getPlayer(playerName);
         if (!playersThatNeedToRoll.contains(player)) {
             return;
@@ -102,6 +108,9 @@ public class LeiterliGame {
 
         int previousNumber = playerToNumberMap.get(playerName);
         int roll = new Random().nextInt(6) + 1;
+        if (previousNumber + roll > maxFields) {
+            roll = maxFields-previousNumber;
+        }
         LeiterliField currentField = board.move(previousNumber, roll);
         currentField.visit();
 
@@ -109,19 +118,30 @@ public class LeiterliGame {
 
         addHistory(player, roll, previousNumber, currentField.getNumber() );
 
+        if (hasWon(playerName)) {
+            this.playerToStarsMap.put(playerName, this.playerToStarsMap.get(playerName) + 1);
+        }
+
         if (playersThatNeedToRoll.size() == 0) {
             assignNewPlayersThatNeedToRoll();
-            checkIfWon();
+            if (oneOrMorePlayersHaveReachedEnd()) {
+                newStart();
+            }
         }
     }
 
-    private void checkIfWon() {
+    private boolean oneOrMorePlayersHaveReachedEnd() {
         for (Player player : this.game.getPlayers() ) {
-            Integer number = playerToNumberMap.get(player.getName());
-            if (number == this.maxFields){
-                this.game.setGameState(GameState.FINISHED);
+            if (hasWon(player.getName())) {
+                return true;
             }
         }
+        return false;
+    }
+
+    private boolean hasWon(String playerName) {
+        Integer number = playerToNumberMap.get(playerName);
+        return number >= this.maxFields;
     }
 
     public List<String> getAvatarNames() {
@@ -130,6 +150,18 @@ public class LeiterliGame {
 
     public void pickAvatar(String playerName, String avatarName) {
         this.playerToAvatarMap.put(playerName, avatarName);
+    }
+
+    public void newStart() {
+        this.board = new LeiterliBoard(maxFields);
+        this.playersThatNeedToRoll = new HashSet<>();
+        history = new ArrayList<>();
+        this.assignNewPlayersThatNeedToRoll();
+        this.assignStartPositions();
+    }
+
+    public HashMap<String, Integer> getPlayerToStarsMap() {
+        return playerToStarsMap;
     }
 }
 
