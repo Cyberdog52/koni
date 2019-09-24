@@ -46,6 +46,7 @@ public class LeiterliGame {
         int i = 0;
         for (Player player : this.game.getPlayers()) {
             this.playerToAvatarMap.put(player.getName(), this.avatarNames.get(i % avatarNames.size()));
+            i++;
         }
     }
 

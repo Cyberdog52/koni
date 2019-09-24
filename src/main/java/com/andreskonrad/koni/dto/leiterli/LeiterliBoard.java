@@ -13,6 +13,9 @@ public class LeiterliBoard {
         if (number > this.maxFields) {
             numberNotHigherThanMaxFields = this.maxFields;
         }
+        if (number < 1) {
+            return null;
+        }
         int finalNumberNotHigherThanMaxFields = numberNotHigherThanMaxFields;
         return fields.stream().
                 filter(leiterliField -> leiterliField.getNumber()== finalNumberNotHigherThanMaxFields).
@@ -37,10 +40,28 @@ public class LeiterliBoard {
             fields.add(newField);
         }
         this.fields = fields;
+        smoothFields();
+    }
+
+    private void smoothFields() {
+        for (int i = 1; i <= maxFields; i++) {
+            LeiterliField field = getField(i);
+            if (i > 2 && i < maxFields) {
+                LeiterliField previousField = getField(i-1);
+                LeiterliField nextField = getField(i+1);
+                if (previousField.getMove() < 0 && nextField.getMove() < 0) {
+                    field.setMove(0);
+                }
+            }
+            if (field.getMove() != 0) {
+                LeiterliField target = getField(i + field.getMove());
+                target.setMove(0);
+            }
+        }
     }
 
     private int calculateMove(int maxFields, int fieldNumber) {
-        double moveD = (new Random().nextGaussian() * getRandomElement(Arrays.asList(0,0,0,5,5,10,10,20)));
+        double moveD = (new Random().nextGaussian() * getRandomElement(Arrays.asList(20,10,10,5,5,10,10,20)));
         int move = (int) moveD;
         if (move > maxFields || move * -1 > maxFields ) {
             move = 0;

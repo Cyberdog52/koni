@@ -5,8 +5,9 @@ import java.util.Objects;
 public class LeiterliField {
 
     private final int number;
-    private final int move;
+    private int move;
     private boolean visited;
+
 
     public LeiterliField(int number, int move) {
         this.number = number;
@@ -41,5 +42,9 @@ public class LeiterliField {
     @Override
     public int hashCode() {
         return Objects.hash(number);
+    }
+
+    public void setMove(int i) {
+        this.move = i;
     }
 }
