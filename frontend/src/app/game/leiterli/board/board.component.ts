@@ -125,7 +125,7 @@ export class BoardComponent implements OnInit {
 
   async prepareAnimation() {
     this.leiterliService.subscribeToAnimation().subscribe(async diceRollHistory => {
-      const playerName = diceRollHistory.player.identity.name;
+      const playerName = diceRollHistory.player.name;
       const temporaryTarget = Math.min(100, diceRollHistory.previousField + diceRollHistory.roll);
 
       this.animationPlayerToHeadIconMap[playerName] = BoardComponent.getLeiterliHeadIconForRoll(diceRollHistory.roll);
@@ -184,10 +184,10 @@ export class BoardComponent implements OnInit {
     }
 
     this.leiterliGame.game.players.forEach(player => {
-      if (this.isAnimated(player.identity.name) && this.animationPlayerToNumberMap[player.identity.name] == field.number) {
+      if (this.isAnimated(player.name) && this.animationPlayerToNumberMap[player.name] == field.number) {
         players.push(player);
       } else {
-        if (this.leiterliGame.playerToNumberMap[player.identity.name] == field.number && !this.isAnimated(player.identity.name)) {
+        if (this.leiterliGame.playerToNumberMap[player.name] == field.number && !this.isAnimated(player.name)) {
           players.push(player);
         }
       }

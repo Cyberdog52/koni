@@ -7,34 +7,34 @@ import {
 import {Game, GameState, Player, PlayerState} from "../../shared/model/dtos";
 
 export const player1 : Player = {
-  identity: {name: "player1"},
+  name:  "player1",
   state: PlayerState.PLAYING
 };
 
 export const player2 : Player = {
-  identity: {name: "player2"},
+  name: "player2",
   state: PlayerState.PLAYING
 };
 
 export const player3 : Player = {
-  identity: {name: "player3"},
+  name: "player3",
   state: PlayerState.PLAYING
 };
 
 export const player4 : Player = {
-  identity: {name: "player4"},
+  name: "player4",
   state: PlayerState.PLAYING
 };
 
 export const player5 : Player = {
-  identity: {name: "player5"},
+  name: "player5",
   state: PlayerState.PLAYING
 };
 
 export const game : Game =  {
   gameType: undefined,
   name: "",
-  creator: player1,
+  creator: "player5",
   players: [player1, player2, player3, player4, player5],
   state: GameState.RUNNING
 };

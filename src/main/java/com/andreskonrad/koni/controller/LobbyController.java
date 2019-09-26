@@ -29,10 +29,10 @@ public class LobbyController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<Game> createGame(@RequestBody Profile profile, @RequestParam("gameName") String gameName, @RequestParam("gameType") GameType gameType ) {
+    public ResponseEntity<Game> createGame(@RequestBody String profileName, @RequestParam("gameName") String gameName, @RequestParam("gameType") GameType gameType ) {
         Game game;
         try {
-            game = lobbyService.createGame(gameName, profile, gameType);
+            game = lobbyService.createGame(gameName, profileName, gameType);
 
             String message = gameName + " created";
             this.template.convertAndSend("/lobby", message);
@@ -43,12 +43,12 @@ public class LobbyController {
     }
 
     @PostMapping("join")
-    public ResponseEntity<Game> joinGame(@RequestBody Profile profile, @RequestParam("gameName") String gameName) {
+    public ResponseEntity<Game> joinGame(@RequestBody String profileName, @RequestParam("gameName") String gameName) {
         Game game;
         try {
-            game = lobbyService.joinGame(gameName, profile);
+            game = lobbyService.joinGame(gameName, profileName);
 
-            String message = profile.getIdentity().getName() + " joined";
+            String message = profileName + " joined";
             this.template.convertAndSend("/lobby", message);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -57,12 +57,12 @@ public class LobbyController {
     }
 
     @PostMapping("leave")
-    public ResponseEntity<Game> leaveGame(@RequestBody Profile profile, @RequestParam("gameName") String gameName){
+    public ResponseEntity<Game> leaveGame(@RequestBody String profileName, @RequestParam("gameName") String gameName){
         Game game;
         try {
-            game = lobbyService.leaveGame(gameName, profile);
+            game = lobbyService.leaveGame(gameName, profileName);
 
-            String message = profile.getIdentity().getName() + " left";
+            String message = profileName + " left";
             this.template.convertAndSend("/lobby", message);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -71,7 +71,7 @@ public class LobbyController {
     }
 
     @PostMapping("delete")
-    public ResponseEntity<Game> deleteGame(@RequestBody Profile profile, @RequestParam("gameName") String gameName) {
+    public ResponseEntity<Game> deleteGame(@RequestBody String profileName, @RequestParam("gameName") String gameName) {
         Game game;
         try {
             game = lobbyService.deleteGame(gameName);

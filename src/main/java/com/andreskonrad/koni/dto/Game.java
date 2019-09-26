@@ -9,11 +9,11 @@ public class Game {
     private final Set<Player> players;
     private GameState state;
     private GameType gameType;
-    private final Profile creator;
+    private final String creator;
 
-    public Game(String name, GameType gameType, Profile creator) {
+    public Game(String name, GameType gameType, String creatorName) {
         this.name = name;
-        this.creator = creator;
+        this.creator = creatorName;
         this.players = new HashSet<>();
         this.state = GameState.CREATED;
         this.gameType = gameType;
@@ -35,8 +35,8 @@ public class Game {
         return state;
     }
 
-    public void join(Profile profile) {
-        Player player = new Player(profile.getIdentity());
+    public void join(String profileName) {
+        Player player = new Player(profileName);
         players.add(player);
     }
 
@@ -45,8 +45,8 @@ public class Game {
                 .findFirst().orElse(null);
     }
 
-    public void leave(Profile profile) {
-        players.removeIf(player -> player.getName().equals(profile.getIdentity().getName()));
+    public void leave(String profileName) {
+        players.removeIf(player -> player.getName().equals(profileName));
     }
 
     public void setGameState(GameState gameState) {
@@ -57,7 +57,7 @@ public class Game {
         return gameType;
     }
 
-    public Profile getCreator() {
+    public String getCreator() {
         return creator;
     }
 }

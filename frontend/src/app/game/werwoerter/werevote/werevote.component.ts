@@ -26,11 +26,11 @@ export class WerevoteComponent implements OnInit {
       return [];
     }
     const playerName = this.profileService.getCurrentIdentity().name;
-    return this.werwoerterGame.game.players.filter(player => player.identity.name.localeCompare(playerName) != 0);
+    return this.werwoerterGame.game.players.filter(player => player.name.localeCompare(playerName) != 0);
   }
 
   playerToStr(player: Player): string {
-    return player.identity.name;
+    return player.name;
   }
 
   isWerewolf() {
@@ -80,7 +80,7 @@ export class WerevoteComponent implements OnInit {
     }
     const playerName = this.profileService.getCurrentIdentity().name;
     return this.werwoerterGame.playersThatVoted.filter(player => {
-      return player.identity.name.localeCompare(playerName) == 0;
+      return player.name == playerName;
     }).length > 0;
   }
 }

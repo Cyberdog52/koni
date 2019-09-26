@@ -33,7 +33,7 @@ export class WerwoelfleConfirmComponent implements OnInit {
     if (this.werwoelfleGame.playersThatNeedToConfirm.length > 0) {
       let str = "Wir warten noch auf: ";
       this.werwoelfleGame.playersThatNeedToConfirm.forEach(player => {
-        str = str + player.identity.name + " ";
+        str = str + player.name + " ";
       });
       return str;
     } else {

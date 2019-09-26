@@ -25,11 +25,11 @@ export class WerewolfPhaseComponent implements OnInit {
       return [];
     }
     const playerName = this.profileService.getCurrentIdentity().name;
-    return this.werwoelfleGame.game.players.filter(player => player.identity.name.localeCompare(playerName) != 0);
+    return this.werwoelfleGame.game.players.filter(player => player.name.localeCompare(playerName) != 0);
   }
 
   playerToStr(player: Player): string {
-    return player.identity.name;
+    return player.name;
   }
 
   isWerewolf() {

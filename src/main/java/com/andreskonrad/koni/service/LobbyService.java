@@ -30,22 +30,22 @@ public class LobbyService {
         return games;
     }
 
-    public Game createGame(String gameName, Profile profile, GameType gameType) throws IllegalArgumentException {
+    public Game createGame(String gameName, String profileName, GameType gameType) throws IllegalArgumentException {
         //check if already exists with same name
         Game game = getGame(gameName);
         if (game != null) throw new IllegalArgumentException("game already exists");
 
         //create new
-        game = new Game(gameName, gameType, profile);
+        game = new Game(gameName, gameType, profileName);
         games.add(game);
-        joinGame(gameName, profile);
+        joinGame(gameName, profileName);
         return game;
     }
 
-    public Game joinGame(String gameName, Profile profile) {
+    public Game joinGame(String gameName, String profileName) {
         Game game = getGame(gameName);
         if (game == null) return null;
-        game.join(profile);
+        game.join(profileName);
         return game;
     }
 
@@ -57,10 +57,10 @@ public class LobbyService {
         return game;
     }
 
-    public Game leaveGame(String gameName, Profile profile) {
+    public Game leaveGame(String gameName, String profileName) {
         Game game = getGame(gameName);
         if (game == null) return null;
-        game.leave(profile);
+        game.leave(profileName);
         return game;
     }
 

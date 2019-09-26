@@ -4,21 +4,17 @@ import java.util.Objects;
 
 public class Player {
 
-    private final Identity identity;
+    private final String name;
 
     private PlayerState state;
 
-    Player(Identity identity) {
-        this.identity = identity;
+    Player(String name) {
+        this.name = name;
         this.state = PlayerState.JOINED;
     }
 
     public String getName() {
-        return identity.getName();
-    }
-
-    public Identity getIdentity() {
-        return identity;
+        return name;
     }
 
     public PlayerState getState() {
@@ -34,13 +30,13 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return Objects.equals(identity, player.identity) &&
+        return Objects.equals(name, player.name) &&
                 state == player.state;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identity, state);
+        return Objects.hash(name, state);
     }
 }
 

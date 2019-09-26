@@ -16,8 +16,11 @@ public class WerwoerterGameTest {
     @Test
     public void constructor_5players_initializeCorrectly() {
         List<Profile> profiles = createNewProfiles(5);
-        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
-        profiles.forEach(game::join);
+        Game game = new Game("new", GameType.WERWOERTER, "asdf");
+        profiles.stream()
+                .map(Profile::getIdentity)
+                .map(Identity::getName)
+                .forEach(game::join);
 
         WerwoerterGame wgs = new WerwoerterGame(game);
 
@@ -30,8 +33,11 @@ public class WerwoerterGameTest {
     @Test
     public void constructor_6players_initializeCorrectly() {
         List<Profile> profiles = createNewProfiles(6);
-        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
-        profiles.forEach(game::join);
+        Game game = new Game("new", GameType.WERWOERTER, "asdf");
+        profiles.stream()
+                .map(Profile::getIdentity)
+                .map(Identity::getName)
+                .forEach(game::join);
 
         WerwoerterGame wgs = new WerwoerterGame(game);
 
@@ -44,8 +50,11 @@ public class WerwoerterGameTest {
     @Test
     public void guessPlayer_majorityCorrect() {
         List<Profile> profiles = createNewProfiles(5);
-        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
-        profiles.forEach(game::join);
+        Game game = new Game("new", GameType.WERWOERTER, "asdf");
+        profiles.stream()
+                .map(Profile::getIdentity)
+                .map(Identity::getName)
+                .forEach(game::join);
         WerwoerterGame wgs = new WerwoerterGame(game);
 
         Player werwolfPlayer = wgs.getPlayersForRole(WerwoerterRole.WEREWOLF).get(0);
@@ -73,8 +82,11 @@ public class WerwoerterGameTest {
     @Test
     public void guessPlayer_noMajority() {
         List<Profile> profiles = createNewProfiles(5);
-        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
-        profiles.forEach(game::join);
+        Game game = new Game("new", GameType.WERWOERTER, "asdf");
+        profiles.stream()
+                .map(Profile::getIdentity)
+                .map(Identity::getName)
+                .forEach(game::join);
         WerwoerterGame wgs = new WerwoerterGame(game);
 
         wgs.guessPlayer("0","0");
@@ -91,10 +103,10 @@ public class WerwoerterGameTest {
     @Test
     public void constructor_twoWordsCreated_differentWords() {
         List<Profile> profiles = createNewProfiles(5);
-        Game game1 = new Game("new", GameType.WERWOERTER, profiles.get(0));
+        Game game1 = new Game("new", GameType.WERWOERTER, "asdf");
         WerwoerterGame wgs1 = new WerwoerterGame(game1);
 
-        Game game2 = new Game("new", GameType.WERWOERTER, profiles.get(0));
+        Game game2 = new Game("new", GameType.WERWOERTER, "asdf");
         WerwoerterGame wgs2 = new WerwoerterGame(game2);
 
         assertThat(wgs1.getWord(), is(not(nullValue())));

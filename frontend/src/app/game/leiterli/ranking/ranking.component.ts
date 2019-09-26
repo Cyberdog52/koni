@@ -30,7 +30,7 @@ export class RankingComponent implements OnInit {
     }
     let rankedPlayers = [];
     this.leiterliGame.game.players.forEach(player => {
-      const playerName = player.identity.name;
+      const playerName = player.name;
       const field = this.leiterliGame.playerToNumberMap[playerName];
       const rankedPlayer = {
         rank: 0,

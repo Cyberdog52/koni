@@ -68,7 +68,7 @@ export class WerwoerterComponent implements OnInit {
       return false;
     }
     return  this.werwoerterGame.playersThatNeedToConfirm.filter( player => {
-      return player.identity.name.localeCompare(playerName) == 0
+      return player.name == playerName
     }).length > 0;
   }
 

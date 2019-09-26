@@ -88,7 +88,7 @@ export class LobbyComponent implements OnInit {
   alreadyJoined(game: Game) {
     const name = this.profileService.getCurrentIdentity().name;
     return game.players.filter(player => {
-      return player.identity.name.localeCompare(name) == 0;
+      return player.name == name;
     }).length > 0;
   }
 
@@ -112,7 +112,7 @@ export class LobbyComponent implements OnInit {
   private hasPlayerJoined(game: Game) {
     const name = this.profileService.getCurrentIdentity().name;
     return game.players.filter( player => {
-      return player.identity.name.localeCompare(name) == 0;
+      return player.name.localeCompare(name) == 0;
     }).length > 0;
   }
 
@@ -126,7 +126,9 @@ export class LobbyComponent implements OnInit {
   }
 
   hasCreated(game: Game) {
-    return game.creator.identity.name === this.profileService.getCurrentIdentity().name;
+    console.log("Creator: " + game.creator);
+    console.log("Identity: " + this.profileService.getCurrentIdentity().name);
+    return game.creator == this.profileService.getCurrentIdentity().name;
   }
 
   isJoinDisabled(game: Game) {
@@ -253,7 +255,7 @@ export class LobbyComponent implements OnInit {
   isReconnectEnabled(game: Game): boolean {
     const playerName = this.profileService.getCurrentIdentity().name;
     return game.players.filter( player => {
-      return player.identity.name.localeCompare(playerName) == 0
+      return player.name == playerName
     }).length == 1;
   }
 
@@ -262,12 +264,8 @@ export class LobbyComponent implements OnInit {
   }
 
   isDestroyGameEnabled(game: Game): boolean {
-    return this.hasCreated(game);
-  }
-
-  destroyGame(game: Game) {
-    //TODO
-    //return this.lobbyService.destroyGame(game.name);
+    console.log("checking destroy enabled");
+    return this.hasCreated(game) ;
   }
 }
 

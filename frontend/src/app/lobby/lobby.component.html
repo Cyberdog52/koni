@@ -36,14 +36,13 @@
         <div class="button-bar">
           <button mat-button (click)="$event.stopPropagation(); joinGame(game)" [disabled]="isJoinDisabled(game)">Mitspielen</button>
           <span class="filler"></span>
-          <span class="warn" *ngIf="game.players.length<MIN_PLAYER_PER_GAME">min {{MIN_PLAYER_PER_GAME}} players</span>
+          <span class="warn" *ngIf="game.players.length<MIN_PLAYER_PER_GAME">Mindestens {{MIN_PLAYER_PER_GAME}} Spieler</span>
           <span class="filler"></span>
           <button mat-button (click)="leave(game)" [disabled]="isLeaveDisabled(game)">Verlassen</button>
           <span class="filler"></span>
           <button mat-button (click)="delete(game)" *ngIf="!isDeleteHidden(game)">Spiel löschen</button>
           <span class="filler" *ngIf="!isDeleteHidden(game)"></span>
           <button mat-button (click)="startGame(game)" [disabled]="isStartGameDisabled(game)">Starten</button>
-          <button mat-button (click)="destroyGame(game)" [disabled]="!isDestroyGameEnabled(game)">Spielabbruch</button>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
@@ -64,6 +63,8 @@
         <div class="button-bar">
           <button mat-button (click)="$event.stopPropagation(); reconnect(game)" [disabled]="!isReconnectEnabled(game)">Erneut verbinden</button>
           <span class="filler"></span>
+          <span class="filler" *ngIf="isDestroyGameEnabled(game)"></span>
+          <button mat-button (click)="delete(game)" *ngIf="isDestroyGameEnabled(game)">Spielabbruch</button>
         </div>
       </mat-expansion-panel>
     </mat-accordion>

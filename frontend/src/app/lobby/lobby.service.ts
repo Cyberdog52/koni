@@ -19,11 +19,11 @@ export class LobbyService {
 
   public createGame(name: string, gameType: GameType): Observable<Game> {
     let url = `${this.backendUrl}create?gameName=${name}&gameType=${gameType}`;
-    return this.httpClient.post<Game>(url, this.profileService.getLoggedInProfile())
+    return this.httpClient.post<Game>(url, this.profileService.getCurrentIdentity().name)
   }
 
   public joinGame(name: string): Observable<Game> {
-    return this.httpClient.post<Game>(`${this.backendUrl}join?gameName=${name}`, this.profileService.getLoggedInProfile())
+    return this.httpClient.post<Game>(`${this.backendUrl}join?gameName=${name}`, this.profileService.getCurrentIdentity().name)
   }
 
   public startGame(game: Game): Observable<Game> {
@@ -31,10 +31,10 @@ export class LobbyService {
   }
 
   public leaveGame(name: string) {
-    return this.httpClient.post<Game>(`${this.backendUrl}leave?gameName=${name}`, this.profileService.getLoggedInProfile())
+    return this.httpClient.post<Game>(`${this.backendUrl}leave?gameName=${name}`, this.profileService.getCurrentIdentity().name)
   }
 
   public deleteGame(name: string) {
-    return this.httpClient.post<Game>(`${this.backendUrl}delete?gameName=${name}`, this.profileService.getLoggedInProfile())
+    return this.httpClient.post<Game>(`${this.backendUrl}delete?gameName=${name}`, this.profileService.getCurrentIdentity().name)
   }
 }

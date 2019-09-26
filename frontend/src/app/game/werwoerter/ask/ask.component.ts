@@ -34,7 +34,7 @@ export class AskComponent implements OnInit {
     if (this.werwoerterGame == null || this.werwoerterGame.mayor == null) {
       return false;
     }
-    return this.werwoerterGame.mayor.identity.name.localeCompare(playerName) == 0;
+    return this.werwoerterGame.mayor.name == playerName;
   }
 
   getMayorText(): string {

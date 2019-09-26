@@ -25,11 +25,11 @@ export class CitizenvoteComponent implements OnInit {
       return [];
     }
     const playerName = this.profileService.getCurrentIdentity().name;
-    return this.werwoerterGame.game.players.filter(player => player.identity.name.localeCompare(playerName) != 0);
+    return this.werwoerterGame.game.players.filter(player => player.name != playerName);
   }
 
   playerToStr(player: Player): string {
-    return player.identity.name;
+    return player.name;
   }
 
   getText(): string {
@@ -54,7 +54,7 @@ export class CitizenvoteComponent implements OnInit {
     }
     const playerName = this.profileService.getCurrentIdentity().name;
     return this.werwoerterGame.playersThatVoted.filter(player => {
-      return player.identity.name.localeCompare(playerName) == 0;
+      return player.name == playerName;
     }).length > 0;
   }
 

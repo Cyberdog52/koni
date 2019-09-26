@@ -121,7 +121,7 @@ export class FieldComponent implements OnInit {
       return icons;
     }
     this.players.forEach(player => {
-      const playerName = player.identity.name;
+      const playerName = player.name;
       if (this.isAnimated(playerName)) {
         icons.push(this.animationPlayerToHeadIcon[playerName]);
       }
@@ -148,14 +148,14 @@ export class FieldComponent implements OnInit {
     if (this.leiterliGame == null) return false;
     if (this.getPlayerName() == null) return false;
     return this.leiterliGame.playersThatNeedToRoll.filter(player => {
-      return player.identity.name.localeCompare(this.getPlayerName()) == 0;
+      return player.name == this.getPlayerName();
     }).length > 0;
   }
 
   getDiceRollHistory(): LeiterliHistoryBlock {
     if (this.leiterliGame == null) return null;
     const thisPlayersDiceRolls = this.leiterliGame.history.filter(h => {
-      return h.player.identity.name.localeCompare(this.getPlayerName()) == 0;
+      return h.player.name == this.getPlayerName();
     });
     return thisPlayersDiceRolls[thisPlayersDiceRolls.length-1];
   }
@@ -164,7 +164,7 @@ export class FieldComponent implements OnInit {
     let playerEqualstoLoggedInPlayer = false;
     this.players.forEach(player => {
       console.log(player);
-      if (player.identity.name.localeCompare(this.getPlayerName())==0 ) {
+      if (player.name == this.getPlayerName() ) {
         playerEqualstoLoggedInPlayer = true;
       }
     });
@@ -194,7 +194,7 @@ export class FieldComponent implements OnInit {
       return "";
     }
     this.leiterliGame.playersThatNeedToRoll.forEach( player => {
-      text = text + player.identity.name + " "
+      text = text + player.name + " "
     });
     return text;
   }

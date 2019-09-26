@@ -13,7 +13,7 @@
           <mat-label>Wähle die Seherin</mat-label>
           <mat-select [(value)]="selectedPlayerName">
             <div *ngFor="let player of getSelectablePlayers()">
-              <mat-option value="{{player.identity.name}}">{{playerToStr(player)}}</mat-option>
+              <mat-option value="{{player.name}}">{{playerToStr(player)}}</mat-option>
             </div>
           </mat-select>
         </mat-form-field>

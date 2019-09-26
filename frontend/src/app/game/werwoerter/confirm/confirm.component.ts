@@ -33,7 +33,7 @@ export class ConfirmComponent implements OnInit {
     if (this.werwoerterGame.playersThatNeedToConfirm.length > 0) {
       let str = "Wir warten noch auf: ";
       this.werwoerterGame.playersThatNeedToConfirm.forEach( player => {
-        str = str + player.identity.name + " ";
+        str = str + player.name + " ";
       });
       return str;
     } else {

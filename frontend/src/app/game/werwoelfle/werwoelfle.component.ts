@@ -67,7 +67,7 @@ export class WerwoelfleComponent implements OnInit {
       return false;
     }
     return  this.werwoelfleGame.playersThatNeedToConfirm.filter(player => {
-      return player.identity.name.localeCompare(playerName) == 0
+      return player.name.localeCompare(playerName) == 0
     }).length > 0;
   }
 
