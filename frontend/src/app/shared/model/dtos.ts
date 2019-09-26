@@ -15,6 +15,7 @@ export interface Game {
   players: Player[]
   state: GameState
   gameType: GameType
+  creator: Profile
 }
 
 export enum GameType {

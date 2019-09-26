@@ -36,7 +36,7 @@ public class LobbyService {
         if (game != null) throw new IllegalArgumentException("game already exists");
 
         //create new
-        game = new Game(gameName, gameType);
+        game = new Game(gameName, gameType, profile);
         games.add(game);
         joinGame(gameName, profile);
         return game;

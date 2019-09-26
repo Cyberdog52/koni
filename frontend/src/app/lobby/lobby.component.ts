@@ -122,7 +122,11 @@ export class LobbyComponent implements OnInit {
     xs.map(f).reduce(this.concat, []);
 
   isStartGameDisabled(game: Game): Boolean {
-    return game.players.length < this.MIN_PLAYER_PER_GAME || !this.hasPlayerJoined(game);
+    return game.players.length < this.MIN_PLAYER_PER_GAME || !this.hasPlayerJoined(game) || !this.hasCreated(game);
+  }
+
+  hasCreated(game: Game) {
+    return game.creator.identity.name === this.profileService.getCurrentIdentity().name;
   }
 
   isJoinDisabled(game: Game) {
@@ -258,10 +262,12 @@ export class LobbyComponent implements OnInit {
   }
 
   isDestroyGameEnabled(game: Game): boolean {
-    const playerName = this.profileService.getCurrentIdentity().name;
-    return game.players.filter( player => {
-      return player.identity.name.localeCompare(playerName) == 0
-    }).length == 1;
+    return this.hasCreated(game);
+  }
+
+  destroyGame(game: Game) {
+    //TODO
+    //return this.lobbyService.destroyGame(game.name);
   }
 }
 

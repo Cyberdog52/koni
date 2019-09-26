@@ -34,6 +34,7 @@ export const player5 : Player = {
 export const game : Game =  {
   gameType: undefined,
   name: "",
+  creator: player1,
   players: [player1, player2, player3, player4, player5],
   state: GameState.RUNNING
 };

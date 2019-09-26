@@ -43,6 +43,7 @@
           <button mat-button (click)="delete(game)" *ngIf="!isDeleteHidden(game)">Spiel löschen</button>
           <span class="filler" *ngIf="!isDeleteHidden(game)"></span>
           <button mat-button (click)="startGame(game)" [disabled]="isStartGameDisabled(game)">Starten</button>
+          <button mat-button (click)="destroyGame(game)" [disabled]="!isDestroyGameEnabled(game)">Spielabbruch</button>
         </div>
       </mat-expansion-panel>
     </mat-accordion>

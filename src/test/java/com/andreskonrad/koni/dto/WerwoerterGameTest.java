@@ -15,8 +15,8 @@ public class WerwoerterGameTest {
 
     @Test
     public void constructor_5players_initializeCorrectly() {
-        Game game = new Game("new", GameType.WERWOERTER);
         List<Profile> profiles = createNewProfiles(5);
+        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
         profiles.forEach(game::join);
 
         WerwoerterGame wgs = new WerwoerterGame(game);
@@ -29,8 +29,8 @@ public class WerwoerterGameTest {
 
     @Test
     public void constructor_6players_initializeCorrectly() {
-        Game game = new Game("new", GameType.WERWOERTER);
         List<Profile> profiles = createNewProfiles(6);
+        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
         profiles.forEach(game::join);
 
         WerwoerterGame wgs = new WerwoerterGame(game);
@@ -43,8 +43,8 @@ public class WerwoerterGameTest {
 
     @Test
     public void guessPlayer_majorityCorrect() {
-        Game game = new Game("new", GameType.WERWOERTER);
         List<Profile> profiles = createNewProfiles(5);
+        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
         profiles.forEach(game::join);
         WerwoerterGame wgs = new WerwoerterGame(game);
 
@@ -72,8 +72,8 @@ public class WerwoerterGameTest {
 
     @Test
     public void guessPlayer_noMajority() {
-        Game game = new Game("new", GameType.WERWOERTER);
         List<Profile> profiles = createNewProfiles(5);
+        Game game = new Game("new", GameType.WERWOERTER, profiles.get(0));
         profiles.forEach(game::join);
         WerwoerterGame wgs = new WerwoerterGame(game);
 
@@ -90,10 +90,11 @@ public class WerwoerterGameTest {
 
     @Test
     public void constructor_twoWordsCreated_differentWords() {
-        Game game1 = new Game("new", GameType.WERWOERTER);
+        List<Profile> profiles = createNewProfiles(5);
+        Game game1 = new Game("new", GameType.WERWOERTER, profiles.get(0));
         WerwoerterGame wgs1 = new WerwoerterGame(game1);
 
-        Game game2 = new Game("new", GameType.WERWOERTER);
+        Game game2 = new Game("new", GameType.WERWOERTER, profiles.get(0));
         WerwoerterGame wgs2 = new WerwoerterGame(game2);
 
         assertThat(wgs1.getWord(), is(not(nullValue())));

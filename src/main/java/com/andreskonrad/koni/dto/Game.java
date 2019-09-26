@@ -1,8 +1,6 @@
 package com.andreskonrad.koni.dto;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Game {
@@ -11,9 +9,11 @@ public class Game {
     private final Set<Player> players;
     private GameState state;
     private GameType gameType;
+    private final Profile creator;
 
-    public Game(String name, GameType gameType) {
+    public Game(String name, GameType gameType, Profile creator) {
         this.name = name;
+        this.creator = creator;
         this.players = new HashSet<>();
         this.state = GameState.CREATED;
         this.gameType = gameType;
@@ -55,6 +55,10 @@ public class Game {
 
     public GameType getGameType() {
         return gameType;
+    }
+
+    public Profile getCreator() {
+        return creator;
     }
 }
 
