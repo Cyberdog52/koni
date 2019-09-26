@@ -5,6 +5,7 @@ import {LeiterliHeadIcon} from "../board/board.component";
 import {ProfileService} from "../../../shared/profile.service";
 import {LeiterliService} from "../leiterli.service";
 import {ToastrService} from "ngx-toastr";
+import {AvatarpickerComponent} from "../avatarpicker/avatarpicker.component";
 
 @Component({
   selector: 'leiterli-field',
@@ -28,8 +29,8 @@ export class FieldComponent implements OnInit {
 
   getImageForPlayer(playerName: string): string {
     if (this.leiterliGame == null) return "";
-    const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
-    return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
+    const avatarName =  this.leiterliGame.playerToAvatarMap[playerName];
+    return AvatarpickerComponent.sourceForAvatarName(avatarName);
   }
 
   getFieldType(): string {

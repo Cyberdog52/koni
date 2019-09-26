@@ -15,13 +15,42 @@ public class LeiterliGame {
     private List<LeiterliHistoryBlock> history;
     private int maxFields;
     private final List<String> avatarNames = Arrays.asList("Bowser",
-            "DK",
+            "Donkey Kong",
             "Luigi",
             "Mario",
             "Peach",
             "Toad",
             "Wario",
-            "Yoshi");
+            "Yoshi",
+            "Dani",
+            "Buechi",
+            "Koni",
+            "Engel",
+            "Dome",
+            "Agumon",
+            "Candy Kong",
+            "Cranky Kong",
+            "Daisy",
+            "Diddy Kong",
+            "Dixie Kong",
+            "Falcon",
+            "Fox",
+            "Funky Kong",
+            "Kiddy Kong",
+            "Kirby",
+            "Lanky Kong",
+            "Link",
+            "Mewtwo",
+            "Pikachu",
+            "Rabbid",
+            "Rayman",
+            "Rosalina",
+            "Snake",
+            "Sonic",
+            "Tiny Kong",
+            "Waluigi",
+            "Wrinkly Kong"
+            );
 
     private final HashMap<String, String> playerToAvatarMap = new HashMap<>();
 

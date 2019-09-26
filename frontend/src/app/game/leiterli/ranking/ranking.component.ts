@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LeiterliGame} from "../../../shared/model/leiterli-dtos";
 import {map} from "rxjs/operators";
+import {AvatarpickerComponent} from "../avatarpicker/avatarpicker.component";
 
 export interface RankedPlayer{
   rank: number
@@ -55,10 +56,12 @@ export class RankingComponent implements OnInit {
     return sortedRankedPlayers;
   }
 
+
+
   getImageForPlayer(playerName: string): string {
     if (this.leiterliGame == null) return "";
-    const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
-    return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
+    const avatarName =  this.leiterliGame.playerToAvatarMap[playerName];
+    return AvatarpickerComponent.sourceForAvatarName(avatarName);
   }
 
   hasStar(name: string): boolean {

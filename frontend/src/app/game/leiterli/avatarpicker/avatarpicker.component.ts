@@ -20,6 +20,52 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
   pickedAvatar: string;
   avatarOptions: AvatarOption[] = [];
 
+  public static sourceForAvatarName(avatarName: string): string {
+    const avatarToSourceMap:Map<string, string> =
+      new Map([
+        ["Bowser", "Bowser.PNG"],
+        ["Buechi", "buechi.jpg"],
+        ["Dani", "dani.jpg"],
+        ["Donkey Kong", "DK.PNG"],
+        ["Dome", "dome.jpg"],
+        ["Engel", "engel.jpg"],
+        ["Koni", "koni.jpg"],
+        ["Luigi", "Luigi.PNG"],
+        ["Mario", "Mario.PNG"],
+        ["Peach", "Peach.PNG"],
+        ["Toad", "Toad.PNG"],
+        ["Wario", "Wario.PNG"],
+        ["Yoshi", "Yoshi.PNG"],
+        ["Agumon", "Agumon.png"],
+        ["Candy Kong", "CandyKong.jpg"],
+        ["Cranky Kong", "CrankyKong.jpg"],
+        ["Daisy", "Daisy.png"],
+        ["Diddy Kong", "DiddyKong.png"],
+        ["Dixie Kong", "DixieKong.png"],
+        ["Falcon", "Falcon.png"],
+        ["Fox", "Fox.png"],
+        ["Funky Kong", "FunkyKong.png"],
+        ["Kiddy Kong", "KiddyKong.jpg"],
+        ["Kirby", "Kirby.png"],
+        ["Lanky Kong", "LankyKong.jpg"],
+        ["Link", "Link.png"],
+        ["Mewtwo", "Mewtwo.png"],
+        ["Pikachu", "Pikachu.png"],
+        ["Rabbid", "Rabbid.png"],
+        ["Rayman", "Rayman.png"],
+        ["Rosalina", "Rosalina.png"],
+        ["Snake", "Snake.png"],
+        ["Sonic", "Sonic.png"],
+        ["Tiny Kong", "TinyKong.png"],
+        ["Waluigi", "Waluigi.png"],
+        ["Wrinkly Kong", "WrinklyKong.jpg"]
+      ]);
+
+    return "../../../../assets/leiterli/profiles/" + avatarToSourceMap.get(avatarName);
+  }
+
+
+
   constructor(private leiterliService: LeiterliService,
               private profileService: ProfileService) { }
 
@@ -66,7 +112,7 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
   }
 
   getPathForAvatarName(avatarName: string): string {
-    return "../../../../assets/leiterli/profiles/" + avatarName + ".PNG"
+    return AvatarpickerComponent.sourceForAvatarName(avatarName);
   }
 
   pickAvatar() {

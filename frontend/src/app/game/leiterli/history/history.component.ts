@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LeiterliGame, LeiterliHistoryBlock} from "../../../shared/model/leiterli-dtos";
+import {AvatarpickerComponent} from "../avatarpicker/avatarpicker.component";
 
 @Component({
   selector: 'leiterli-history',
@@ -37,8 +38,8 @@ export class HistoryComponent implements OnInit {
 
   getImageForPlayer(playerName: string): string {
     if (this.leiterliGame == null) return "";
-    const avatar =  this.leiterliGame.playerToAvatarMap[playerName];
-    return "../../../../assets/leiterli/profiles/" + avatar + ".PNG"
+    const avatarName =  this.leiterliGame.playerToAvatarMap[playerName];
+    return AvatarpickerComponent.sourceForAvatarName(avatarName);
   }
 
 }
