@@ -9,6 +9,11 @@ export interface AvatarOption {
   alreadyPicked: boolean
 }
 
+export interface AvatarGroup {
+  title: string,
+  options: AvatarOption[]
+}
+
 @Component({
   selector: 'leiterli-avatarpicker',
   templateUrl: './avatarpicker.component.html',
@@ -18,7 +23,7 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
 
   @Input() leiterliGame: LeiterliGame;
   pickedAvatar: string;
-  avatarOptions: AvatarOption[] = [];
+  avatarGroups: AvatarGroup[] = [];
 
   public static sourceForAvatarName(avatarName: string): string {
     const avatarToSourceMap:Map<string, string> =
@@ -64,7 +69,62 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
     return "../../../../assets/leiterli/profiles/" + avatarToSourceMap.get(avatarName);
   }
 
+  static n64: string = "N64 Mario Kart";
+  static chuchi: string = "Chuchi";
+  static kong: string = "Donkey Kong Family";
+  static smash: string = "Smash";
 
+  static getGroupNameForAvatarName(avatarName: string): string {
+
+  switch(avatarName) {
+    case "Buechi":
+      return this.chuchi;
+    case "Dani":
+      return this.chuchi;
+    case "Dome":
+      return this.chuchi;
+    case "Engel":
+      return this.chuchi;
+    case "Koni":
+      return this.chuchi;
+
+    case "Bowser":
+      return this.n64;
+    case "Luigi":
+      return this.n64;
+    case "Mario":
+      return this.n64;
+    case "Toad":
+      return this.n64;
+    case "Peach":
+      return this.n64;
+    case "Wario":
+      return this.n64;
+    case "Yoshi":
+      return this.n64;
+
+    case "Donkey Kong":
+      return this.kong;
+    case "Candy Kong":
+      return this.kong;
+    case "Cranky Kong":
+      return this.kong;
+    case "Diddy Kong":
+      return this.kong;
+    case "Dixie Kong":
+      return this.kong;
+    case "Funky Kong":
+      return this.kong;
+    case "Kiddy Kong":
+      return this.kong;
+    case "Tiny Kong":
+      return this.kong;
+    case "Wrinkly Kong":
+      return this.kong;
+    default:
+      return this.smash;
+  }
+  }
 
   constructor(private leiterliService: LeiterliService,
               private profileService: ProfileService) { }
@@ -92,7 +152,11 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
   }
 
   setAvatarOptions(): void {
-    let avatarOptions: AvatarOption[] = [];
+    let avatarGroups: AvatarGroup[] = [];
+    avatarGroups.push({title: AvatarpickerComponent.chuchi, options: []});
+    avatarGroups.push({title: AvatarpickerComponent.n64, options: []});
+    avatarGroups.push({title: AvatarpickerComponent.kong, options: []});
+    avatarGroups.push({title: AvatarpickerComponent.smash, options: []});
     if (this.leiterliGame == null) return;
     this.leiterliGame.avatarNames.forEach( avatarName => {
 
@@ -101,10 +165,15 @@ export class AvatarpickerComponent implements OnInit, OnChanges {
         path: this.getPathForAvatarName(avatarName),
         alreadyPicked: this.isAlreadyPicked(avatarName)
       };
-      avatarOptions.push(avatarOption);
+      avatarGroups.forEach(group => {
+        if (group.title == AvatarpickerComponent.getGroupNameForAvatarName(avatarName)) {
+          group.options.push(avatarOption);
+        }
+      });
     });
+    this.avatarGroups = avatarGroups;
 
-    this.avatarOptions = avatarOptions;
+    console.log(this.avatarGroups);
   }
 
   public getPlayerName(): string {
