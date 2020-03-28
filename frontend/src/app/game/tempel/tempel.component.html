@@ -23,12 +23,19 @@
     </mat-card-title>
     <mat-card-subtitle>
       {{getTotalCountText()}}
+
     </mat-card-subtitle>
     <mat-card-content>
       <mat-label>
         {{keyText()}}
       </mat-label>
       <div *ngIf="hasKey()">
+        <mat-divider>
+        </mat-divider>
+        <img mat-card-image src="{{getKeyUrl()}}" alt="Schlüssel">
+        <mat-divider>
+        </mat-divider>
+
         <mat-form-field>
           <mat-label>Öffne eine Karte bei einem anderen Mitspieler</mat-label>
           <mat-select [(value)]="selectedPlayerName">
@@ -50,10 +57,10 @@
     </mat-card-title>
     <mat-card-content>
       <div *ngFor="let player of tempelGame.game.players">
-        <h1>{{player.name}}</h1>
-        <div *ngFor="let card of getCardsForPlayer(player)">
+        <h3>{{player.name}}</h3>
+        <span *ngFor="let card of getCardsForPlayer(player)">
           <img mat-card-image src="{{getImageURL(card)}}" alt="{{card.tempelCardType.toString()}}">
-        </div>
+        </span>
       </div>
 
     </mat-card-content>
@@ -68,13 +75,17 @@
       Geheime Info
     </mat-card-title>
     <mat-card-content>
-      <mat-label>
-        {{getRoleText()}}
-      </mat-label>
-      <mat-label>
-        {{getCardsText()}}
-      </mat-label>
-
+      <button mat-raised-button class="vote-button" (click)="toggleSecretInfo()">{{secretInfoText()}}</button>
+      <mat-divider></mat-divider>
+      <div *ngIf="showSecretInfo">
+        <mat-label>
+          {{getRoleText()}}
+        </mat-label>
+        <mat-label>
+          {{getCardsText()}}
+        </mat-label>
+        <img mat-card-image src="{{getRoleImageUrl()}}" alt="Schlüssel">
+      </div>
     </mat-card-content>
 
   </mat-card>

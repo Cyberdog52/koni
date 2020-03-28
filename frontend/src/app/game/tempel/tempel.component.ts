@@ -19,6 +19,7 @@ export class TempelComponent implements OnInit {
   private stompClient;
   public tempelGame: TempelGame;
   private selectedPlayerName: string;
+  private showSecretInfo: boolean;
 
   constructor(private gameService: GameService,
               private tempelGameService: TempelGameService,
@@ -175,6 +176,28 @@ export class TempelComponent implements OnInit {
         return "../../../assets/tempel/leer.jpg"
       }
 
+    }
+  }
+
+  toggleSecretInfo(): void {
+    this.showSecretInfo = !this.showSecretInfo;
+  }
+
+  secretInfoText(): string {
+    if (!this.showSecretInfo) {
+      return "Zeige geheime Info"
+    }
+    return "Verstecke geheime Info"
+  }
+
+  getKeyUrl() {
+    return "../../../assets/tempel/key.jpg"
+  }
+
+  getRoleImageUrl() {
+    switch (this.tempelGame.playerToTempelRoleMap[this.profileService.getCurrentIdentity().name]) {
+      case TempelRole.BUEB: return "../../../assets/tempel/bueb.jpg";
+      case TempelRole.MEITLI: return "../../../assets/tempel/meitli.jpg";
     }
   }
 }
