@@ -3,7 +3,6 @@ package com.andreskonrad.koni.service;
 import com.andreskonrad.koni.dto.Game;
 import com.andreskonrad.koni.dto.GameState;
 import com.andreskonrad.koni.dto.GameType;
-import com.andreskonrad.koni.dto.Profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +15,16 @@ public class LobbyService {
     private final WerwoerterService werwoerterService;
     private final WerwoelfleService werwoelfleService;
     private final LeiterliService leiterliService;
+    private final TempelService tempelService;
 
     private List<Game> games = new ArrayList<Game>();
 
     @Autowired
-    public LobbyService(WerwoerterService werwoerterService, WerwoelfleService werwoelfleService, LeiterliService leiterliService) {
+    public LobbyService(WerwoerterService werwoerterService, WerwoelfleService werwoelfleService, LeiterliService leiterliService, TempelService tempelService) {
         this.werwoerterService = werwoerterService;
         this.werwoelfleService = werwoelfleService;
         this.leiterliService = leiterliService;
+        this.tempelService = tempelService;
     }
 
     public List<Game> getGames() {
@@ -86,6 +87,9 @@ public class LobbyService {
             }
             case LEITERLI: {
                 leiterliService.start(game);
+            }
+            case TEMPEL: {
+                tempelService.start(game);
             }
         }
 

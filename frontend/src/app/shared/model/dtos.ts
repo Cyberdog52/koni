@@ -22,7 +22,8 @@ export enum GameType {
   LEITERLI = "LEITERLI",
   WERWOERTER = "WERWOERTER",
   SECRET = "SECRET",
-  WERWOELFLE = "WERWOELFLE"
+  WERWOELFLE = "WERWOELFLE",
+  TEMPEL = "TEMPEL"
 }
 
 export enum GameState {
