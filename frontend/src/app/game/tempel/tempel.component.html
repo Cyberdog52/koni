@@ -1,3 +1,81 @@
-<p>
-  tempel works!
+<p *ngIf="tempelGame != null">
+
+  <mat-card *ngIf="gameFinished()">
+    <mat-card-title>
+      {{ getFinishedTitle() }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{getTotalCountText()}}
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-label>
+        {{getFinishedExplanation()}}
+      </mat-label>
+    </mat-card-content>
+
+  </mat-card>
+
+
+
+  <mat-card *ngIf="!gameFinished()">
+    <mat-card-title>
+      Runde {{ getRoundText() }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{getTotalCountText()}}
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-label>
+        {{keyText()}}
+      </mat-label>
+      <div *ngIf="hasKey()">
+        <mat-form-field>
+          <mat-label>Öffne eine Karte bei einem anderen Mitspieler</mat-label>
+          <mat-select [(value)]="selectedPlayerName">
+            <div *ngFor="let player of getSelectablePlayers()">
+              <mat-option value="{{player.name}}">{{playerToStr(player)}}</mat-option>
+            </div>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button class="vote-button" (click)="openSelectedPlayer()" [disabled]="isOpenSelectedPlayerEnabled()">Öffnen</button>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      Karten
+    </mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let player of tempelGame.game.players">
+        <h1>{{player.name}}</h1>
+        <div *ngFor="let card of getCardsForPlayer(player)">
+          <img mat-card-image src="{{getImageURL(card)}}" alt="{{card.tempelCardType.toString()}}">
+        </div>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+
+
+
+  <mat-card *ngIf="!gameFinished()">
+    <mat-card-title>
+      Geheime Info
+    </mat-card-title>
+    <mat-card-content>
+      <mat-label>
+        {{getRoleText()}}
+      </mat-label>
+      <mat-label>
+        {{getCardsText()}}
+      </mat-label>
+
+    </mat-card-content>
+
+  </mat-card>
 </p>

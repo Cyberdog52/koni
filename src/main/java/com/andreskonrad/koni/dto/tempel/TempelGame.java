@@ -1,6 +1,7 @@
 package com.andreskonrad.koni.dto.tempel;
 
 import com.andreskonrad.koni.dto.Game;
+import com.andreskonrad.koni.dto.GameState;
 import com.andreskonrad.koni.dto.Player;
 
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class TempelGame {
 
     public void open(String playerName) {
         List<TempelCard> availableCards = this.cards.stream()
+                .filter(tempelCard -> tempelCard.getAssignedPlayer() != null)
                 .filter(tempelCard -> tempelCard.getAssignedPlayer().getName().equals(playerName))
                 .filter(tempelCard -> !tempelCard.isOpened())
                 .collect(Collectors.toList());
@@ -96,9 +98,11 @@ public class TempelGame {
         }
         if (falleOpened() == totalFalle) {
             state = TempelState.MEITLIWON;
+            game.setGameState(GameState.FINISHED);
         }
         if (round == 5) {
             state = TempelState.MEITLIWON;
+            game.setGameState(GameState.FINISHED);
         }
     }
 
