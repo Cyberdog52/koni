@@ -29,8 +29,8 @@ export class TempelGameService {
     return this.httpClient.get<TempelGame>(url);
   }
 
-  open(gameName: string, playerName: string): Observable<HttpResponse<string>> {
+  open(gameName: string, cardNumber: number): Observable<HttpResponse<string>> {
     let url = `${this.backendUrl}open?gameName=${gameName}`;
-    return this.httpClient.post<HttpResponse<string>>(url, playerName);
+    return this.httpClient.post<HttpResponse<string>>(url, cardNumber);
   }
 }

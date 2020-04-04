@@ -7,7 +7,8 @@ import * as Stomp from "stompjs";
 import {TempelCard, TempelCardType, TempelGame, TempelRole, TempelState} from "../../shared/model/tempel-dtos";
 import {TempelGameService} from "./tempel.service";
 import {Player} from "../../shared/model/dtos";
-import {WerwoelfleRole} from "../../shared/model/werwoelfle-dtos";
+import {ToastrService} from "ngx-toastr";
+
 
 @Component({
   selector: 'tempel',
@@ -18,11 +19,13 @@ export class TempelComponent implements OnInit {
 
   private stompClient;
   public tempelGame: TempelGame;
-  private selectedPlayerName: string;
   private showSecretInfo: boolean;
+  private mouseOverCard: TempelCard;
+  private keyPlayer: Player;
 
   constructor(private gameService: GameService,
               private tempelGameService: TempelGameService,
+              private toastrService: ToastrService,
               private profileService: ProfileService) { }
 
   ngOnInit() {
@@ -59,10 +62,83 @@ export class TempelComponent implements OnInit {
 
   private getTempelGame() {
     this.tempelGameService.getGame(this.getGameName()).subscribe( (game: TempelGame) => {
-        this.tempelGame = game;
+      this.handleChangeGameEvent(game);
         console.log("Game: ", this.tempelGame);
       }
     )
+  }
+
+  handleChangeGameEvent(newGame: TempelGame): void {
+    this.handleNewCardOpened(newGame);
+
+    if (newGame.state != TempelState.RUNNING) {
+      const newOpenedCard = this.tempelGame.cards.find(tempelCard => tempelCard.id == newGame.lastOpenedCard.id);
+      this.tempelGame= newGame;
+      this.keyPlayer = null;
+      if (newGame.state == TempelState.MEITLIWON) {
+        this.toastrService.info("" , "Meitli haben gewonnen", {
+          positionClass: 'toast-bottom-left',
+          timeOut: 10000
+        });
+      } else {
+        this.toastrService.info("" , "Buebe haben gewonnen", {
+          positionClass: 'toast-bottom-left',
+          timeOut: 10000
+        });
+      }
+      return;
+    }
+
+    if (this.tempelGame != null && this.tempelGame.round != newGame.round) {
+      this.toastrService.info("Es beginnt eine neue Runde, die Karten werden jetzt gemischelt..." , "Neue Runde", {
+        positionClass: 'toast-bottom-left',
+        timeOut: 4000,
+        closeButton: true
+      });
+      this.keyPlayer = null;
+      const newOpenedCard = this.tempelGame.cards.find(tempelCard => tempelCard.id == newGame.lastOpenedCard.id);
+      newOpenedCard.opened = true;
+      setTimeout(()=>{  this.tempelGame = newGame;
+        this.keyPlayer = newGame.keyPlayer;}, 4000)
+    } else {
+      this.tempelGame = newGame;
+      this.keyPlayer = newGame.keyPlayer;
+    }
+
+
+  }
+
+  private handleNewCardOpened(newGame: TempelGame) {
+    if (this.keyPlayer != null && this.keyPlayer != newGame.keyPlayer) {
+      switch (newGame.lastOpenedCard.tempelCardType) {
+        case TempelCardType.GOLD: {
+          this.toastrService.success("Spieler " + this.keyPlayer.name + " hat Gold gefunden. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Gold!", {
+            positionClass: 'toast-bottom-left',
+            timeOut: 8000,
+            closeButton: true
+          });
+          break;
+        }
+        case TempelCardType.FALLE: {
+          this.toastrService.error("Spieler " + this.keyPlayer.name + " hat eine Falle aufgedeckt. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Falle!", {
+            positionClass: 'toast-bottom-left',
+            timeOut: 8000,
+            closeButton: true
+          });
+          break;
+        }
+        case TempelCardType.LEER: {
+          this.toastrService.warning("Spieler " + this.keyPlayer.name + " hat eine leere Schatzkammer geöffnet. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Leer!", {
+            positionClass: 'toast-bottom-left',
+            timeOut: 8000,
+            closeButton: true
+          });
+          break;
+        }
+
+      }
+
+    }
   }
 
   getRoleText(): string {
@@ -102,19 +178,6 @@ export class TempelComponent implements OnInit {
 
   playerToStr(player: Player): string {
     return player.name;
-  }
-
-  isOpenSelectedPlayerEnabled() {
-    return this.selectedPlayerName == null;
-  }
-
-  openSelectedPlayer() {
-    console.log("sending selected playerName: ", this.selectedPlayerName);
-    const playerName = this.profileService.getCurrentIdentity().name;
-    this.tempelGameService.open(this.tempelGame.game.name, this.selectedPlayerName).subscribe(response => {
-      console.log("opened card");
-      this.selectedPlayerName = null;
-    })
   }
 
   hasKey() : boolean{
@@ -162,9 +225,14 @@ export class TempelComponent implements OnInit {
   }
 
   getImageURL(card: TempelCard) {
+    const playerName = this.profileService.getCurrentIdentity().name;
     if (!card.opened) {
+      if (this.hasKey() && this.mouseOverCard != null && this.mouseOverCard.id == card.id && playerName != card.assignedPlayer.name) {
+        return this.getKeyUrl();
+      }
       return "../../../assets/tempel/back.jpg"
     }
+
     switch (card.tempelCardType) {
       case TempelCardType.GOLD: {
         return "../../../assets/tempel/schatz.jpg"
@@ -198,6 +266,21 @@ export class TempelComponent implements OnInit {
     switch (this.tempelGame.playerToTempelRoleMap[this.profileService.getCurrentIdentity().name]) {
       case TempelRole.BUEB: return "../../../assets/tempel/bueb.jpg";
       case TempelRole.MEITLI: return "../../../assets/tempel/meitli.jpg";
+    }
+  }
+
+  openCardIfHasKey(player: Player, card: TempelCard) {
+    const playerName = this.profileService.getCurrentIdentity().name;
+    if (this.hasKey() && playerName != player.name) {
+      this.tempelGameService.open(this.tempelGame.game.name, card.id).subscribe(response => {
+        console.log("opened card");
+      })
+    }
+  }
+
+  mouseIsOverCard(card: TempelCard) {
+    if (this.hasKey()) {
+      this.mouseOverCard = card;
     }
   }
 }

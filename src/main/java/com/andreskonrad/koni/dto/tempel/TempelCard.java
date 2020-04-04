@@ -4,15 +4,22 @@ import com.andreskonrad.koni.dto.Player;
 
 public class TempelCard {
 
-
+    private static int idCounter = 0;
+    private final int id;
     private TempelCardType tempelCardType;
 
     private boolean opened;
 
     private Player assignedPlayer;
     public TempelCard(TempelCardType tempelCardType) {
+        this.id = idCounter;
+        idCounter++;
         this.tempelCardType = tempelCardType;
         this.opened = false;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public TempelCardType getTempelCardType() {

@@ -35,16 +35,6 @@
         <img mat-card-image src="{{getKeyUrl()}}" alt="Schlüssel">
         <mat-divider>
         </mat-divider>
-
-        <mat-form-field>
-          <mat-label>Öffne eine Karte bei einem anderen Mitspieler</mat-label>
-          <mat-select [(value)]="selectedPlayerName">
-            <div *ngFor="let player of getSelectablePlayers()">
-              <mat-option value="{{player.name}}">{{playerToStr(player)}}</mat-option>
-            </div>
-          </mat-select>
-        </mat-form-field>
-        <button mat-raised-button class="vote-button" (click)="openSelectedPlayer()" [disabled]="isOpenSelectedPlayerEnabled()">Öffnen</button>
       </div>
 
     </mat-card-content>
@@ -59,7 +49,7 @@
       <div *ngFor="let player of tempelGame.game.players">
         <h3>{{player.name}}</h3>
         <span *ngFor="let card of getCardsForPlayer(player)">
-          <img mat-card-image src="{{getImageURL(card)}}" alt="{{card.tempelCardType.toString()}}">
+          <img mat-card-image src="{{getImageURL(card)}}" alt="{{card.tempelCardType.toString()}}" (click)="openCardIfHasKey(player, card)" (mouseover)="mouseIsOverCard(card)">
         </span>
       </div>
 

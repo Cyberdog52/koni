@@ -11,9 +11,11 @@ export interface TempelGame {
   totalGold: number
   totalFalle: number
   totalLeer: number
+  lastOpenedCard: TempelCard;
 }
 
 export interface TempelCard {
+  id: number
   tempelCardType: TempelCardType
   opened: boolean
   assignedPlayer: Player

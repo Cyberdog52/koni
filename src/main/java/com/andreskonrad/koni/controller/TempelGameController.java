@@ -34,10 +34,10 @@ public class TempelGameController {
     }
 
     @PostMapping("open")
-    public ResponseEntity<HttpStatus> confirm(@RequestParam("gameName") String gameName, @RequestBody String playerName) {
+    public ResponseEntity<HttpStatus> confirm(@RequestParam("gameName") String gameName, @RequestBody int cardNumber) {
         try {
             TempelGame game = this.tempelService.get(gameName);
-            game.open(playerName);
+            game.open(cardNumber);
 
             String message = gameName + " confirm";
             this.template.convertAndSend("/game", message);

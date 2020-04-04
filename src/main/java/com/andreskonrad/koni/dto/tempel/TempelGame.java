@@ -21,6 +21,7 @@ public class TempelGame {
     private int totalGold;
     private int totalFalle;
     private int totalLeer;
+    private TempelCard lastOpenedCard;
 
     public TempelGame(Game game) {
         this.game = game;
@@ -72,16 +73,17 @@ public class TempelGame {
         }
     }
 
-    public void open(String playerName) {
+    public void open(int cardNumber) {
         List<TempelCard> availableCards = this.cards.stream()
                 .filter(tempelCard -> tempelCard.getAssignedPlayer() != null)
-                .filter(tempelCard -> tempelCard.getAssignedPlayer().getName().equals(playerName))
                 .filter(tempelCard -> !tempelCard.isOpened())
+                .filter(tempelCard -> tempelCard.getId() == cardNumber)
                 .collect(Collectors.toList());
-        Collections.shuffle(availableCards);
         if (availableCards.size() > 0) {
-            this.keyPlayer = availableCards.get(0).getAssignedPlayer();
-            availableCards.get(0).open();
+            TempelCard openedCard = availableCards.get(0);
+            this.lastOpenedCard = openedCard;
+            this.keyPlayer = openedCard.getAssignedPlayer();
+            openedCard.open();
         }
 
         if (getRoundNumber() > round) {
@@ -92,13 +94,20 @@ public class TempelGame {
         checkGameEnd();
     }
 
+    public TempelCard getLastOpenedCard() {
+        return this.lastOpenedCard;
+    }
+
     private void checkGameEnd() {
         if (goldOpenend() == totalGold) {
             state = TempelState.BUEBWON;
+            game.setGameState(GameState.FINISHED);
+            return;
         }
         if (falleOpened() == totalFalle) {
             state = TempelState.MEITLIWON;
             game.setGameState(GameState.FINISHED);
+            return;
         }
         if (round == 5) {
             state = TempelState.MEITLIWON;
@@ -169,16 +178,6 @@ public class TempelGame {
 
     public Game getGame() {
         return game;
-    }
-
-    public List<Player> getPlayersForRole(TempelRole role) {
-        List<Player> players = new ArrayList<>();
-        for (Player player : this.game.createPlayersCopy()) {
-            if (playerToTempelRoleMap.get(player.getName()).equals(role)) {
-                players.add(player);
-            }
-        }
-        return players;
     }
 
     public HashMap<String, TempelRole> getPlayerToTempelRoleMap() {
