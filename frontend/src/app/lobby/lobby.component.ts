@@ -231,7 +231,7 @@ export class LobbyComponent implements OnInit {
         return "Leiterli";
       }
       case GameType.TEMPEL: {
-        return "MeitliVsBuebe";
+        return "Tempel";
       }
     }
   }

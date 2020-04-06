@@ -34,6 +34,9 @@ export class TempelComponent implements OnInit {
   }
 
   initializeWebSocketConnection(){
+    if (this.stompClient != null) {
+      return;
+    }
     let ws = new SockJS(AppComponent.getSocketUrl());
     this.stompClient = Stomp.over(ws);
     let that = this;
@@ -76,12 +79,12 @@ export class TempelComponent implements OnInit {
       this.tempelGame= newGame;
       this.keyPlayer = null;
       if (newGame.state == TempelState.MEITLIWON) {
-        this.toastrService.info("" , "Meitli haben gewonnen", {
+        this.toastrService.info("" , "Wächterinnen haben gewonnen", {
           positionClass: 'toast-bottom-left',
           timeOut: 10000
         });
       } else {
-        this.toastrService.info("" , "Buebe haben gewonnen", {
+        this.toastrService.info("" , "Schatzjäger haben gewonnen", {
           positionClass: 'toast-bottom-left',
           timeOut: 10000
         });
@@ -112,7 +115,7 @@ export class TempelComponent implements OnInit {
     if (this.keyPlayer != null && this.keyPlayer != newGame.keyPlayer) {
       switch (newGame.lastOpenedCard.tempelCardType) {
         case TempelCardType.GOLD: {
-          this.toastrService.success("Spieler " + this.keyPlayer.name + " hat Gold gefunden. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Gold!", {
+          this.toastrService.success( this.keyPlayer.name + " hat Gold gefunden. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Gold!", {
             positionClass: 'toast-bottom-left',
             timeOut: 8000,
             closeButton: true
@@ -120,7 +123,7 @@ export class TempelComponent implements OnInit {
           break;
         }
         case TempelCardType.FALLE: {
-          this.toastrService.error("Spieler " + this.keyPlayer.name + " hat eine Falle aufgedeckt. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Falle!", {
+          this.toastrService.error(this.keyPlayer.name + " hat eine Falle aufgedeckt. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Falle!", {
             positionClass: 'toast-bottom-left',
             timeOut: 8000,
             closeButton: true
@@ -128,7 +131,7 @@ export class TempelComponent implements OnInit {
           break;
         }
         case TempelCardType.LEER: {
-          this.toastrService.warning("Spieler " + this.keyPlayer.name + " hat eine leere Schatzkammer geöffnet. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Leer!", {
+          this.toastrService.warning( this.keyPlayer.name + " hat eine leere Schatzkammer geöffnet. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Leer!", {
             positionClass: 'toast-bottom-left',
             timeOut: 8000,
             closeButton: true
@@ -143,8 +146,8 @@ export class TempelComponent implements OnInit {
 
   getRoleText(): string {
     switch (this.tempelGame.playerToTempelRoleMap[this.profileService.getCurrentIdentity().name]) {
-      case TempelRole.BUEB: return "Du bisch en Bueb. ";
-      case TempelRole.MEITLI: return "Du bisch es Meitli. ";
+      case TempelRole.BUEB: return "Du bist ein Schatzjäger. ";
+      case TempelRole.MEITLI: return "Du bist eine Wächterin. ";
     }
   }
 
@@ -186,7 +189,7 @@ export class TempelComponent implements OnInit {
   }
 
   keyText() {
-    return "Spieler " + this.tempelGame.keyPlayer.name + " hat den Schlüssel. "
+    return this.tempelGame.keyPlayer.name + " hat den Schlüssel. "
   }
 
   gameFinished() {
@@ -195,10 +198,10 @@ export class TempelComponent implements OnInit {
 
   getFinishedTitle() {
     if (this.tempelGame.state == TempelState.BUEBWON) {
-      return "Die Bueben haben gewonnen."
+      return "Die Schatzjäger haben gewonnen."
     }
     if (this.tempelGame.state == TempelState.MEITLIWON) {
-      return "Die Meitlis haben gewonnen."
+      return "Die Wächterinnen haben gewonnen."
     }
   }
 
@@ -209,10 +212,10 @@ export class TempelComponent implements OnInit {
       const value = this.tempelGame.playerToTempelRoleMap[key];
       explanation += key + ": ";
       if (value == TempelRole.MEITLI) {
-        explanation += "Meitli"
+        explanation += "Wächterin"
       }
       if (value == TempelRole.BUEB) {
-        explanation += "Bueb"
+        explanation += "Schatzjäger"
       }
       explanation += " \n"
     }
