@@ -236,7 +236,7 @@ export class TempelComponent implements OnInit {
     return this.tempelGame.cards.filter(card => card.assignedPlayer != null).filter(card => card.assignedPlayer.name == player.name);
   }
 
-  getImageURL(card: TempelCard) {
+  getImageURL(card: TempelCard) : string {
     const playerName = this.profileService.getCurrentIdentity().name;
     if (!card.opened) {
       if (this.hasKey() && this.mouseOverCard != null && this.mouseOverCard.id == card.id && playerName != card.assignedPlayer.name) {
@@ -245,18 +245,7 @@ export class TempelComponent implements OnInit {
       return "../../../assets/tempel/back.jpg"
     }
 
-    switch (card.tempelCardType) {
-      case TempelCardType.GOLD: {
-        return "../../../assets/tempel/schatz.jpg"
-      }
-      case TempelCardType.FALLE: {
-        return "../../../assets/tempel/falle.jpg"
-      }
-      case TempelCardType.LEER: {
-        return "../../../assets/tempel/leer.jpg"
-      }
-
-    }
+    return this.getOpenImageURL(card);
   }
 
   toggleSecretInfo(): void {
@@ -294,5 +283,30 @@ export class TempelComponent implements OnInit {
     if (this.hasKey()) {
       this.mouseOverCard = card;
     }
+  }
+
+  getCardsOwnPlayer() {
+    if (this.tempelGame == null) {
+      return [];
+    }
+    const playerName = this.profileService.getCurrentIdentity().name;
+    const ownPlayer = this.tempelGame.game.players.find(player => player.name == playerName);
+    return this.getCardsForPlayer(ownPlayer)
+  }
+
+  getOpenImageURL(card: TempelCard): string {
+    switch (card.tempelCardType) {
+      case TempelCardType.GOLD: {
+        return "../../../assets/tempel/schatz.jpg"
+      }
+      case TempelCardType.FALLE: {
+        return "../../../assets/tempel/falle.jpg"
+      }
+      case TempelCardType.LEER: {
+        return "../../../assets/tempel/leer.jpg"
+      }
+
+    }
+    return "";
   }
 }

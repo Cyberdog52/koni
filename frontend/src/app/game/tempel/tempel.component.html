@@ -59,23 +59,24 @@
 
 
 
-
-  <mat-card *ngIf="!gameFinished()">
+  <button mat-raised-button class="vote-button" (click)="toggleSecretInfo()">{{secretInfoText()}}</button>
+  <mat-card *ngIf="!gameFinished() && showSecretInfo">
     <mat-card-title>
       Geheime Info
     </mat-card-title>
+    <mat-card-subtitle>
+      <mat-label>
+        {{getRoleText()}}
+      </mat-label>
+
+    </mat-card-subtitle>
     <mat-card-content>
-      <button mat-raised-button class="vote-button" (click)="toggleSecretInfo()">{{secretInfoText()}}</button>
-      <mat-divider></mat-divider>
-      <div *ngIf="showSecretInfo">
-        <mat-label>
-          {{getRoleText()}}
-        </mat-label>
-        <mat-label>
-          {{getCardsText()}}
-        </mat-label>
-        <img mat-card-image src="{{getRoleImageUrl()}}" alt="Schlüssel">
-      </div>
+
+      <img class="role-image" mat-card-image src="{{getRoleImageUrl()}}" alt="Rollenbild">
+      <mat-divider vertical="false"></mat-divider>
+    <span *ngFor="let card of getCardsOwnPlayer()">
+      <img mat-card-image src="{{getOpenImageURL(card)}}" alt="{{card.tempelCardType.toString()}}">
+    </span>
     </mat-card-content>
 
   </mat-card>
