@@ -21,7 +21,6 @@ export class TempelComponent implements OnInit {
   public tempelGame: TempelGame;
   private showSecretInfo: boolean;
   private mouseOverCard: TempelCard;
-  private keyPlayer: Player;
 
   constructor(private gameService: GameService,
               private tempelGameService: TempelGameService,
@@ -29,6 +28,7 @@ export class TempelComponent implements OnInit {
               private profileService: ProfileService) { }
 
   ngOnInit() {
+    this.tempelGame = null;
     this.initializeWebSocketConnection();
     this.getTempelGame();
   }
@@ -41,6 +41,7 @@ export class TempelComponent implements OnInit {
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function(frame) {
+      that.stompClient.unsubscribe();
       that.stompClient.subscribe("/game", (message: Stomp.Message) => {
         const messageBody = message.body;
         if (messageBody.startsWith(that.getGameName())) {
@@ -72,20 +73,22 @@ export class TempelComponent implements OnInit {
   }
 
   handleChangeGameEvent(newGame: TempelGame): void {
+    if (newGame != null && this.tempelGame != null && newGame.game.name != this.tempelGame.game.name) {
+      this.tempelGame = null;
+    }
+
     this.handleNewCardOpened(newGame);
 
+
     if (newGame.state != TempelState.RUNNING) {
-      const newOpenedCard = this.tempelGame.cards.find(tempelCard => tempelCard.id == newGame.lastOpenedCard.id);
-      this.tempelGame= newGame;
-      this.keyPlayer = null;
       if (newGame.state == TempelState.MEITLIWON) {
         this.toastrService.info("" , "Wächterinnen haben gewonnen", {
-          positionClass: 'toast-bottom-left',
+          positionClass: 'toast-bottom-right',
           timeOut: 10000
         });
       } else {
         this.toastrService.info("" , "Schatzjäger haben gewonnen", {
-          positionClass: 'toast-bottom-left',
+          positionClass: 'toast-bottom-right',
           timeOut: 10000
         });
       }
@@ -94,45 +97,45 @@ export class TempelComponent implements OnInit {
 
     if (this.tempelGame != null && this.tempelGame.round != newGame.round) {
       this.toastrService.info("Es beginnt eine neue Runde, die Karten werden jetzt gemischelt..." , "Neue Runde", {
-        positionClass: 'toast-bottom-left',
+        positionClass: 'toast-bottom-right',
         timeOut: 4000,
         closeButton: true
       });
-      this.keyPlayer = null;
+      this.tempelGame.keyPlayer = null;
       const newOpenedCard = this.tempelGame.cards.find(tempelCard => tempelCard.id == newGame.lastOpenedCard.id);
       newOpenedCard.opened = true;
-      setTimeout(()=>{  this.tempelGame = newGame;
-        this.keyPlayer = newGame.keyPlayer;}, 4000)
+      setTimeout(()=>{
+        this.tempelGame = newGame;
+        }, 4000)
     } else {
       this.tempelGame = newGame;
-      this.keyPlayer = newGame.keyPlayer;
     }
 
 
   }
 
   private handleNewCardOpened(newGame: TempelGame) {
-    if (this.keyPlayer != null && this.keyPlayer != newGame.keyPlayer) {
+    if (this.tempelGame != null && this.tempelGame.keyPlayer != null && this.tempelGame.keyPlayer != newGame.keyPlayer) {
       switch (newGame.lastOpenedCard.tempelCardType) {
         case TempelCardType.GOLD: {
-          this.toastrService.success( this.keyPlayer.name + " hat Gold gefunden. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Gold!", {
-            positionClass: 'toast-bottom-left',
+          this.toastrService.success( this.tempelGame.keyPlayer.name + " hat Gold gefunden. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Gold!", {
+            positionClass: 'toast-bottom-right',
             timeOut: 8000,
             closeButton: true
           });
           break;
         }
         case TempelCardType.FALLE: {
-          this.toastrService.error(this.keyPlayer.name + " hat eine Falle aufgedeckt. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Falle!", {
-            positionClass: 'toast-bottom-left',
+          this.toastrService.error(this.tempelGame.keyPlayer.name + " hat eine Falle aufgedeckt. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Falle!", {
+            positionClass: 'toast-bottom-right',
             timeOut: 8000,
             closeButton: true
           });
           break;
         }
         case TempelCardType.LEER: {
-          this.toastrService.warning( this.keyPlayer.name + " hat eine leere Schatzkammer geöffnet. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Leer!", {
-            positionClass: 'toast-bottom-left',
+          this.toastrService.warning( this.tempelGame.keyPlayer.name + " hat eine leere Schatzkammer geöffnet. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Leer!", {
+            positionClass: 'toast-bottom-right',
             timeOut: 8000,
             closeButton: true
           });
@@ -184,11 +187,17 @@ export class TempelComponent implements OnInit {
   }
 
   hasKey() : boolean{
+    if (this.tempelGame == null || this.tempelGame.keyPlayer == null || this.gameFinished()) {
+      return false;
+    }
     const playerName = this.profileService.getCurrentIdentity().name;
     return this.tempelGame.keyPlayer.name == playerName;
   }
 
   keyText() {
+    if (this.tempelGame == null || this.tempelGame.keyPlayer == null || this.gameFinished()) {
+      return "";
+    }
     return this.tempelGame.keyPlayer.name + " hat den Schlüssel. "
   }
 
