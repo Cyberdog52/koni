@@ -75,7 +75,7 @@
       <img class="role-image" mat-card-image src="{{getRoleImageUrl()}}" alt="Rollenbild">
       <mat-divider vertical="false"></mat-divider>
     <span *ngFor="let card of getCardsOwnPlayer()">
-      <img mat-card-image src="{{getOpenImageURL(card)}}" alt="{{card.tempelCardType.toString()}}">
+      <img class="info-image" mat-card-image src="{{getOpenImageURL(card)}}" alt="{{card.tempelCardType.toString()}}">
     </span>
     </mat-card-content>
 
