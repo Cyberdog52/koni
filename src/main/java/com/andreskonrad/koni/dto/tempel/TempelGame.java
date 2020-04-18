@@ -74,7 +74,6 @@ public class TempelGame {
     }
 
     private void assignCards() {
-        this.shuffleIds();
         cards.forEach(tempelCard -> tempelCard.setAssignedPlayer(null));
         List<TempelCard> unopenedCards = this.cards.stream()
                 .filter(tempelCard -> !tempelCard.isOpened())
@@ -196,6 +195,7 @@ public class TempelGame {
         totalGold = goldCount;
         totalLeer = leerCount;
 
+        this.shuffleIds();
     }
 
     private void shuffleIds() {
