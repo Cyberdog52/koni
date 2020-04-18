@@ -255,10 +255,8 @@ export class TempelComponent implements OnInit {
   }
 
   getCardsForPlayer(player: Player): TempelCard[] {
-    function shuffle(array) {
-      return array.sort(() => Math.random() - 0.5);
-    }
-    return shuffle(this.tempelGame.cards.filter(card => card.assignedPlayer != null).filter(card => card.assignedPlayer.name == player.name));
+    return this.tempelGame.cards
+      .filter(card => card.assignedPlayer != null).filter(card => card.assignedPlayer.name == player.name).sort((card1, card2) => card1.id - card2.id);
   }
 
   getImageURL(card: TempelCard) : string {
