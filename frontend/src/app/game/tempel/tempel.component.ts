@@ -314,7 +314,10 @@ export class TempelComponent implements OnInit {
     }
     const playerName = this.profileService.getCurrentIdentity().name;
     const ownPlayer = this.tempelGame.game.players.find(player => player.name == playerName);
-    return this.getCardsForPlayer(ownPlayer)
+    function shuffle(array) {
+      array.sort(() => Math.random() - 0.5);
+    }
+    return shuffle(this.getCardsForPlayer(ownPlayer));
   }
 
   getOpenImageURL(card: TempelCard): string {
