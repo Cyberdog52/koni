@@ -255,7 +255,10 @@ export class TempelComponent implements OnInit {
   }
 
   getCardsForPlayer(player: Player): TempelCard[] {
-    return this.tempelGame.cards.filter(card => card.assignedPlayer != null).filter(card => card.assignedPlayer.name == player.name);
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+    return shuffle(this.tempelGame.cards.filter(card => card.assignedPlayer != null).filter(card => card.assignedPlayer.name == player.name));
   }
 
   getImageURL(card: TempelCard) : string {
@@ -308,14 +311,14 @@ export class TempelComponent implements OnInit {
     }
   }
 
-  getCardsOwnPlayer() {
+  getCardsOwnPlayer(): TempelCard[] {
     if (this.tempelGame == null) {
       return [];
     }
     const playerName = this.profileService.getCurrentIdentity().name;
     const ownPlayer = this.tempelGame.game.players.find(player => player.name == playerName);
     function shuffle(array) {
-      array.sort(() => Math.random() - 0.5);
+      return array.sort(() => Math.random() - 0.5);
     }
     return shuffle(this.getCardsForPlayer(ownPlayer));
   }
