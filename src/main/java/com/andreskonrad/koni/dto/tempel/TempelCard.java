@@ -5,7 +5,7 @@ import com.andreskonrad.koni.dto.Player;
 public class TempelCard {
 
     private static int idCounter = 0;
-    private final int id;
+    private int id;
     private TempelCardType tempelCardType;
 
     private boolean opened;
@@ -40,6 +40,10 @@ public class TempelCard {
 
     public void setAssignedPlayer(Player assignedPlayer) {
         this.assignedPlayer = assignedPlayer;
+    }
+
+    public void setId(Integer newId) {
+        this.id = newId;
     }
 }
 

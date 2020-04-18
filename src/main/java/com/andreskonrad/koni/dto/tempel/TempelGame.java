@@ -74,7 +74,7 @@ public class TempelGame {
     }
 
     private void assignCards() {
-        Collections.shuffle(cards);
+        this.shuffleIds();
         cards.forEach(tempelCard -> tempelCard.setAssignedPlayer(null));
         List<TempelCard> unopenedCards = this.cards.stream()
                 .filter(tempelCard -> !tempelCard.isOpened())
@@ -88,7 +88,6 @@ public class TempelGame {
                 count++;
             }
         }
-        Collections.shuffle(cards);
     }
 
     public void open(int cardNumber) {
@@ -196,6 +195,18 @@ public class TempelGame {
         totalFalle = falleCount;
         totalGold = goldCount;
         totalLeer = leerCount;
+
+    }
+
+    private void shuffleIds() {
+        List<Integer> ids = cards.stream().map(TempelCard::getId).collect(Collectors.toList());
+        Collections.shuffle(ids);
+        Collections.shuffle(cards);
+        int count = 0;
+        for (TempelCard card: cards) {
+            card.setId(ids.get(count));
+            count++;
+        }
     }
 
     private Player getRandomPlayer() {
