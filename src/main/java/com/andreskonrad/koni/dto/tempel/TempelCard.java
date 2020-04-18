@@ -44,5 +44,15 @@ public class TempelCard {
 }
 
 enum TempelCardType {
-    FALLE, LEER, GOLD
+    FALLE, LEER, GOLD;
+
+    static String getName(TempelCardType type) {
+        switch (type) {
+
+            case FALLE: return "Falle";
+            case LEER: return "Leere Schatzkammer";
+            case GOLD: return "Schatzkammer mit Gold";
+        }
+        return "";
+    }
 }

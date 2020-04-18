@@ -39,7 +39,21 @@ public class TempelGameController {
             TempelGame game = this.tempelService.get(gameName);
             game.open(cardNumber);
 
-            String message = gameName + " confirm";
+            String message = gameName + " open";
+            this.template.convertAndSend("/game", message);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("restart")
+    public ResponseEntity<HttpStatus> restart(@RequestParam("gameName") String gameName, @RequestBody String playerName) {
+        try {
+            TempelGame game = this.tempelService.get(gameName);
+            game.restart();
+
+            String message = gameName + " restarted by " + playerName;
             this.template.convertAndSend("/game", message);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

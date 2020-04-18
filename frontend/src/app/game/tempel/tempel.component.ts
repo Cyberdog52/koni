@@ -4,7 +4,14 @@ import {ProfileService} from "../../shared/profile.service";
 import * as SockJS from "sockjs-client";
 import {AppComponent} from "../../app.component";
 import * as Stomp from "stompjs";
-import {TempelCard, TempelCardType, TempelGame, TempelRole, TempelState} from "../../shared/model/tempel-dtos";
+import {
+  TempelCard,
+  TempelCardType,
+  TempelGame,
+  TempelMessage,
+  TempelRole,
+  TempelState
+} from "../../shared/model/tempel-dtos";
 import {TempelGameService} from "./tempel.service";
 import {Player} from "../../shared/model/dtos";
 import {ToastrService} from "ngx-toastr";
@@ -21,6 +28,7 @@ export class TempelComponent implements OnInit {
   public tempelGame: TempelGame;
   private showSecretInfo: boolean;
   private mouseOverCard: TempelCard;
+  private shownMessageIds: number[] = [];
 
   constructor(private gameService: GameService,
               private tempelGameService: TempelGameService,
@@ -73,34 +81,17 @@ export class TempelComponent implements OnInit {
   }
 
   handleChangeGameEvent(newGame: TempelGame): void {
-    if (newGame != null && this.tempelGame != null && newGame.game.name != this.tempelGame.game.name) {
-      this.tempelGame = null;
-    }
-
-    this.handleNewCardOpened(newGame);
-
-
-    if (newGame.state != TempelState.RUNNING) {
-      if (newGame.state == TempelState.MEITLIWON) {
-        this.toastrService.info("" , "Wächterinnen haben gewonnen", {
-          positionClass: 'toast-bottom-right',
-          timeOut: 10000
-        });
-      } else {
-        this.toastrService.info("" , "Schatzjäger haben gewonnen", {
-          positionClass: 'toast-bottom-right',
-          timeOut: 10000
-        });
-      }
+    if (newGame == null) {
       return;
     }
+    if (this.tempelGame != null && (newGame.game.name != this.tempelGame.game.name || this.tempelGame.resetCount < newGame.resetCount)) {
+      // this is a new game. reset state
+      this.resetState();
+    }
+
+    this.showNewMessages(newGame.messages);
 
     if (this.tempelGame != null && this.tempelGame.round != newGame.round) {
-      this.toastrService.info("Es beginnt eine neue Runde, die Karten werden jetzt gemischelt..." , "Neue Runde", {
-        positionClass: 'toast-bottom-right',
-        timeOut: 4000,
-        closeButton: true
-      });
       this.tempelGame.keyPlayer = null;
       const newOpenedCard = this.tempelGame.cards.find(tempelCard => tempelCard.id == newGame.lastOpenedCard.id);
       newOpenedCard.opened = true;
@@ -110,15 +101,41 @@ export class TempelComponent implements OnInit {
     } else {
       this.tempelGame = newGame;
     }
-
-
   }
 
-  private handleNewCardOpened(newGame: TempelGame) {
-    if (this.tempelGame != null && this.tempelGame.keyPlayer != null && this.tempelGame.keyPlayer != newGame.keyPlayer) {
-      switch (newGame.lastOpenedCard.tempelCardType) {
+  private resetState(): void {
+    this.tempelGame = null;
+    this.shownMessageIds = [];
+    this.mouseOverCard = null;
+  }
+
+  private showNewMessages(messages: TempelMessage[]): void {
+    if (messages == null || messages.length == 0) {
+      return;
+    }
+    let newMessages = messages.filter(message => {return !this.shownMessageIds.includes(message.id)});
+    newMessages = newMessages.sort((m1, m2) => m1.id - m2.id);
+
+    if (newMessages.length > 3) {
+      newMessages = newMessages.slice(newMessages.length -3, newMessages.length);
+      messages
+        .forEach(tempelMessage => {
+          this.shownMessageIds.push(tempelMessage.id);
+        });
+    }
+
+    newMessages
+      .forEach(tempelMessage => {
+        this.showMessage(tempelMessage);
+      });
+  }
+
+  private showMessage(tempelMessage: TempelMessage): void {
+    this.shownMessageIds.push(tempelMessage.id);
+    if (tempelMessage.openedCardType != null) {
+      switch (tempelMessage.openedCardType) {
         case TempelCardType.GOLD: {
-          this.toastrService.success( this.tempelGame.keyPlayer.name + " hat Gold gefunden. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Gold!", {
+          this.toastrService.success( tempelMessage.message, "Gold!", {
             positionClass: 'toast-bottom-right',
             timeOut: 8000,
             closeButton: true
@@ -126,7 +143,7 @@ export class TempelComponent implements OnInit {
           break;
         }
         case TempelCardType.FALLE: {
-          this.toastrService.error(this.tempelGame.keyPlayer.name + " hat eine Falle aufgedeckt. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Falle!", {
+          this.toastrService.error(tempelMessage.message, "Falle!", {
             positionClass: 'toast-bottom-right',
             timeOut: 8000,
             closeButton: true
@@ -134,7 +151,7 @@ export class TempelComponent implements OnInit {
           break;
         }
         case TempelCardType.LEER: {
-          this.toastrService.warning( this.tempelGame.keyPlayer.name + " hat eine leere Schatzkammer geöffnet. Neuer Schlüsselträger ist " + newGame.keyPlayer.name, "Leer!", {
+          this.toastrService.warning( tempelMessage.message, "Leer!", {
             positionClass: 'toast-bottom-right',
             timeOut: 8000,
             closeButton: true
@@ -143,7 +160,12 @@ export class TempelComponent implements OnInit {
         }
 
       }
-
+    } else {
+      this.toastrService.info(tempelMessage.message , "Info", {
+        positionClass: 'toast-bottom-right',
+        timeOut: 4000,
+        closeButton: true
+      });
     }
   }
 
@@ -272,7 +294,8 @@ export class TempelComponent implements OnInit {
 
   openCardIfHasKey(player: Player, card: TempelCard) {
     const playerName = this.profileService.getCurrentIdentity().name;
-    if (this.hasKey() && playerName != player.name) {
+    if (this.hasKey() && playerName != player.name && !card.opened) {
+      this.tempelGame.keyPlayer = null;
       this.tempelGameService.open(this.tempelGame.game.name, card.id).subscribe(response => {
         console.log("opened card");
       })
@@ -308,5 +331,13 @@ export class TempelComponent implements OnInit {
 
     }
     return "";
+  }
+
+  restartGame() {
+    const playerName = this.profileService.getCurrentIdentity().name;
+    this.tempelGameService.restart(this.tempelGame.game.name, playerName).subscribe(result => {
+      console.log(result);
+    });
+    this.resetState();
   }
 }

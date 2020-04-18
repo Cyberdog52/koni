@@ -13,24 +13,40 @@ import java.util.stream.Collectors;
 public class TempelGame {
 
     private final Game game;
-    private final HashMap<String, TempelRole> playerToTempelRoleMap = new HashMap<>();
+    private HashMap<String, TempelRole> playerToTempelRoleMap;
     private Player keyPlayer;
-    private List<TempelCard> cards = new ArrayList<>();
+    private List<TempelCard> cards;
     private int round;
     private TempelState state;
     private int totalGold;
     private int totalFalle;
     private int totalLeer;
     private TempelCard lastOpenedCard;
+    private int resetCount;
+    private List<TempelMessage> messages;
 
     public TempelGame(Game game) {
         this.game = game;
+        this.resetCount = 0;
+        initState();
+    }
+
+    private void initState() {
+        this.game.setGameState(GameState.RUNNING);
+        this.playerToTempelRoleMap = new HashMap<>();
         this.keyPlayer = getRandomPlayer();
         round = 1;
         state = TempelState.RUNNING;
+        lastOpenedCard = null;
+        messages = new ArrayList<>();
         this.assignRoles();
         this.createCards();
         this.assignCards();
+    }
+
+    public void restart() {
+        this.initState();
+        this.resetCount++;
     }
 
     private int numberOfOpenedCards() {
@@ -82,11 +98,13 @@ public class TempelGame {
         if (availableCards.size() > 0) {
             TempelCard openedCard = availableCards.get(0);
             this.lastOpenedCard = openedCard;
+            this.messages.add(new TempelMessage(this.messages.size(), getOpenedMessage(), lastOpenedCard.getTempelCardType()));
             this.keyPlayer = openedCard.getAssignedPlayer();
             openedCard.open();
         }
 
         if (getRoundNumber() > round) {
+            this.messages.add(new TempelMessage(this.messages.size(), "Neue Runde! Die Karten werden jetzt gemischelt."));
             round = getRoundNumber();
             assignCards();
         }
@@ -94,23 +112,31 @@ public class TempelGame {
         checkGameEnd();
     }
 
-    public TempelCard getLastOpenedCard() {
-        return this.lastOpenedCard;
+    private String getOpenedMessage() {
+        return this.keyPlayer.getName() +
+                " hat eine " +
+                TempelCardType.getName(this.lastOpenedCard.getTempelCardType()) +
+                " geöffnet. Den Schlüssel trägt nun " +
+                this.lastOpenedCard.getAssignedPlayer().getName() +
+                ".";
     }
 
     private void checkGameEnd() {
         if (goldOpenend() == totalGold) {
             state = TempelState.BUEBWON;
+            messages.add(new TempelMessage(this.messages.size(), "Die Schatzjäger haben gewonnen! Es wurde alles Gold aufgedeckt."));
             game.setGameState(GameState.FINISHED);
             return;
         }
         if (falleOpened() == totalFalle) {
             state = TempelState.MEITLIWON;
+            messages.add(new TempelMessage(this.messages.size(), "Die Wächterinnen haben gewonnen! Es wurden alle Fallen aufgedeckt."));
             game.setGameState(GameState.FINISHED);
             return;
         }
         if (round == 5) {
             state = TempelState.MEITLIWON;
+            messages.add(new TempelMessage(this.messages.size(), "Die Wächterinnen haben gewonnen! Die Schatzjäger konnten das Gold nicht innerhalb von 4 Runden finden. "));
             game.setGameState(GameState.FINISHED);
         }
     }
@@ -243,6 +269,18 @@ public class TempelGame {
         return cards;
     }
 
+    public int getResetCount() {
+        return resetCount;
+    }
+
+    public List<TempelMessage> getMessages() {
+        return messages;
+    }
+
+    public TempelCard getLastOpenedCard() {
+        return this.lastOpenedCard;
+    }
+
     public int getRound() {
         return round;
     }
@@ -271,5 +309,5 @@ enum TempelRole {
 }
 
 enum TempelState {
-    RUNNING, MEITLIWON, BUEBWON
+    RUNNING, MEITLIWON, BUEBWON;
 }

@@ -12,6 +12,8 @@ export interface TempelGame {
   totalFalle: number
   totalLeer: number
   lastOpenedCard: TempelCard;
+  messages: TempelMessage[];
+  resetCount: number;
 }
 
 export interface TempelCard {
@@ -31,4 +33,10 @@ export enum TempelRole {
 
 export enum TempelState {
   RUNNING = "RUNNING", MEITLIWON = "MEITLIWON", BUEBWON = "BUEBWON"
+}
+
+export interface TempelMessage {
+  id: number;
+  message: string;
+  openedCardType: TempelCardType;
 }
