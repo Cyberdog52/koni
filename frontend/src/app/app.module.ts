@@ -49,6 +49,7 @@ import { HistoryComponent } from './game/leiterli/history/history.component';
 import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker.component';
 import { TopbarComponent } from './game/leiterli/topbar/topbar.component';
 import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/move-visualisation.component';
+import { TempelComponent } from './game/tempel/tempel.component';
 import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
@@ -90,6 +91,8 @@ import { MenuComponent } from './menu/menu.component';
     HistoryComponent,
     AvatarpickerComponent,
     TopbarComponent,
+    MoveVisualisationComponent,
+    TempelComponent,
     MoveVisualisationComponent,
     MenuComponent
   ],

@@ -1,0 +1,86 @@
+<p *ngIf="tempelGame != null">
+
+  <mat-card *ngIf="gameFinished()">
+    <mat-card-title>
+      {{ getFinishedTitle() }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{getTotalCountText()}}
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-label>
+        {{getFinishedExplanation()}}
+      </mat-label>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="vote-button" (click)="restartGame()">Spiel neu starten</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+
+
+  <mat-card *ngIf="!gameFinished()">
+    <mat-card-title>
+      Runde {{ getRoundText() }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{getTotalCountText()}}
+
+    </mat-card-subtitle>
+    <mat-card-content>
+      <mat-label>
+        {{keyText()}}
+      </mat-label>
+      <div *ngIf="hasKey()">
+        <mat-divider>
+        </mat-divider>
+        <img mat-card-image src="{{getKeyUrl()}}" alt="Schlüssel">
+        <mat-divider>
+        </mat-divider>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>
+      Karten
+    </mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let player of tempelGame.game.players">
+        <h3>{{player.name}}</h3>
+        <span *ngFor="let card of getCardsForPlayer(player)">
+          <img mat-card-image src="{{getImageURL(card)}}" alt="{{card.tempelCardType.toString()}}" (click)="openCardIfHasKey(player, card)" (mouseover)="mouseIsOverCard(card)">
+        </span>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+
+
+  <button mat-raised-button class="vote-button" (click)="toggleSecretInfo()">{{secretInfoText()}}</button>
+  <mat-card *ngIf="!gameFinished() && showSecretInfo">
+    <mat-card-title>
+      Geheime Info
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-label>
+        {{getRoleText()}}
+      </mat-label>
+
+    </mat-card-subtitle>
+    <mat-card-content>
+
+      <img class="role-image" mat-card-image src="{{getRoleImageUrl()}}" alt="Rollenbild">
+      <mat-divider vertical="false"></mat-divider>
+    <span *ngFor="let card of getCardsOwnPlayer()">
+      <img class="info-image" mat-card-image src="{{getOpenImageURL(card)}}" alt="{{card.tempelCardType.toString()}}">
+    </span>
+    </mat-card-content>
+
+  </mat-card>
+</p>

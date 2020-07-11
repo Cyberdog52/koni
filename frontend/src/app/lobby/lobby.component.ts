@@ -18,10 +18,10 @@ export class LobbyComponent implements OnInit {
   allGames: Game[] = [];
 
   selectedGameType: GameType;
-  gameTypes = [GameType.WERWOERTER, GameType.LEITERLI];
+  gameTypes = [GameType.WERWOERTER, GameType.LEITERLI, GameType.TEMPEL];
 
   //TODO: adjust per game
-  MIN_PLAYER_PER_GAME: number = 1;
+  MIN_PLAYER_PER_GAME: number = 3;
 
   private stompClient;
 
@@ -185,6 +185,9 @@ export class LobbyComponent implements OnInit {
       case GameType.LEITERLI : {
         return "assets/leiterli/logoleiterli.png";
       }
+      case GameType.TEMPEL : {
+        return "assets/tempel/logo.jpg";
+      }
     }
   }
 
@@ -226,6 +229,9 @@ export class LobbyComponent implements OnInit {
       }
       case GameType.LEITERLI: {
         return "Leiterli";
+      }
+      case GameType.TEMPEL: {
+        return "Tempel";
       }
     }
   }
