@@ -7,7 +7,7 @@ import java.util.Objects;
 @Embeddable
 public class Amount implements Serializable {
 
-    private AmountType type;
+    private AmountSize amountSize;
     private int value;
 
     public enum AmountType {
@@ -26,11 +26,11 @@ public class Amount implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Amount amount = (Amount) o;
         return value == amount.value &&
-                type == amount.type;
+                amountSize == amount.amountSize;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, value);
+        return Objects.hash(amountSize, value);
     }
 }
