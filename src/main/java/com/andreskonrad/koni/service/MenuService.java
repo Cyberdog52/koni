@@ -11,10 +11,8 @@ import java.util.List;
 @Service
 public class MenuService {
 
-
     @Autowired
     private MenuRepository menuRepository;
-
 
     public List<Long> getIds() {
         ArrayList<Long> idList = new ArrayList<>();
@@ -30,6 +28,13 @@ public class MenuService {
     public Menu save(Menu menu) {
         return menuRepository.save(menu);
     }
+
+    public Menu create() {
+        Menu menu = new Menu();
+        menu.setName("Neues Menu");
+        return menuRepository.save(menu);
+    }
+
 
     public void delete(Long id) {
         menuRepository.deleteById(id);

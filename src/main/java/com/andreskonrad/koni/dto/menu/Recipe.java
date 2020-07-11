@@ -12,7 +12,8 @@ public class Recipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private String title;
+    @Column
+    private String title = "Neues Rezept";
 
     @Embedded
     @ElementCollection
@@ -21,8 +22,7 @@ public class Recipe implements Serializable {
     @ElementCollection
     private List<String> steps = new ArrayList<>();
 
-    public Recipe(String title) {
-        this.title = title;
+    public Recipe() {
     }
 
     public String getTitle() {

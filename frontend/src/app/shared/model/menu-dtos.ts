@@ -1,14 +1,18 @@
 
 export interface Menu {
   id: number
+  title: string
   recipeMap: Map<Recipe, number>
 }
 
-export interface Recipe {
-  id: number
-  title: string
-  ingredientMap: Map<Ingredient, Amount>
-  steps: string[]
+export class Recipe {
+  id: number;
+  title: string;
+  ingredientMap: Map<Ingredient, Amount>;
+  steps: string[];
+
+  constructor() {
+  }
 }
 
 export interface Ingredient {

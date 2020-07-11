@@ -14,11 +14,15 @@ public class Menu implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column
+    private String name;
+
     @ElementCollection
     private Map<Recipe, Integer> recipeMap = new HashMap<>();
 
     //for jpa and json deserialization
-    public Menu() {}
+    public Menu() {
+    }
 
 
     public void addRecipeOrChangeAmount(Recipe recipe, Integer amount) {
@@ -31,6 +35,14 @@ public class Menu implements Serializable {
 
     public Map<Recipe, Integer> getRecipeMap() {
         return recipeMap;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

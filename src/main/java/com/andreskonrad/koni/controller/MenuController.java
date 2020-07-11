@@ -34,8 +34,8 @@ public class MenuController {
         return menu;
     }
 
-    @PostMapping("")
-    public Object save(@RequestBody Menu menu) {
+    @PostMapping("/{id}")
+    public Object save(@PathVariable("id") Long id, @RequestBody Menu menu) {
         Menu savedMenu = menuService.save(menu);
         if (savedMenu == null) {
             return new ResponseEntity<HttpStatus> (HttpStatus.NOT_MODIFIED);
@@ -43,8 +43,17 @@ public class MenuController {
         return savedMenu;
     }
 
-    @DeleteMapping("")
-    public ResponseEntity<HttpStatus> delete(@RequestBody Long id) {
+    @GetMapping("/")
+    public Object create() {
+        Menu menu = menuService.create();
+        if (menu == null) {
+            return new ResponseEntity<HttpStatus> (HttpStatus.NOT_MODIFIED);
+        }
+        return menu;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
         menuService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
