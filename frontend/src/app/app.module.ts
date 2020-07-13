@@ -30,7 +30,7 @@ import { CitizenwonComponent } from './game/werwoerter/citizenwon/citizenwon.com
 import { CitizenvoteComponent } from './game/werwoerter/citizenvote/citizenvote.component';
 import { MainComponent } from './main/main.component';
 import { CocktailComponent } from './main/cocktail/cocktail.component';
-import { RecipeComponent } from './main/cocktail/recipe/recipe.component';
+import { CocktailRecipeComponent } from './main/cocktail/recipe/cocktail-recipe.component';
 import { CocktailInstructionsComponent } from './main/cocktail/recipe/cocktail-instructions/cocktail-instructions.component';
 import { SearchCocktailComponent } from './main/cocktail/search-cocktail/search-cocktail.component';
 import { CompletelyRandomCocktailComponent } from './main/cocktail/completely-random-cocktail/completely-random-cocktail.component';
@@ -51,6 +51,7 @@ import { TopbarComponent } from './game/leiterli/topbar/topbar.component';
 import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/move-visualisation.component';
 import { TempelComponent } from './game/tempel/tempel.component';
 import {DialogDeleteMenu, MenuComponent} from './menu/menu.component';
+import {DialogDeleteRecipe, MenuRecipeComponent} from "./menu/recipe/menu-recipe.component";
 
 @NgModule({
   declarations: [
@@ -73,7 +74,7 @@ import {DialogDeleteMenu, MenuComponent} from './menu/menu.component';
     CitizenvoteComponent,
     MainComponent,
     CocktailComponent,
-    RecipeComponent,
+    MenuRecipeComponent,
     CocktailInstructionsComponent,
     SearchCocktailComponent,
     CompletelyRandomCocktailComponent,
@@ -95,9 +96,11 @@ import {DialogDeleteMenu, MenuComponent} from './menu/menu.component';
     TempelComponent,
     MoveVisualisationComponent,
     MenuComponent,
-    DialogDeleteMenu
+    DialogDeleteMenu,
+    CocktailRecipeComponent,
+    DialogDeleteRecipe
   ],
-  entryComponents: [DialogDeleteMenu],
+  entryComponents: [DialogDeleteMenu, DialogDeleteRecipe],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),

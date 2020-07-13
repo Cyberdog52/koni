@@ -3,15 +3,16 @@ import {MenuService} from "../menu.service";
 import {RecipeService} from "./recipe.service";
 import {Menu, Recipe} from "../../shared/model/menu-dtos";
 import {DialogDeleteMenu} from "../menu.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-recipe',
-  templateUrl: './recipe.component.html',
-  styleUrls: ['./recipe.component.scss']
+  templateUrl: './menu-recipe.component.html',
+  styleUrls: ['./menu-recipe.component.scss']
 })
-export class RecipeComponent implements OnInit {
+export class MenuRecipeComponent implements OnInit {
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, public dialog: MatDialog) { }
 
   recipes: Map<number, Recipe> = new Map();
 
@@ -55,20 +56,16 @@ export class RecipeComponent implements OnInit {
   }
 
   deleteRecipe(id: number) {
-    /*
-    const dialogRef = this.dialog.open(DialogDeleteMenu);
+    const dialogRef = this.dialog.open(DialogDeleteRecipe);
 
     dialogRef.afterClosed().subscribe(userClickedDelete => {
       if (userClickedDelete) {
-        this.menuService.delete(id).subscribe(() => {
+        this.recipeService.delete(id).subscribe(() => {
           this.loadAllRecipes();
         });
-        this.menus.delete(id);
+        this.recipes.delete(id);
       }
     });
-    */
-
-
   }
 
   loadRecipe(id: number): void {
@@ -96,3 +93,9 @@ export class RecipeComponent implements OnInit {
     // TODO
   }
 }
+
+@Component({
+  selector: 'dialog-delete-recipe',
+  templateUrl: 'delete-recipe-dialog.html',
+})
+export class DialogDeleteRecipe {}
