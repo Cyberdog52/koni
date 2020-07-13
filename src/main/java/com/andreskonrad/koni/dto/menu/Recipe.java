@@ -63,4 +63,8 @@ public class Recipe implements Serializable {
     public int hashCode() {
         return Objects.hash(title, ingredientMap, steps);
     }
+
+    public Long getId() {
+        return this.id;
+    }
 }

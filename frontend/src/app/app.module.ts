@@ -50,7 +50,7 @@ import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker
 import { TopbarComponent } from './game/leiterli/topbar/topbar.component';
 import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/move-visualisation.component';
 import { TempelComponent } from './game/tempel/tempel.component';
-import { MenuComponent } from './menu/menu.component';
+import {DialogDeleteMenu, MenuComponent} from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -94,8 +94,10 @@ import { MenuComponent } from './menu/menu.component';
     MoveVisualisationComponent,
     TempelComponent,
     MoveVisualisationComponent,
-    MenuComponent
+    MenuComponent,
+    DialogDeleteMenu
   ],
+  entryComponents: [DialogDeleteMenu],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),

@@ -6,6 +6,11 @@
     <td mat-cell *matCellDef="let menu"> {{menu.name}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="recipeCount">
+    <th mat-header-cell *matHeaderCellDef> Rezepte </th>
+    <td mat-cell *matCellDef="let menu"> {{getRecipeCount(menu)}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef> Löschen </th>
     <td mat-cell *matCellDef="let menu"> <button mat-raised-button (click)="deleteMenu(menu.id)">Löschen</button> </td>

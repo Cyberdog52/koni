@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuService} from "./menu.service";
 import {Menu, Recipe} from "../shared/model/menu-dtos";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-menu',
@@ -9,11 +10,11 @@ import {Menu, Recipe} from "../shared/model/menu-dtos";
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private menuService: MenuService) { }
+  constructor(private menuService: MenuService, public dialog: MatDialog) { }
 
   menus: Map<number, Menu> = new Map();
 
-  displayedColumns: string[] = ['name', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'recipeCount', 'edit', 'delete', ];
 
   ngOnInit() {
     this.loadAllMenus();
@@ -33,7 +34,7 @@ export class MenuComponent implements OnInit {
       return;
     }
     this.menuService.save(menu).subscribe(savedMenu => {
-      this.menus.set(menu.id, menu);
+      this.menus.set(savedMenu.id, savedMenu);
     })
   }
 
@@ -53,10 +54,17 @@ export class MenuComponent implements OnInit {
   }
 
   deleteMenu(id: number) {
-    this.menuService.delete(id).subscribe(() => {
-      this.loadAllMenus();
+    const dialogRef = this.dialog.open(DialogDeleteMenu);
+
+    dialogRef.afterClosed().subscribe(userClickedDelete => {
+      if (userClickedDelete) {
+        this.menuService.delete(id).subscribe(() => {
+          this.loadAllMenus();
+        });
+        this.menus.delete(id);
+      }
     });
-    this.menus.delete(id);
+
   }
 
   loadMenu(id: number): void {
@@ -74,4 +82,20 @@ export class MenuComponent implements OnInit {
   editMenu(id: number) {
     //TODO
   }
+
+  getRecipeCount(menu: Menu) : number {
+    if (menu.recipeMap) {
+      const values = Object.keys(menu.recipeMap).map(function(key) {
+        return menu.recipeMap[key];
+      });
+      return values.length;
+    }
+    return 0;
+  }
 }
+
+@Component({
+  selector: 'dialog-delete-menu',
+  templateUrl: 'delete-menu-dialog.html',
+})
+export class DialogDeleteMenu {}
