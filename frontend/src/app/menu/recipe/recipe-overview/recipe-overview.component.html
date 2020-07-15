@@ -1,15 +1,40 @@
 <mat-card *ngIf="recipe">
-  <mat-card-title>{{recipe.title}}</mat-card-title>
+  <mat-card-title><input class="recipeTitleInput" [(ngModel)]="recipe.title" title="Rezepttitel"></mat-card-title>
   <mat-card-content>
-    <div id="table" class="table-editable">
+    <div id="ingredientTable" class="table-editable">
       <span class="table-add float-right mb-3 mr-2">
-        <a class="text-success" (click)="addNewStep()">
-          <mat-icon>playlist_add</mat-icon>
-        </a>
       </span>
       <table class="table table-bordered table-responsive-md table-striped">
         <tr>
-          <th>Arbeitsschritt</th>
+          <th>Zutaten  <span  (click)="addNewIngredient()">
+            <mat-icon>add_circle_outline</mat-icon>
+          </span></th>
+          <th>Anzahl</th>
+          <th>Löschen</th>
+        </tr>
+        <tr *ngFor="let ingredient of getIngredients(); let id = index">
+          <td width="80%">
+            <a>{{ingredient}}</a>
+          </td>
+          <td>
+            <a>{{getAmount(ingredient)}}</a>
+          </td>
+          <td>
+            <span>
+              <button type="button" mat-raised-button="" (click)="removeIngredient(id)">Entfernen</button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="stepTable" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped">
+        <tr>
+          <th>Arbeitsschritte  <span  (click)="addNewStep()">
+            <mat-icon>add_circle_outline</mat-icon>
+          </span></th>
           <th>Sortieren</th>
           <th>Löschen</th>
         </tr>
@@ -19,23 +44,19 @@
                       cdkTextareaAutosize
                       #autosize="cdkTextareaAutosize"
                       cdkAutosizeMinRows="1"
-                      cdkAutosizeMaxRows="5"
-                      class="step-input" [ngModel]="recipe.steps[id]" (change)="changeStep(id, $event)" title="stepText">{{step}}</textarea>
+                      cdkAutosizeMaxRows="10"
+                      class="step-input" [ngModel]="recipe.steps[id]" (change)="changeStep(id, $event)" title="Arbeitsschritt {{id + 1}}">{{step}}</textarea>
           </td>
           <td>
-            <span class="table-up">
-              <a class="indigo-text">
-                <mat-icon>keyboard_arrow_up</mat-icon>
-              </a>
+            <span class="table-up" (click)="moveStepUp(id)" *ngIf="id > 0 && recipe.steps.length > 0">
+              <mat-icon>keyboard_arrow_up</mat-icon>
             </span>
-            <span class="table-down">
-              <a class="indigo-text">
+            <span class="table-down" (click)="moveStepDown(id)" *ngIf="id < recipe.steps.length -1 && recipe.steps.length > 0">
                 <mat-icon>keyboard_arrow_down</mat-icon>
-              </a>
             </span>
           </td>
           <td>
-            <span class="table-remove">
+            <span>
               <button type="button" mat-raised-button="" (click)="removeStep(id)">Entfernen</button>
             </span>
           </td>

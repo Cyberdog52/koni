@@ -6,3 +6,25 @@
 .step-input {
   width: 100%;
 }
+
+input {
+  outline: none;
+  border: transparent;
+}
+
+textarea {
+  outline: none;
+  border: transparent;
+}
+
+.recipeTitleInput {
+  font-size: larger;
+}
+
+input:focus {
+  background-color: whitesmoke;
+}
+
+textarea:focus {
+  background-color: whitesmoke;
+}

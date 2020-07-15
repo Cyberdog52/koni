@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {RecipeService} from "../recipe.service";
-import {Recipe} from "../../../shared/model/menu-dtos";
+import {Amount, Recipe} from "../../../shared/model/menu-dtos";
 
 @Component({
   selector: 'app-recipe-overview',
@@ -29,8 +29,6 @@ export class RecipeOverviewComponent implements OnInit {
   }
 
   save() {
-    console.log(this.recipe);
-    console.log("saving")
     this.recipeService.save(this.recipe).subscribe(savedRecipe => {
       console.log(savedRecipe);
       this.recipe = savedRecipe;
@@ -38,7 +36,7 @@ export class RecipeOverviewComponent implements OnInit {
   }
 
   addNewStep() {
-    this.recipe.steps.push("");
+    this.recipe.steps.push("Neuer Arbeitsschritt " + this.recipe.steps.length);
   }
 
   removeStep(id: number) {
@@ -49,5 +47,34 @@ export class RecipeOverviewComponent implements OnInit {
   changeStep(id, event) {
     console.log(event);
     this.recipe.steps[id] = event.target.value;
+  }
+
+  moveStepUp(id: number) {
+    if (id == 0) {
+      return;
+    }
+    const temp = this.recipe.steps[id];
+    this.recipe.steps[id] = this.recipe.steps[id-1];
+    this.recipe.steps[id-1] = temp;
+  }
+  moveStepDown(id: number) {
+    if (id >= this.recipe.steps.length -1) {
+      return;
+    }
+    const temp = this.recipe.steps[id];
+    this.recipe.steps[id] = this.recipe.steps[id+1];
+    this.recipe.steps[id+1] = temp;
+  }
+
+  addNewIngredient() {
+    //TODO
+  }
+
+  getIngredients(): string[] {
+    return Object.keys(this.recipe.ingredientMap);
+  }
+
+  getAmount(ingredient: string) : Amount {
+    return this.recipe.ingredientMap.get(ingredient);
   }
 }
