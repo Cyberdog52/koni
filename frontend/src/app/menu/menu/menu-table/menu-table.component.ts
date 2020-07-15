@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuService} from "./menu.service";
-import {Menu, Recipe} from "../shared/model/menu-dtos";
+import {MenuService} from "../menu.service";
+import {Menu, Recipe} from "../../../shared/model/menu-dtos";
 import {MatDialog} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  selector: 'menu-table',
+  templateUrl: './menu-table.component.html',
+  styleUrls: ['./menu-table.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuTableComponent implements OnInit {
 
-  constructor(private menuService: MenuService, public dialog: MatDialog) { }
+  constructor(private menuService: MenuService, public dialog: MatDialog, private router: Router ) { }
 
   menus: Map<number, Menu> = new Map();
 
@@ -80,7 +81,7 @@ export class MenuComponent implements OnInit {
 }
 
   editMenu(id: number) {
-    //TODO
+    this.router.navigate(['/menu', id]);
   }
 
   getRecipeCount(menu: Menu) : number {
@@ -96,6 +97,6 @@ export class MenuComponent implements OnInit {
 
 @Component({
   selector: 'dialog-delete-menu',
-  templateUrl: 'delete-menu-dialog.html',
+  templateUrl: '../delete-menu-dialog.html',
 })
 export class DialogDeleteMenu {}

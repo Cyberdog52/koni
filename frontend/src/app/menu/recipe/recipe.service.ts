@@ -22,8 +22,8 @@ export class RecipeService {
     return this.httpClient.get<Recipe>(url)
   }
 
-  public save(menu: Recipe): Observable<Recipe> {
-    return this.httpClient.post<Recipe>(`${this.backendUrl}${menu.id}`, menu)
+  public save(recipe: Recipe): Observable<Recipe> {
+    return this.httpClient.post<Recipe>(`${this.backendUrl}${recipe.id}`, recipe)
   }
 
   public create(): Observable<Recipe> {

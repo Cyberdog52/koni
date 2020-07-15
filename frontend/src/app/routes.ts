@@ -6,12 +6,16 @@ import {IsLoggedInGuard} from "./is-logged-in.guard";
 import {GameComponent} from "./game/game.component";
 import {MainComponent} from "./main/main.component";
 import {CocktailComponent} from "./main/cocktail/cocktail.component";
-import {MenuComponent} from "./menu/menu.component";
+import {MenuMainComponent} from "./menu/menu-main.component";
+import {MenuOverviewComponent} from "./menu/menu/menu-overview/menu-overview.component";
+import {RecipeOverviewComponent} from "./menu/recipe/recipe-overview/recipe-overview.component";
 
 export const routes: Routes = [
   {path: 'main', component: MainComponent},
   {path: 'cocktail', component: CocktailComponent},
-  {path: 'menu', component: MenuComponent},
+  {path: 'menu', component: MenuMainComponent},
+  {path: 'menu/:id', component: MenuOverviewComponent },
+  {path: 'recipe/:id', component: RecipeOverviewComponent },
   {path: 'login', component: LoginComponent, canActivate: [LoginScreenGuard]},
   {path: 'lobby', component: LobbyComponent, canActivate: [IsLoggedInGuard]},
   {path: 'game', component: GameComponent, canActivate: [IsLoggedInGuard]},

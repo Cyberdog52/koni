@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuService} from "../menu.service";
-import {RecipeService} from "./recipe.service";
-import {Menu, Recipe} from "../../shared/model/menu-dtos";
-import {DialogDeleteMenu} from "../menu.component";
+import {MenuService} from "../../menu/menu.service";
+import {RecipeService} from "../recipe.service";
+import {Menu, Recipe} from "../../../shared/model/menu-dtos";
+import {DialogDeleteMenu} from "../../menu/menu-table/menu-table.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-recipe',
-  templateUrl: './menu-recipe.component.html',
-  styleUrls: ['./menu-recipe.component.scss']
+  selector: 'recipe-table',
+  templateUrl: './recipe-table.component.html',
+  styleUrls: ['./recipe-table.component.scss']
 })
-export class MenuRecipeComponent implements OnInit {
+export class RecipeTableComponent implements OnInit {
 
-  constructor(private recipeService: RecipeService, public dialog: MatDialog) { }
+  constructor(private recipeService: RecipeService,
+              public dialog: MatDialog,
+              private router: Router ) { }
 
   recipes: Map<number, Recipe> = new Map();
 
@@ -28,16 +31,6 @@ export class MenuRecipeComponent implements OnInit {
 
   getRecipe(id: number): Recipe {
     return this.recipes.get(id);
-  }
-
-  saveRecipe(id: number) {
-    const recipe = this.getRecipe(id);
-    if (recipe == null) {
-      return;
-    }
-    this.recipeService.save(recipe).subscribe(savedRecipe => {
-      this.recipes.set(savedRecipe.id, savedRecipe);
-    })
   }
 
   createRecipe() {
@@ -90,12 +83,12 @@ export class MenuRecipeComponent implements OnInit {
   }
 
   editRecipe(id: number) {
-    // TODO
+    this.router.navigate(['/recipe', id]);
   }
 }
 
 @Component({
   selector: 'dialog-delete-recipe',
-  templateUrl: 'delete-recipe-dialog.html',
+  templateUrl: '../delete-recipe-dialog.html',
 })
 export class DialogDeleteRecipe {}

@@ -50,8 +50,11 @@ import { AvatarpickerComponent } from './game/leiterli/avatarpicker/avatarpicker
 import { TopbarComponent } from './game/leiterli/topbar/topbar.component';
 import { MoveVisualisationComponent } from './game/leiterli/move-visualisation/move-visualisation.component';
 import { TempelComponent } from './game/tempel/tempel.component';
-import {DialogDeleteMenu, MenuComponent} from './menu/menu.component';
-import {DialogDeleteRecipe, MenuRecipeComponent} from "./menu/recipe/menu-recipe.component";
+import {DialogDeleteMenu, MenuTableComponent} from './menu/menu/menu-table/menu-table.component';
+import {DialogDeleteRecipe, RecipeTableComponent} from "./menu/recipe/recipe-table/recipe-table.component";
+import { RecipeOverviewComponent } from './menu/recipe/recipe-overview/recipe-overview.component';
+import { MenuOverviewComponent } from './menu/menu/menu-overview/menu-overview.component';
+import { MenuMainComponent } from './menu/menu-main.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +77,7 @@ import {DialogDeleteRecipe, MenuRecipeComponent} from "./menu/recipe/menu-recipe
     CitizenvoteComponent,
     MainComponent,
     CocktailComponent,
-    MenuRecipeComponent,
+    RecipeTableComponent,
     CocktailInstructionsComponent,
     SearchCocktailComponent,
     CompletelyRandomCocktailComponent,
@@ -95,10 +98,13 @@ import {DialogDeleteRecipe, MenuRecipeComponent} from "./menu/recipe/menu-recipe
     MoveVisualisationComponent,
     TempelComponent,
     MoveVisualisationComponent,
-    MenuComponent,
+    MenuTableComponent,
     DialogDeleteMenu,
     CocktailRecipeComponent,
-    DialogDeleteRecipe
+    DialogDeleteRecipe,
+    RecipeOverviewComponent,
+    MenuOverviewComponent,
+    MenuMainComponent
   ],
   entryComponents: [DialogDeleteMenu, DialogDeleteRecipe],
   imports: [

@@ -1,0 +1,49 @@
+<mat-card *ngIf="recipe">
+  <mat-card-title>{{recipe.title}}</mat-card-title>
+  <mat-card-content>
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <a class="text-success" (click)="addNewStep()">
+          <mat-icon>playlist_add</mat-icon>
+        </a>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped">
+        <tr>
+          <th>Arbeitsschritt</th>
+          <th>Sortieren</th>
+          <th>Löschen</th>
+        </tr>
+        <tr *ngFor="let step of recipe.steps; let id = index">
+          <td width="80%">
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      class="step-input" [ngModel]="recipe.steps[id]" (change)="changeStep(id, $event)" title="stepText">{{step}}</textarea>
+          </td>
+          <td>
+            <span class="table-up">
+              <a class="indigo-text">
+                <mat-icon>keyboard_arrow_up</mat-icon>
+              </a>
+            </span>
+            <span class="table-down">
+              <a class="indigo-text">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+              </a>
+            </span>
+          </td>
+          <td>
+            <span class="table-remove">
+              <button type="button" mat-raised-button="" (click)="removeStep(id)">Entfernen</button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button="" (click)="save()">Speichern</button>
+  </mat-card-actions>
+</mat-card>
