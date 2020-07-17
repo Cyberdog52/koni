@@ -1,8 +1,6 @@
 package com.andreskonrad.koni.dto.menu;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,7 +9,15 @@ import java.util.Objects;
 public class Ingredient implements Serializable {
 
     @Id
-    private final String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column(unique = true)
+    private String name;
+
+    //for jpa and json deserialization
+    public Ingredient() {
+    }
 
     public Ingredient(String name) {
         this.name = name;
@@ -21,16 +27,11 @@ public class Ingredient implements Serializable {
         return name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ingredient that = (Ingredient) o;
-        return Objects.equals(name, that.name);
+    public long getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public void setName(String name) {
+        this.name = name;
     }
 }

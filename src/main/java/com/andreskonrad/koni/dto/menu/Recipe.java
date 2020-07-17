@@ -15,9 +15,8 @@ public class Recipe implements Serializable {
     @Column
     private String title = "Neues Rezept";
 
-    @Embedded
     @ElementCollection
-    private Map<Ingredient, Amount> ingredientMap = new HashMap<>();
+    private Map<Long, Amount> ingredientIdMap = new HashMap<>();
 
     @ElementCollection
     private List<String> steps = new ArrayList<>();
@@ -29,8 +28,8 @@ public class Recipe implements Serializable {
         return title;
     }
 
-    public Map<Ingredient, Amount> getIngredientMap() {
-        return ingredientMap;
+    public Map<Long, Amount> getIngredientIdMap() {
+        return ingredientIdMap;
     }
 
     public List<String> getSteps() {
@@ -41,8 +40,8 @@ public class Recipe implements Serializable {
         this.title = title;
     }
 
-    public void setIngredientMap(Map<Ingredient, Amount> ingredientMap) {
-        this.ingredientMap = ingredientMap;
+    public void setIngredientIdMap(Map<Long, Amount> ingredientMap) {
+        this.ingredientIdMap = ingredientMap;
     }
 
     public void setSteps(List<String> steps) {
@@ -55,13 +54,13 @@ public class Recipe implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
         return Objects.equals(title, recipe.title) &&
-                Objects.equals(ingredientMap, recipe.ingredientMap) &&
+                Objects.equals(ingredientIdMap, recipe.ingredientIdMap) &&
                 Objects.equals(steps, recipe.steps);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, ingredientMap, steps);
+        return Objects.hash(title, ingredientIdMap, steps);
     }
 
     public Long getId() {

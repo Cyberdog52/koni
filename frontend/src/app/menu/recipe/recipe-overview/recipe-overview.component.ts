@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {RecipeService} from "../recipe.service";
 import {Amount, Recipe} from "../../../shared/model/menu-dtos";
+import {IngredientService} from "../ingredient.service";
 
 @Component({
   selector: 'app-recipe-overview',
@@ -13,7 +14,8 @@ export class RecipeOverviewComponent implements OnInit {
   recipe: Recipe;
   id: number;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
+  constructor(private route: ActivatedRoute,
+              private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id');
@@ -66,15 +68,5 @@ export class RecipeOverviewComponent implements OnInit {
     this.recipe.steps[id+1] = temp;
   }
 
-  addNewIngredient() {
-    //TODO
-  }
 
-  getIngredients(): string[] {
-    return Object.keys(this.recipe.ingredientMap);
-  }
-
-  getAmount(ingredient: string) : Amount {
-    return this.recipe.ingredientMap.get(ingredient);
-  }
 }

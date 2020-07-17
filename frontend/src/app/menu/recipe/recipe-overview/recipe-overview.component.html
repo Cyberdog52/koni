@@ -1,32 +1,7 @@
 <mat-card *ngIf="recipe">
   <mat-card-title><input class="recipeTitleInput" [(ngModel)]="recipe.title" title="Rezepttitel"></mat-card-title>
   <mat-card-content>
-    <div id="ingredientTable" class="table-editable">
-      <span class="table-add float-right mb-3 mr-2">
-      </span>
-      <table class="table table-bordered table-responsive-md table-striped">
-        <tr>
-          <th>Zutaten  <span  (click)="addNewIngredient()">
-            <mat-icon>add_circle_outline</mat-icon>
-          </span></th>
-          <th>Anzahl</th>
-          <th>Löschen</th>
-        </tr>
-        <tr *ngFor="let ingredient of getIngredients(); let id = index">
-          <td width="80%">
-            <a>{{ingredient}}</a>
-          </td>
-          <td>
-            <a>{{getAmount(ingredient)}}</a>
-          </td>
-          <td>
-            <span>
-              <button type="button" mat-raised-button="" (click)="removeIngredient(id)">Entfernen</button>
-            </span>
-          </td>
-        </tr>
-      </table>
-    </div>
+    <app-ingredient-table [recipe]="recipe"></app-ingredient-table>
     <div id="stepTable" class="table-editable">
       <span class="table-add float-right mb-3 mr-2">
       </span>
