@@ -12,25 +12,34 @@
         <a>{{getIngredientName(ingredientId)}}</a>
       </td>
       <td width="40%">
-        <a>{{getAmount(ingredientId)}}</a>
+        <a>{{getAmountString(ingredientId)}}</a>
       </td>
       <td>
-            <span>
-              <button type="button" mat-raised-button="" (click)="removeIngredient(id)">Entfernen</button>
-            </span>
+          <span>
+            <button type="button" mat-raised-button="" (click)="removeIngredient(id)">Entfernen</button>
+          </span>
       </td>
     </tr>
     <tr>
       <td width="40%">
-        <input type="text" placeholder="Neue Zutat" aria-label="Number" [ngModel]="newIngredientName" matInput [matAutocomplete]="auto">
+        <input type="text" placeholder="Neue Zutat" aria-label="Number" [(ngModel)]="newIngredientName" matInput [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of getIngredientOptions()" [value]="option">
             {{option}}
           </mat-option>
         </mat-autocomplete>
       </td>
-      <td width="40%">
-        <a>amount</a>
+      <td width="20%">
+        <input type="text" placeholder="0 ... 100" aria-label="Amount Number" [(ngModel)]="newAmountText" matInput>
+      </td>
+      <td width="20%">
+        <mat-select [(value)]="newAmountSize">
+          <mat-optgroup *ngFor="let group of amountGroups" [label]="amountGroupToName(group)">
+            <mat-option *ngFor="let amountSize of group.amountSize" [value]="amountSize">
+              {{amountSizeToName(amountSize)}}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
       </td>
       <td  >
         <span>

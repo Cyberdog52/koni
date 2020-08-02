@@ -21,14 +21,23 @@ export interface Ingredient {
 
 }
 
-export interface Amount {
-  value: number
-  amountSize: AmountSize
+export class Amount {
+  value: number;
+  amountSize: AmountSize;
+
+  constructor() {
+  }
 
 }
 
 export enum AmountSize {
-  G="G", KG="KG", DL="DL", TL="TL", EL="EL", L="L", PIECE="PIECE"
+  UNDEFINED="UNDEFINED",
+  G="G", KG="KG", DL="DL", TL="TL", EL="EL", L="L", PIECE="PIECE", LITTLE="LITTLE", DEMAND="DEMAND"
+}
+
+export interface AmountGroup {
+  amountType: AmountType
+  amountSize: AmountSize[];
 }
 
 export enum AmountType {

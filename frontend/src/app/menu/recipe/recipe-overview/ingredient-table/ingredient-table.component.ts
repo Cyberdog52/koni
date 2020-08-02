@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Amount, Ingredient, Recipe} from "../../../../shared/model/menu-dtos";
+import {Amount, AmountGroup, AmountSize, AmountType, Ingredient, Recipe} from "../../../../shared/model/menu-dtos";
 import {IngredientService} from "../../ingredient.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-ingredient-table',
@@ -11,43 +12,85 @@ export class IngredientTableComponent implements OnInit {
 
   @Input() recipe : Recipe;
   private loadedIngredients: Ingredient[] = [];
-  newIngredientName: string;
-  newAmount: Amount;
+  amountGroups: AmountGroup[];
+  newIngredientName: string = "";
+  newAmountSize: AmountSize;
+  newAmountText: string = "";
 
-  constructor(private ingredientService: IngredientService) { }
+  constructor(private ingredientService: IngredientService,
+              private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.loadIngredients();
+    this.initAmountGroups();
   }
 
-  private loadIngredients() {
+  private loadIngredients(): void {
     this.ingredientService.getIngredients().subscribe(ingredients => {
       this.loadedIngredients = ingredients;
     });
   }
 
+  private initAmountGroups(): void {
+    this.amountGroups = [
+      {amountType: AmountType.WEIGHT, amountSize: [AmountSize.G, AmountSize.KG]},
+      {amountType: AmountType.PIECE, amountSize: [AmountSize.PIECE]},
+      {amountType: AmountType.WATER, amountSize: [AmountSize.DL, AmountSize.L]},
+      {amountType: AmountType.SPOON, amountSize: [AmountSize.EL, AmountSize.TL]},
+      {amountType: AmountType.UNDEFINED, amountSize: [AmountSize.UNDEFINED, AmountSize.LITTLE, AmountSize.DEMAND]}
+      ];
+  }
+
+
   addNewIngredient() {
+    if (this.newIngredientName == null || this.newIngredientName.length == 0) {
+      this.toastrService.warning( "Bitte gib der neuen Zutat einen Namen, bevor du die Zutat hinzufügst.");
+      return;
+    }
+    if (this.newAmountText == null || this.newAmountText.length == 0) {
+      this.toastrService.warning( "Bitte gib eine Menge ein, bevor du eine neue Zutat hinzufügst.");
+      return;
+    }
+    if (this.newAmountSize == null) {
+      this.toastrService.warning( "Bitte wähle für die neue Zutat eine Mengenangabe aus.");
+      return;
+    }
+
+    const newAmount = new Amount();
+    newAmount.amountSize = this.newAmountSize;
+    newAmount.value = +this.newAmountText;
+
+    if (isNaN(newAmount.value)) {
+      this.toastrService.warning( this.newAmountText +" ist keine Zahl. Bitte gib eine Zahl ein");
+      return;
+    }
+
     const alreadyLoadedIngredient = this.loadedIngredients.find(ingredient => ingredient.name.localeCompare(this.newIngredientName) == 0);
     if (alreadyLoadedIngredient) {
-      this.recipe.ingredientIdMap.set(alreadyLoadedIngredient.id.toString(), this.newAmount);
-      this.newAmount = null;
+      this.addIngredient(alreadyLoadedIngredient.id.toString(), newAmount);
     } else {
       this.ingredientService.create(this.newIngredientName).subscribe(newIngredient => {
         this.loadedIngredients.push(newIngredient);
-        this.recipe.ingredientIdMap.set(newIngredient.id.toString(), this.newAmount);
-        this.newAmount = null;
+        this.addIngredient(newIngredient.id.toString(), newAmount);
       });
     }
 
     this.newIngredientName = "";
+    this.newAmountText = "";
+    this.newAmountSize = null;
+  }
+
+  addIngredient(idString: string, amount: Amount) {
+    this.recipe.ingredientIdMap.set(idString, amount);
   }
 
   getIngredientIds(): string[] {
-    return Object.keys(this.recipe.ingredientIdMap);
+    return Array.from(this.recipe.ingredientIdMap.keys());
   }
 
-  getAmount(ingredient: string) : Amount {
-    return this.recipe.ingredientIdMap.get(ingredient);
+  getAmountString(ingredient: string) : string {
+    const amount = this.recipe.ingredientIdMap.get(ingredient);
+    return amount.value + " " + this.amountSizeToName(amount.amountSize);
   }
 
   removeIngredient(id: number) {
@@ -64,5 +107,30 @@ export class IngredientTableComponent implements OnInit {
       return ingredient.name;
     }
     return "";
+  }
+
+  amountGroupToName(group: AmountGroup): string {
+    switch(group.amountType) {
+      case AmountType.PIECE: return "Stück";
+      case AmountType.UNDEFINED: return "Ungenau";
+      case AmountType.WEIGHT: return "Gewicht";
+      case AmountType.WATER: return "Wasser";
+      case AmountType.SPOON: return "Löffel";
+    }
+  }
+
+  amountSizeToName(amountSize: AmountSize): string {
+    switch (amountSize) {
+      case AmountSize.DL: return "Deziliter";
+      case AmountSize.EL: return "Esslöffel";
+      case AmountSize.G: return "Gramm";
+      case AmountSize.KG: return "Kilogramm";
+      case AmountSize.L: return "Liter";
+      case AmountSize.PIECE: return "Stück";
+      case AmountSize.TL: return "Teelöffel";
+      case AmountSize.UNDEFINED: return "Undefiniert";
+      case AmountSize.DEMAND: return "Nach Bedarf";
+      case AmountSize.LITTLE: return "Ein wenig";
+    }
   }
 }

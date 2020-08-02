@@ -14,10 +14,8 @@ public class Amount implements Serializable {
         WATER, PIECE, SPOON, WEIGHT, UNDEFINED
     }
 
-
-
     public enum AmountSize {
-        G, KG, DL, TL, EL, L, PIECE;
+        G, KG, DL, TL, EL, L, PIECE, UNDEFINED, LITTLE, DEMAND;
     }
 
     @Override
