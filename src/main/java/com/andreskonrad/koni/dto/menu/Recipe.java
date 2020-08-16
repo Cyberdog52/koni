@@ -16,7 +16,7 @@ public class Recipe implements Serializable {
     private String title = "Neues Rezept";
 
     @ElementCollection
-    private Map<Long, Amount> ingredientIdMap = new HashMap<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     @ElementCollection
     private List<String> steps = new ArrayList<>();
@@ -28,8 +28,8 @@ public class Recipe implements Serializable {
         return title;
     }
 
-    public Map<Long, Amount> getIngredientIdMap() {
-        return ingredientIdMap;
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 
     public List<String> getSteps() {
@@ -40,27 +40,17 @@ public class Recipe implements Serializable {
         this.title = title;
     }
 
-    public void setIngredientIdMap(Map<Long, Amount> ingredientMap) {
-        this.ingredientIdMap = ingredientMap;
-    }
-
-    public void setSteps(List<String> steps) {
-        this.steps = steps;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipe recipe = (Recipe) o;
-        return Objects.equals(title, recipe.title) &&
-                Objects.equals(ingredientIdMap, recipe.ingredientIdMap) &&
-                Objects.equals(steps, recipe.steps);
+        return Objects.equals(id, recipe.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, ingredientIdMap, steps);
+        return Objects.hash(id);
     }
 
     public Long getId() {

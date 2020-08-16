@@ -7,12 +7,12 @@
       <th>Anzahl</th>
       <th>Löschen</th>
     </tr>
-    <tr *ngFor="let ingredientId of getIngredientIds(); let id = index">
+    <tr *ngFor="let ingredient of this.recipe.ingredients; let id = index">
       <td width="40%">
-        <a>{{getIngredientName(ingredientId)}}</a>
+        <a>{{ingredient.product.name}}</a>
       </td>
       <td width="40%">
-        <a>{{getAmountString(ingredientId)}}</a>
+        <a>{{getAmountString(ingredient.amount)}}</a>
       </td>
       <td>
           <span>
@@ -22,7 +22,7 @@
     </tr>
     <tr>
       <td width="40%">
-        <input type="text" placeholder="Neue Zutat" aria-label="Number" [(ngModel)]="newIngredientName" matInput [matAutocomplete]="auto">
+        <input type="text" placeholder="Neue Zutat" aria-label="Number" [(ngModel)]="newProductName" matInput [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of getIngredientOptions()" [value]="option">
             {{option}}

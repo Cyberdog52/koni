@@ -4,34 +4,46 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
 @Table
 public class Ingredient implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column
+    private Product product;
 
-    @Column(unique = true)
-    private String name;
+    @Column
+    private Amount amount;
 
     //for jpa and json deserialization
     public Ingredient() {
     }
 
-    public Ingredient(String name) {
-        this.name = name;
+    public Product getProduct() {
+        return product;
     }
 
-    public String getName() {
-        return name;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public long getId() {
-        return id;
+    public Amount getAmount() {
+        return amount;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAmount(Amount amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return Objects.equals(product, that.product) &&
+                Objects.equals(amount, that.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, amount);
     }
 }

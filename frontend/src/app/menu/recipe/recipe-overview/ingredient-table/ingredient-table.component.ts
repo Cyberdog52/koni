@@ -1,6 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Amount, AmountGroup, AmountSize, AmountType, Ingredient, Recipe} from "../../../../shared/model/menu-dtos";
-import {IngredientService} from "../../ingredient.service";
+import {
+  Amount,
+  AmountGroup,
+  AmountSize,
+  AmountType, Ingredient,
+  Product,
+  Recipe
+} from "../../../../shared/model/menu-dtos";
+import {ProductService} from "../../product.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -11,23 +18,23 @@ import {ToastrService} from "ngx-toastr";
 export class IngredientTableComponent implements OnInit {
 
   @Input() recipe : Recipe;
-  private loadedIngredients: Ingredient[] = [];
+  private loadedProducts: Product[] = [];
   amountGroups: AmountGroup[];
-  newIngredientName: string = "";
+  newProductName: string = "";
   newAmountSize: AmountSize;
   newAmountText: string = "";
 
-  constructor(private ingredientService: IngredientService,
+  constructor(private productService: ProductService,
               private toastrService: ToastrService) { }
 
   ngOnInit() {
-    this.loadIngredients();
+    this.loadProducts();
     this.initAmountGroups();
   }
 
-  private loadIngredients(): void {
-    this.ingredientService.getIngredients().subscribe(ingredients => {
-      this.loadedIngredients = ingredients;
+  private loadProducts(): void {
+    this.productService.getProducts().subscribe(products => {
+      this.loadedProducts = products;
     });
   }
 
@@ -43,7 +50,7 @@ export class IngredientTableComponent implements OnInit {
 
 
   addNewIngredient() {
-    if (this.newIngredientName == null || this.newIngredientName.length == 0) {
+    if (this.newProductName == null || this.newProductName.length == 0) {
       this.toastrService.warning( "Bitte gib der neuen Zutat einen Namen, bevor du die Zutat hinzufügst.");
       return;
     }
@@ -65,44 +72,44 @@ export class IngredientTableComponent implements OnInit {
       return;
     }
 
-    const alreadyLoadedIngredient = this.loadedIngredients.find(ingredient => ingredient.name.localeCompare(this.newIngredientName) == 0);
-    if (alreadyLoadedIngredient) {
-      this.addIngredient(alreadyLoadedIngredient.id.toString(), newAmount);
+    const alreadyLoadedProduct = this.loadedProducts.find(product => product.name.localeCompare(this.newProductName) == 0);
+    if (alreadyLoadedProduct) {
+      this.addIngredient(alreadyLoadedProduct, newAmount);
     } else {
-      this.ingredientService.create(this.newIngredientName).subscribe(newIngredient => {
-        this.loadedIngredients.push(newIngredient);
-        this.addIngredient(newIngredient.id.toString(), newAmount);
+      this.productService.create(this.newProductName).subscribe(newProduct => {
+        this.loadedProducts.push(newProduct);
+        this.addIngredient(newProduct, newAmount);
       });
     }
 
-    this.newIngredientName = "";
+    this.newProductName = "";
     this.newAmountText = "";
     this.newAmountSize = null;
   }
 
-  addIngredient(idString: string, amount: Amount) {
-    this.recipe.ingredientIdMap.set(idString, amount);
+  addIngredient(product: Product, amount: Amount) {
+    this.recipe.ingredients.push(new Ingredient(amount, product ));
   }
 
-  getIngredientIds(): string[] {
-    return Array.from(this.recipe.ingredientIdMap.keys());
+
+  getProductIds(): string[] {
+    return Array.from(this.recipe.ingredients.map(ingredient => ingredient.product.id.toString()));
   }
 
-  getAmountString(ingredient: string) : string {
-    const amount = this.recipe.ingredientIdMap.get(ingredient);
+  getAmountString(amount: Amount) : string {
     return amount.value + " " + this.amountSizeToName(amount.amountSize);
   }
 
-  removeIngredient(id: number) {
-    this.recipe.ingredientIdMap.delete(id.toString());
+  removeIngredient(index: number) {
+    this.recipe.ingredients.splice(index, 1);
   }
 
   getIngredientOptions(): string[] {
-    return Array.from(this.loadedIngredients.map(ingredient => ingredient.name).values());
+    return Array.from(this.loadedProducts.map(ingredient => ingredient.name).values());
   }
 
   getIngredientName(ingredientId: string): string {
-    const ingredient = this.loadedIngredients.find(ingredient => ingredient.id.toString().localeCompare(ingredientId) == 0);
+    const ingredient = this.loadedProducts.find(ingredient => ingredient.id.toString().localeCompare(ingredientId) == 0);
     if (ingredient) {
       return ingredient.name;
     }

@@ -1,14 +1,33 @@
 package com.andreskonrad.koni.dto.menu;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
+@Table
 public class Amount implements Serializable {
 
     private AmountSize amountSize;
     private int value;
+
+    public Amount() {
+    }
+
+    public AmountSize getAmountSize() {
+        return amountSize;
+    }
+
+    public void setAmountSize(AmountSize amountSize) {
+        this.amountSize = amountSize;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     public enum AmountType {
         WATER, PIECE, SPOON, WEIGHT, UNDEFINED

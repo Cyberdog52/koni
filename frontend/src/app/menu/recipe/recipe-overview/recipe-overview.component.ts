@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {RecipeService} from "../recipe.service";
-import {Amount, Recipe} from "../../../shared/model/menu-dtos";
-import {IngredientService} from "../ingredient.service";
+import {Recipe} from "../../../shared/model/menu-dtos";
 
 @Component({
   selector: 'app-recipe-overview',
@@ -25,38 +24,12 @@ export class RecipeOverviewComponent implements OnInit {
 
   private loadRecipe() {
     this.recipeService.loadRecipe(this.id).subscribe(loadedRecipe => {
-      console.log(loadedRecipe);
-
-
-      if (loadedRecipe.ingredientIdMap == null){
-        loadedRecipe.ingredientIdMap = new Map<string, Amount>();
-      }
-      if (!(loadedRecipe.ingredientIdMap instanceof Map)) {
-        loadedRecipe.ingredientIdMap = <Map<string, Amount>> loadedRecipe.ingredientIdMap;
-      }
-      if (Object.keys(loadedRecipe.ingredientIdMap).length == 0) {
-        loadedRecipe.ingredientIdMap = new Map<string, Amount>();
-      }
-
-
-      //loadedRecipe.ingredientIdMap = <Map<string, Amount>> (loadedRecipe.ingredientIdMap);
       this.recipe = loadedRecipe;
-      console.log(this.recipe.ingredientIdMap instanceof Map);
     })
   }
 
   save() {
     this.recipeService.save(this.recipe).subscribe(savedRecipe => {
-      console.log(savedRecipe);
-      if (savedRecipe.ingredientIdMap == null){
-        savedRecipe.ingredientIdMap = new Map<string, Amount>();
-      }
-      if (!(savedRecipe.ingredientIdMap instanceof Map)) {
-        savedRecipe.ingredientIdMap = <Map<string, Amount>> savedRecipe.ingredientIdMap;
-      }
-      if (Object.keys(savedRecipe.ingredientIdMap).length == 0) {
-        savedRecipe.ingredientIdMap = new Map<string, Amount>();
-      }
       this.recipe = savedRecipe;
     })
   }
@@ -71,7 +44,6 @@ export class RecipeOverviewComponent implements OnInit {
 
 
   changeStep(id, event) {
-    console.log(event);
     this.recipe.steps[id] = event.target.value;
   }
 

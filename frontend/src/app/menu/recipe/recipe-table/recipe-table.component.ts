@@ -68,9 +68,9 @@ export class RecipeTableComponent implements OnInit {
   }
 
   getIngredientCount(recipe: Recipe): number {
-    if (recipe.ingredientIdMap) {
-      const values = Object.keys(recipe.ingredientIdMap).map(function(key) {
-        return recipe.ingredientIdMap[key];
+    if (recipe.ingredients) {
+      const values = Object.keys(recipe.ingredients).map(function(key) {
+        return recipe.ingredients[key];
       });
       return values.length;
     }

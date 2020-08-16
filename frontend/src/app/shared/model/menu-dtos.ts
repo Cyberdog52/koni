@@ -8,17 +8,28 @@ export interface Menu {
 export class Recipe {
   id: number;
   title: string;
-  ingredientIdMap: Map<string, Amount>;
+  ingredients: Ingredient[];
   steps: string[];
 
   constructor() {
   }
 }
 
-export interface Ingredient {
+export class Ingredient {
+  id: number;
+  amount: Amount;
+  product: Product;
+
+  constructor( amount: Amount, product: Product) {
+    this.amount = amount;
+    this.product = product;
+  }
+
+}
+
+export interface Product {
   id: number
   name: string
-
 }
 
 export class Amount {
