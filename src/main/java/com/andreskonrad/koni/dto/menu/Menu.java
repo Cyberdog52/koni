@@ -2,9 +2,7 @@ package com.andreskonrad.koni.dto.menu;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table
@@ -18,23 +16,18 @@ public class Menu implements Serializable {
     private String name;
 
     @ElementCollection
-    private Map<Recipe, Integer> recipeMap = new HashMap<>();
+    private List<MenuPart> menuParts = new ArrayList<>();
 
     //for jpa and json deserialization
     public Menu() {
     }
 
-
-    public void addRecipeOrChangeAmount(Recipe recipe, Integer amount) {
-        recipeMap.put(recipe, amount);
+    public List<MenuPart> getMenuParts() {
+        return menuParts;
     }
 
-    public void removeRecipe(Recipe recipe) {
-        recipeMap.remove(recipe);
-    }
-
-    public Map<Recipe, Integer> getRecipeMap() {
-        return recipeMap;
+    public void setMenuParts(List<MenuPart> menuParts) {
+        this.menuParts = menuParts;
     }
 
     public String getName() {

@@ -6,6 +6,11 @@
     <td mat-cell *matCellDef="let recipe"> {{recipe.title}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="numberOfPeople">
+    <th mat-header-cell *matHeaderCellDef> Für wieviele Personen </th>
+    <td mat-cell *matCellDef="let recipe"> {{recipe.numberOfPeople}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="ingredientCount">
     <th mat-header-cell *matHeaderCellDef> Zutaten </th>
     <td mat-cell *matCellDef="let recipe"> {{getIngredientCount(recipe)}} </td>

@@ -105,7 +105,8 @@ export class IngredientTableComponent implements OnInit {
   }
 
   getIngredientOptions(): string[] {
-    return Array.from(this.loadedProducts.map(ingredient => ingredient.name).values());
+    return Array.from(this.loadedProducts.map(product => product.name)
+      .filter(productName => productName.toLowerCase().startsWith(this.newProductName.toLowerCase())).values());
   }
 
   getIngredientName(ingredientId: string): string {

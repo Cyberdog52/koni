@@ -74,22 +74,14 @@ export class MenuTableComponent implements OnInit {
     });
   }
 
-  addRecipe(menu: Menu)  {
-    const recipe = new Recipe();
-    menu.recipeMap.set(recipe, 0);
-
-}
 
   editMenu(id: number) {
     this.router.navigate(['/menu', id]);
   }
 
   getRecipeCount(menu: Menu) : number {
-    if (menu.recipeMap) {
-      const values = Object.keys(menu.recipeMap).map(function(key) {
-        return menu.recipeMap[key];
-      });
-      return values.length;
+    if (menu.menuParts) {
+      return menu.menuParts.length;
     }
     return 0;
   }

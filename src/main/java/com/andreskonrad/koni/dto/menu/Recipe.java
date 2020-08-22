@@ -21,6 +21,12 @@ public class Recipe implements Serializable {
     @ElementCollection
     private List<String> steps = new ArrayList<>();
 
+    @Column
+    private Integer numberOfPeople;
+
+    @Column
+    private String linkToPicture;
+
     public Recipe() {
     }
 
@@ -38,6 +44,22 @@ public class Recipe implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public String getLinkToPicture() {
+        return linkToPicture;
+    }
+
+    public void setLinkToPicture(String linkToPicture) {
+        this.linkToPicture = linkToPicture;
     }
 
     @Override

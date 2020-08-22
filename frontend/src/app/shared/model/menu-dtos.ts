@@ -2,7 +2,12 @@
 export interface Menu {
   id: number
   title: string
-  recipeMap: Map<Recipe, number>
+  menuParts: MenuPart[]
+}
+
+export interface MenuPart {
+  recipe: Recipe
+  numberOfPeople: number
 }
 
 export class Recipe {
@@ -10,6 +15,8 @@ export class Recipe {
   title: string;
   ingredients: Ingredient[];
   steps: string[];
+  numberOfPeople: number;
+  linkToPicture: string;
 
   constructor() {
   }

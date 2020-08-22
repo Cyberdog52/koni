@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {RecipeService} from "../recipe.service";
 import {Recipe} from "../../../shared/model/menu-dtos";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-recipe-overview',
@@ -14,7 +15,9 @@ export class RecipeOverviewComponent implements OnInit {
   id: number;
 
   constructor(private route: ActivatedRoute,
-              private recipeService: RecipeService) { }
+              private router: Router,
+              private recipeService: RecipeService,
+              private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id');
@@ -30,6 +33,7 @@ export class RecipeOverviewComponent implements OnInit {
 
   save() {
     this.recipeService.save(this.recipe).subscribe(savedRecipe => {
+      this.toastrService.success("Rezept gespeichert", "Erfolg");
       this.recipe = savedRecipe;
     })
   }
@@ -65,4 +69,7 @@ export class RecipeOverviewComponent implements OnInit {
   }
 
 
+  back() {
+    this.router.navigateByUrl("/menu");
+  }
 }

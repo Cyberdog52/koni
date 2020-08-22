@@ -19,7 +19,7 @@ export class RecipeTableComponent implements OnInit {
 
   recipes: Map<number, Recipe> = new Map();
 
-  displayedColumns: string[] = ['name', 'ingredientCount', 'stepCount', 'edit', 'delete', ];
+  displayedColumns: string[] = ['name', 'numberOfPeople','ingredientCount', 'stepCount', 'edit', 'delete' ];
 
   ngOnInit() {
     this.loadAllRecipes();
