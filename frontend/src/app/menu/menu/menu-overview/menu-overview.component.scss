@@ -1,0 +1,21 @@
+input {
+  outline: none;
+  border: transparent;
+}
+input:focus {
+  background-color: whitesmoke;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+}
+
+.menuTitleInput {
+  font-size: larger;
+}
+
+.menuPeopleInput {
+  width: 80%;
+}
+

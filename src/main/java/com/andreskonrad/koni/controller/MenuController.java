@@ -34,6 +34,17 @@ public class MenuController {
         return menu;
     }
 
+    @GetMapping("/{id}/ingredients")
+    public Object getIngredients(@PathVariable("id") Long id) {
+        Menu menu = menuService.get(id);
+
+
+        if (menu == null) {
+            return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
+        }
+        return menu.calculateIngredients();
+    }
+
     @PostMapping("/{id}")
     public Object save(@PathVariable("id") Long id, @RequestBody Menu menu) {
         Menu savedMenu = menuService.save(menu);

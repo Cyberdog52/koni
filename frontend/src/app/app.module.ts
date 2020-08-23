@@ -56,6 +56,7 @@ import { RecipeOverviewComponent } from './menu/recipe/recipe-overview/recipe-ov
 import { MenuOverviewComponent } from './menu/menu/menu-overview/menu-overview.component';
 import { MenuMainComponent } from './menu/menu-main.component';
 import { IngredientTableComponent } from './menu/recipe/recipe-overview/ingredient-table/ingredient-table.component';
+import { MenuIngredientTableComponent } from './menu/menu/menu-ingredient-table/menu-ingredient-table.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { IngredientTableComponent } from './menu/recipe/recipe-overview/ingredie
     RecipeOverviewComponent,
     MenuOverviewComponent,
     MenuMainComponent,
-    IngredientTableComponent
+    IngredientTableComponent,
+    MenuIngredientTableComponent
   ],
   entryComponents: [DialogDeleteMenu, DialogDeleteRecipe],
   imports: [

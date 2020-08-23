@@ -12,10 +12,11 @@ public class Recipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column
-    private String title = "Neues Rezept";
+    @Column(unique = true)
+    private String title;
 
-    @ElementCollection
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Ingredient> ingredients = new ArrayList<>();
 
     @ElementCollection

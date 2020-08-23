@@ -1,3 +1,52 @@
 <mat-card *ngIf="menu">
-  <mat-card-title>{{menu.title}}</mat-card-title>
+  <mat-card-title><input class="menuTitleInput" [(ngModel)]="menu.name" title="Menutitle"></mat-card-title>
+  <mat-card-content>
+    <table class="table table-bordered table-responsive-md table-striped">
+      <tr>
+        <th>Rezept</th>
+        <th>Anzahl Personen</th>
+        <th>Aktion</th>
+      </tr>
+      <tr *ngFor="let menuPart of this.menu.menuParts; let index = index">
+        <td width="40%">
+          <a>{{menuPart.recipe.title}}</a>
+        </td>
+        <td width="40%">
+          <a><input class="menuPeopleInput" [(ngModel)]="menuPart.numberOfPeople" title="MenuPeople"></a>
+        </td>
+        <td>
+          <span>
+            <button type="button" mat-raised-button="" (click)="removeMenuPart(index)">Löschen</button>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td width="40%">
+          <mat-select class="amount-select" [(value)]="newRecipe" placeholder="Neues Rezept auswählen">
+            <mat-option *ngFor="let recipe of getRecipes()" [value]="recipe">
+              {{recipe.title}}
+            </mat-option>
+          </mat-select>
+        </td>
+        <td width="40%">
+          <input type="text" class="menuPeopleInput" placeholder="0 ... 100" aria-label="Amount Number" [(ngModel)]="newRecipePeople" matInput>
+        </td>
+        <td  >
+          <span>
+            <button type="button" mat-raised-button="" (click)="addNewRecipe()">Hinzufügen</button>
+          </span>
+        </td>
+      </tr>
+    </table>
+
+  </mat-card-content>
+
+  <mat-card-content>
+    <menu-ingredient-table [menu]="this.menu"></menu-ingredient-table>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button="" (click)="save()">Speichern</button>
+    <button mat-raised-button="" (click)="back()">Zurück zur Übersicht</button>
+  </mat-card-actions>
 </mat-card>

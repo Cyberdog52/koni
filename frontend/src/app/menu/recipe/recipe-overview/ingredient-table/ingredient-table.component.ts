@@ -3,7 +3,8 @@ import {
   Amount,
   AmountGroup,
   AmountSize,
-  AmountType, Ingredient,
+  AmountType,
+  Ingredient,
   Product,
   Recipe
 } from "../../../../shared/model/menu-dtos";
@@ -43,8 +44,8 @@ export class IngredientTableComponent implements OnInit {
       {amountType: AmountType.WEIGHT, amountSize: [AmountSize.G, AmountSize.KG]},
       {amountType: AmountType.PIECE, amountSize: [AmountSize.PIECE]},
       {amountType: AmountType.WATER, amountSize: [AmountSize.DL, AmountSize.L]},
-      {amountType: AmountType.SPOON, amountSize: [AmountSize.EL, AmountSize.TL]},
-      {amountType: AmountType.UNDEFINED, amountSize: [AmountSize.UNDEFINED, AmountSize.LITTLE, AmountSize.DEMAND]}
+      {amountType: AmountType.SPOON, amountSize: [AmountSize.KL, AmountSize.EL, AmountSize.TL]},
+      {amountType: AmountType.UNDEFINED, amountSize: [AmountSize.UNDEFINED, AmountSize.LITTLE, AmountSize.ALOT, AmountSize.DEMAND]}
       ];
   }
 
@@ -139,6 +140,8 @@ export class IngredientTableComponent implements OnInit {
       case AmountSize.UNDEFINED: return "Undefiniert";
       case AmountSize.DEMAND: return "Nach Bedarf";
       case AmountSize.LITTLE: return "Ein wenig";
+      case AmountSize.ALOT: return "Viel";
+      case AmountSize.KL: return "Kaffeelöffel";
     }
   }
 }

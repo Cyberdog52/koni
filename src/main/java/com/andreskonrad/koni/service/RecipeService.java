@@ -30,9 +30,10 @@ public class RecipeService {
     }
 
     public Recipe create() {
-        Recipe menu = new Recipe();
-        menu.setTitle("Neues Rezept");
-        return recipeRepository.save(menu);
+        Recipe recipe = new Recipe();
+        Recipe savedRecipe =  recipeRepository.save(recipe);
+        savedRecipe.setTitle("Neues Rezept " + recipe.getId());
+        return recipeRepository.save(recipe);
     }
 
 

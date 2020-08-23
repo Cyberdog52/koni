@@ -40,7 +40,7 @@
         <input type="text" class="new-product-input" placeholder="0 ... 100" aria-label="Amount Number" [(ngModel)]="newAmountText" matInput>
       </td>
       <td width="20%">
-        <mat-select class="amount-select" [(value)]="newAmountSize">
+        <mat-select class="amount-select" [(value)]="newAmountSize" placeholder="Einheit wählen">
           <mat-optgroup *ngFor="let group of amountGroups" [label]="amountGroupToName(group)">
             <mat-option *ngFor="let amountSize of group.amountSize" [value]="amountSize">
               {{amountSizeToName(amountSize)}}

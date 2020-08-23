@@ -1,13 +1,17 @@
 
 export interface Menu {
   id: number
-  title: string
+  name: string
   menuParts: MenuPart[]
 }
 
-export interface MenuPart {
-  recipe: Recipe
-  numberOfPeople: number
+export class MenuPart {
+  recipe: Recipe;
+  numberOfPeople: number;
+
+  constructor() {
+  }
+
 }
 
 export class Recipe {
@@ -23,9 +27,9 @@ export class Recipe {
 }
 
 export class Ingredient {
-  id: number;
   amount: Amount;
   product: Product;
+  recipeNames: string[];
 
   constructor( amount: Amount, product: Product) {
     this.amount = amount;
@@ -50,7 +54,7 @@ export class Amount {
 
 export enum AmountSize {
   UNDEFINED="UNDEFINED",
-  G="G", KG="KG", DL="DL", TL="TL", EL="EL", L="L", PIECE="PIECE", LITTLE="LITTLE", DEMAND="DEMAND"
+  G="G", KG="KG", DL="DL", TL="TL", EL="EL", KL="KL", L="L", PIECE="PIECE", LITTLE="LITTLE",ALOT="ALOT", DEMAND="DEMAND"
 }
 
 export interface AmountGroup {

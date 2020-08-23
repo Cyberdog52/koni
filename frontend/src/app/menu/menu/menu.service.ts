@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Menu} from "../../shared/model/menu-dtos";
+import {Ingredient, Menu} from "../../shared/model/menu-dtos";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +31,9 @@ export class MenuService {
 
   public delete(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.backendUrl}${id}`);
+  }
+
+  public getMenuIngredients(id: number): Observable<Ingredient[]> {
+    return this.httpClient.get<Ingredient[]>(`${this.backendUrl}${id}/ingredients`)
   }
 }

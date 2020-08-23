@@ -3,6 +3,7 @@ package com.andreskonrad.koni.dto.menu;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -15,7 +16,7 @@ public class Menu implements Serializable {
     @Column
     private String name;
 
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.ALL)
     private List<MenuPart> menuParts = new ArrayList<>();
 
     //for jpa and json deserialization
@@ -53,5 +54,22 @@ public class Menu implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Ingredient> calculateIngredients() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (MenuPart menuPart: this.menuParts) {
+            Recipe recipe = menuPart.getRecipe();
+            for (Ingredient i : recipe.getIngredients()) {
+                if (i.getProduct() == null || i.getAmount() == null || recipe.getNumberOfPeople() == null) {
+                    continue;
+                }
+                Ingredient newIngredient = new Ingredient(i.getProduct(), new Amount(i.getAmount().getAmountSize(), i.getAmount().getValue() * menuPart.getNumberOfPeople() / recipe.getNumberOfPeople()), new ArrayList<>());
+                newIngredient.addRecipeName(recipe.getTitle());
+                ingredients.add(newIngredient);
+            }
+        }
+
+        return Ingredient.merge(ingredients);
     }
 }

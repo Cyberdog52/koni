@@ -1,0 +1,18 @@
+<table class="table table-bordered table-responsive-md table-striped" *ngIf="menuIngredients != null && menuIngredients.length > 0">
+  <tr>
+    <th>Zutat</th>
+    <th>Menge</th>
+    <th>Kommt vor in</th>
+  </tr>
+  <tr *ngFor="let menuIngredient of this.menuIngredients; let index = index">
+    <td width="40%">
+      <a>{{menuIngredient.product.name}}</a>
+    </td>
+    <td width="40%">
+      <a>{{getAmountString(menuIngredient.amount)}}</a>
+    </td>
+    <td>
+      <a>{{getRecipeNames(menuIngredient)}}</a>
+    </td>
+  </tr>
+</table>
