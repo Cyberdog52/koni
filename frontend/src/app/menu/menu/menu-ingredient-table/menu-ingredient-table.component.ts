@@ -8,7 +8,7 @@ import {MenuService} from "../menu.service";
   styleUrls: ['./menu-ingredient-table.component.scss']
 })
 export class MenuIngredientTableComponent implements OnInit, OnChanges {
-  private menuIngredients: Ingredient[] = [];
+  public menuIngredients: Ingredient[] = [];
 
   constructor(private menuService: MenuService) { }
 
