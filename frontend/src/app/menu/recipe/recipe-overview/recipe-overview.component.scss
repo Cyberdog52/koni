@@ -41,3 +41,8 @@ input:focus {
 textarea:focus {
   background-color: whitesmoke;
 }
+
+textarea {
+  font-size: inherit;
+  font-family:"Helvetica Neue", Helvetica, sans-serif;
+}

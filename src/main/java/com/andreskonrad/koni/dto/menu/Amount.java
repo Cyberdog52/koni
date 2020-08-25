@@ -1,9 +1,12 @@
 package com.andreskonrad.koni.dto.menu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.javatuples.Quartet;
 import org.javatuples.Triplet;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Tuple;
 import java.io.Serializable;
 import java.util.*;
@@ -126,6 +129,7 @@ public class Amount implements Serializable {
         }
         return Amount.merge(amount1, amount0, true);
     }
+
 
     public AmountSize getAmountSize() {
         return amountSize;

@@ -57,6 +57,7 @@ import { MenuOverviewComponent } from './menu/menu/menu-overview/menu-overview.c
 import { MenuMainComponent } from './menu/menu-main.component';
 import { IngredientTableComponent } from './menu/recipe/recipe-overview/ingredient-table/ingredient-table.component';
 import { MenuIngredientTableComponent } from './menu/menu/menu-ingredient-table/menu-ingredient-table.component';
+import {CdkColumnDef} from "@angular/cdk/table";
 
 @NgModule({
   declarations: [
@@ -127,6 +128,7 @@ import { MenuIngredientTableComponent } from './menu/menu/menu-ingredient-table/
   providers: [
     IsLoggedInGuard,
     LoginScreenGuard,
+    CdkColumnDef,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]

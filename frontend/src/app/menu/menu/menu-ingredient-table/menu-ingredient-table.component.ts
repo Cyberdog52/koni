@@ -1,6 +1,7 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Amount, AmountGroup, AmountSize, AmountType, Ingredient, Menu} from "../../../shared/model/menu-dtos";
 import {MenuService} from "../menu.service";
+import {MatSort, MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'menu-ingredient-table',
@@ -13,6 +14,8 @@ export class MenuIngredientTableComponent implements OnInit, OnChanges {
   constructor(private menuService: MenuService) { }
 
   @Input() menu: Menu;
+
+  public displayedColumns: string[] = ['product', 'amount', 'recipeNames' ];
 
   ngOnInit() {
   }

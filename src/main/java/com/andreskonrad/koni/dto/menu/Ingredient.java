@@ -1,5 +1,7 @@
 package com.andreskonrad.koni.dto.menu;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -32,6 +34,40 @@ public class Ingredient implements Serializable {
         this.recipeNames = recipeNames;
     }
 
+    @JsonIgnore
+    public void adjustSize() {
+        if (this.amount == null || this.amount.getAmountSize() == null) {
+            return;
+        }
+        if (this.amount.getAmountSize() == Amount.AmountSize.KL && this.amount.getValue() > 2) {
+            this.amount.setAmountSize(Amount.AmountSize.TL);
+            this.amount.setValue(this.amount.getValue() / 2.0);
+        }
+        if (this.amount.getAmountSize() == Amount.AmountSize.TL && this.amount.getValue() > 3) {
+            this.amount.setAmountSize(Amount.AmountSize.EL);
+            this.amount.setValue(this.amount.getValue() / 3.0);
+        }
+        if (this.amount.getAmountSize() == Amount.AmountSize.EL && this.amount.getValue() > 10) {
+            this.amount.setAmountSize(Amount.AmountSize.G);
+            this.amount.setValue(this.amount.getValue() * 10.0);
+        }
+        if (this.amount.getAmountSize() == Amount.AmountSize.G && this.amount.getValue() > 1000) {
+            this.amount.setAmountSize(Amount.AmountSize.KG);
+            this.amount.setValue(this.amount.getValue() / 1000.0);
+        }
+        if (this.amount.getAmountSize() == Amount.AmountSize.DL && this.amount.getValue() > 10) {
+            this.amount.setAmountSize(Amount.AmountSize.L);
+            this.amount.setValue(this.amount.getValue() / 10.0);
+        }
+
+    }
+
+
+    @JsonIgnore
+    public void round() {
+        if (this.amount != null) this.amount.setValue((double) Math.round(this.amount.getValue() * 10) / 10);
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -56,6 +92,7 @@ public class Ingredient implements Serializable {
         this.recipeNames = recipeNames;
     }
 
+    @JsonIgnore
     public static List<Ingredient> merge(List<Ingredient> ingredients) {
         List<Ingredient> mergedIngredients = new ArrayList<>();
         Map<Product, List<Ingredient>> productToIngredientsMap = new HashMap<>();

@@ -3,6 +3,7 @@ package com.andreskonrad.koni.dto.menu;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Entity
@@ -70,6 +71,14 @@ public class Menu implements Serializable {
             }
         }
 
-        return Ingredient.merge(ingredients);
+        List<Ingredient> mergedIngredients = Ingredient.merge(ingredients);
+
+        for (Ingredient i : mergedIngredients) {
+           i.adjustSize();
+           i.round();
+        }
+
+        mergedIngredients.sort((i1, i2) -> i1.getProduct().getName().compareToIgnoreCase(i2.getProduct().getName()));
+        return mergedIngredients;
     }
 }
