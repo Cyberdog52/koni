@@ -5,7 +5,7 @@
     <tr>
       <th>Zutaten</th>
       <th>Anzahl</th>
-      <th>Löschen</th>
+      <th *ngIf="edit">Löschen</th>
     </tr>
     <tr *ngFor="let ingredient of this.recipe.ingredients; let id = index">
       <td width="40%">
@@ -14,14 +14,14 @@
       <td width="40%">
         <a>{{getAmountString(ingredient.amount)}}</a>
       </td>
-      <td>
+      <td *ngIf="edit">
           <span>
-            <button type="button" mat-raised-button="" (click)="removeIngredient(id)">Entfernen</button>
+            <button type="button" mat-raised-button="" (click)="removeIngredient(id)"><mat-icon>delete_forever</mat-icon></button>
           </span>
       </td>
     </tr>
   </table>
-  <table class="table table-bordered table-responsive-md table-striped">
+  <table *ngIf="edit" class="table table-bordered table-responsive-md table-striped">
     <tr>
       <th>Neue Zutat</th>
       <th>Anzahl</th>
@@ -50,7 +50,7 @@
       </td>
       <td  >
         <span>
-          <button type="button" mat-raised-button="" (click)="addNewIngredient()">Hinzufügen</button>
+          <button type="button" mat-raised-button="" (click)="addNewIngredient()"><mat-icon>add_circle_outline</mat-icon></button>
         </span>
       </td>
     </tr>

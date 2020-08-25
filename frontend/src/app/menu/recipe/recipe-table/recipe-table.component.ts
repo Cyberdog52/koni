@@ -19,7 +19,7 @@ export class RecipeTableComponent implements OnInit {
 
   recipes: Map<number, Recipe> = new Map();
 
-  displayedColumns: string[] = [ 'name', 'image','numberOfPeople','ingredientCount', 'stepCount', 'edit', 'delete' ];
+  displayedColumns: string[] = [ 'name', 'image','numberOfPeople','ingredientCount', 'stepCount', 'view','edit', 'delete' ];
 
   ngOnInit() {
     this.loadAllRecipes();
@@ -83,7 +83,12 @@ export class RecipeTableComponent implements OnInit {
   }
 
   editRecipe(id: number) {
-    this.router.navigate(['/recipe', id]);
+    this.router.navigate(['/recipe', id], { queryParams: { edit: 'true' }});
+  }
+
+  viewRecipe(id: number) {
+    this.router.navigate(['/recipe', id], { queryParams: { edit: 'false' }});
+
   }
 }
 

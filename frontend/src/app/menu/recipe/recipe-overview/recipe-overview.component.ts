@@ -13,15 +13,16 @@ export class RecipeOverviewComponent implements OnInit {
 
   recipe: Recipe;
   id: number;
+  edit: boolean;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private recipeService: RecipeService,
               private toastrService: ToastrService) { }
-
   ngOnInit() {
     this.id = +this.route.snapshot.paramMap.get('id');
-
+    this.edit = false;
+    this.edit = this.route.snapshot.queryParamMap.get('edit').localeCompare("true") == 0;
     this.loadRecipe();
   }
 
@@ -40,15 +41,18 @@ export class RecipeOverviewComponent implements OnInit {
 
   addNewStep() {
     this.recipe.steps.push("Neuer Arbeitsschritt " + this.recipe.steps.length);
+    this.save();
   }
 
   removeStep(id: number) {
     this.recipe.steps.splice(id, 1);
+    this.save();
   }
 
 
   changeStep(id, event) {
     this.recipe.steps[id] = event.target.value;
+    this.save();
   }
 
   moveStepUp(id: number) {
@@ -58,6 +62,8 @@ export class RecipeOverviewComponent implements OnInit {
     const temp = this.recipe.steps[id];
     this.recipe.steps[id] = this.recipe.steps[id-1];
     this.recipe.steps[id-1] = temp;
+
+    this.save();
   }
   moveStepDown(id: number) {
     if (id >= this.recipe.steps.length -1) {
@@ -66,6 +72,8 @@ export class RecipeOverviewComponent implements OnInit {
     const temp = this.recipe.steps[id];
     this.recipe.steps[id] = this.recipe.steps[id+1];
     this.recipe.steps[id+1] = temp;
+
+    this.save();
   }
 
 

@@ -65,6 +65,7 @@ export class MenuOverviewComponent implements OnInit {
 
   removeMenuPart(index: number) {
     this.menu.menuParts.splice(index, 1);
+    this.save();
   }
 
   addNewRecipe() {
@@ -85,9 +86,15 @@ export class MenuOverviewComponent implements OnInit {
 
     this.newRecipe = null;
     this.newRecipePeople = "";
+
+    this.save();
   }
 
   getRecipes(): Recipe[] {
     return Array.from( this.recipes.values());
+  }
+
+  menuPeopleChanged() {
+    this.save();
   }
 }

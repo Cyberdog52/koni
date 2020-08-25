@@ -1,7 +1,9 @@
 <mat-card>
-  <mat-card-title>Menus</mat-card-title>
+  <mat-card-title>
+    Menus
+    <mat-icon>restaurant</mat-icon>
+  </mat-card-title>
   <mat-card-content>
-
 
     <table mat-table [dataSource]="getMenus()" class="mat-elevation-z8">
 
@@ -12,17 +14,20 @@
 
       <ng-container matColumnDef="recipeCount">
         <th mat-header-cell *matHeaderCellDef> Rezepte </th>
-        <td mat-cell *matCellDef="let menu"> {{getRecipeCount(menu)}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef> Löschen </th>
-        <td mat-cell *matCellDef="let menu"> <button mat-raised-button (click)="deleteMenu(menu.id)">Löschen</button> </td>
+        <td mat-cell *matCellDef="let menu" class="recipe-count-cell">
+          {{getRecipeCount(menu)}}
+          <mat-icon>fastfood</mat-icon>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef> Editieren </th>
-        <td mat-cell *matCellDef="let menu"> <button mat-raised-button (click)="editMenu(menu.id)">Editieren</button>  </td>
+        <td mat-cell *matCellDef="let menu"> <button mat-raised-button (click)="editMenu(menu.id)"><mat-icon>edit</mat-icon></button>  </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Löschen </th>
+        <td mat-cell *matCellDef="let menu"> <button mat-raised-button (click)="deleteMenu(menu.id)"><mat-icon>delete_forever</mat-icon></button> </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -30,7 +35,7 @@
     </table>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="createMenu()">Neues Menu</button>
+    <button mat-raised-button (click)="createMenu()"><mat-icon class="green_icon">add_circle_outline</mat-icon><mat-icon class="green_icon">restaurant</mat-icon></button>
   </mat-card-actions>
 </mat-card>
 

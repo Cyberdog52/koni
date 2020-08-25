@@ -1,17 +1,27 @@
 .table {
   width: 100%;
+  max-width: 600px;
   text-align: left;
 }
 
+tr {
+  height: 30px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
 .mat-select {
   border : 1px solid whitesmoke;
+  background-color: transparent;
 }
 
 .new-product-input {
-  border : 1px solid whitesmoke;
+  border : 1px solid honeydew;
   width: 80%;
+  background-color: transparent;
 }
 
 .amount-select {
   width: 80%;
 }
+

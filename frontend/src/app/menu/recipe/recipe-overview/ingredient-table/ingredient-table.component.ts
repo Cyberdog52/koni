@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {
   Amount,
   AmountGroup,
@@ -10,6 +10,8 @@ import {
 } from "../../../../shared/model/menu-dtos";
 import {ProductService} from "../../product.service";
 import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute, Router} from "@angular/router";
+import {RecipeService} from "../../recipe.service";
 
 @Component({
   selector: 'app-ingredient-table',
@@ -19,11 +21,15 @@ import {ToastrService} from "ngx-toastr";
 export class IngredientTableComponent implements OnInit {
 
   @Input() recipe : Recipe;
+  @Input() edit : boolean;
   private loadedProducts: Product[] = [];
   amountGroups: AmountGroup[];
   newProductName: string = "";
   newAmountSize: AmountSize;
   newAmountText: string = "";
+
+  @Output() saveEvent = new EventEmitter<string>();
+
 
   constructor(private productService: ProductService,
               private toastrService: ToastrService) { }
@@ -31,6 +37,10 @@ export class IngredientTableComponent implements OnInit {
   ngOnInit() {
     this.loadProducts();
     this.initAmountGroups();
+  }
+
+  save() {
+    this.saveEvent.emit('save');
   }
 
   private loadProducts(): void {
@@ -86,10 +96,14 @@ export class IngredientTableComponent implements OnInit {
     this.newProductName = "";
     this.newAmountText = "";
     this.newAmountSize = null;
+
+    this.save();
   }
 
   addIngredient(product: Product, amount: Amount) {
     this.recipe.ingredients.push(new Ingredient(amount, product ));
+
+    this.save();
   }
 
 
@@ -103,6 +117,7 @@ export class IngredientTableComponent implements OnInit {
 
   removeIngredient(index: number) {
     this.recipe.ingredients.splice(index, 1);
+    this.save();
   }
 
   getIngredientOptions(): string[] {

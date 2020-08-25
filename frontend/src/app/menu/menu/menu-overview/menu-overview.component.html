@@ -12,11 +12,11 @@
           <a>{{menuPart.recipe.title}}</a>
         </td>
         <td width="40%">
-          <a><input class="menuPeopleInput" [(ngModel)]="menuPart.numberOfPeople" title="MenuPeople"></a>
+          <a><input class="menuPeopleInput" (change)="menuPeopleChanged()" [(ngModel)]="menuPart.numberOfPeople" title="MenuPeople"></a>
         </td>
         <td>
           <span>
-            <button type="button" mat-raised-button="" (click)="removeMenuPart(index)">Löschen</button>
+            <button type="button" mat-raised-button="" (click)="removeMenuPart(index)"><mat-icon>delete_forever</mat-icon></button>
           </span>
         </td>
       </tr>
@@ -33,7 +33,7 @@
         </td>
         <td  >
           <span>
-            <button type="button" mat-raised-button="" (click)="addNewRecipe()">Hinzufügen</button>
+            <button type="button" mat-raised-button="" (click)="addNewRecipe()"><mat-icon>add_circle_outline</mat-icon></button>
           </span>
         </td>
       </tr>
@@ -46,7 +46,6 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button="" (click)="save()">Speichern</button>
     <button mat-raised-button="" (click)="back()">Zurück zur Übersicht</button>
   </mat-card-actions>
 </mat-card>
