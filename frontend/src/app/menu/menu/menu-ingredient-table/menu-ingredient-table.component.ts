@@ -1,7 +1,9 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Amount, AmountGroup, AmountSize, AmountType, Ingredient, Menu} from "../../../shared/model/menu-dtos";
 import {MenuService} from "../menu.service";
-import {MatSort, MatTableDataSource} from "@angular/material";
+import * as FileSaver from "file-saver";
+import {FileSaverOptions} from "file-saver";
+
 
 @Component({
   selector: 'menu-ingredient-table',
@@ -69,5 +71,13 @@ export class MenuIngredientTableComponent implements OnInit, OnChanges {
 
   getRecipeNames(menuIngredient: Ingredient): string {
     return menuIngredient.recipeNames.join( ", ");
+  }
+
+  downloadIngredients() {
+    let csv = this.menuIngredients.map(ingredient => [ingredient.product.name, this.getAmountString(ingredient.amount), this.getRecipeNames(ingredient)].join(';'));
+    let csvArray = csv.join('\r\n');
+
+    let blob = new Blob(["\ufeff"+csvArray], {type: 'text/csv;charset=utf-8' });
+    FileSaver.saveAs(blob, "zutaten_" + this.menu.name + ".csv");
   }
 }

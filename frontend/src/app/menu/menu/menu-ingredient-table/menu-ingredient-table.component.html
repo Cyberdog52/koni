@@ -1,5 +1,8 @@
 <mat-card>
-  <mat-card-title>Zutatenliste</mat-card-title>
+  <mat-card-title>
+    Zutatenliste
+    <button type="button" mat-button="" (click)="downloadIngredients()"><mat-icon>save_alt</mat-icon></button>
+  </mat-card-title>
   <mat-card-content>
     <table mat-table [dataSource]="menuIngredients" *ngIf="menuIngredients != null && menuIngredients.length > 0">
 
