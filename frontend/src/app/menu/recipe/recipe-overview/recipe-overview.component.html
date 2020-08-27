@@ -1,8 +1,8 @@
 <mat-card *ngIf="recipe">
-  <mat-card-title><input [disabled]="!edit" class="recipeTitleInput" [(ngModel)]="recipe.title" title="Rezepttitel"></mat-card-title>
+  <mat-card-title><input type="text" [disabled]="!edit" class="recipeTitleInput" [(ngModel)]="recipe.title" title="Rezepttitel"></mat-card-title>
   <mat-card-subtitle>
     <span>Für </span>
-    <input [disabled]="!edit" class="recipeNumberOfPeopleInput" [(ngModel)]="recipe.numberOfPeople" title="numberOfPeople">
+    <input type="number" (change)="numberOfPeopleChanged()" class="recipeNumberOfPeopleInput" [(ngModel)]="recipe.numberOfPeople" title="numberOfPeople">
     <span>Personen</span>
     <span><mat-icon class="people_icon">people</mat-icon></span>
   </mat-card-subtitle>
@@ -11,7 +11,7 @@
   </mat-card-subtitle>
   <mat-card-subtitle *ngIf="edit">
     <span>Link für Rezeptbild: </span>
-    <input class="linkToPictureInput" [(ngModel)]="recipe.linkToPicture" title="linkToPicture">
+    <input class="linkToPictureInput" type="url" [(ngModel)]="recipe.linkToPicture" title="linkToPicture">
   </mat-card-subtitle>
   <mat-card-content>
     <app-ingredient-table [edit]="edit" [recipe]="recipe" (saveEvent)="save($event)"></app-ingredient-table>

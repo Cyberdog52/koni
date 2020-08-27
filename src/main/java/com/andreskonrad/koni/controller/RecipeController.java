@@ -58,4 +58,14 @@ public class RecipeController {
         recipeService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/{id}/ingredients/{numberOfPeople}")
+    public Object getIngredients(@PathVariable("id") Long id, @PathVariable("numberOfPeople") Integer numberOfPeople) {
+        Recipe recipe = recipeService.get(id);
+
+        if (recipe == null) {
+            return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
+        }
+        return recipe.calculateIngredients(numberOfPeople);
+    }
 }

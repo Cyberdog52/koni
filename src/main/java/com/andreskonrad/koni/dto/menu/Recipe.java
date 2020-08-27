@@ -79,4 +79,20 @@ public class Recipe implements Serializable {
     public Long getId() {
         return this.id;
     }
+
+    public List<Ingredient> calculateIngredients(Integer newNumberOfPeople) {
+        List<Ingredient> calculatedIngredients = new ArrayList<>();
+        for (Ingredient i : this.getIngredients()) {
+            if (i.getProduct() == null || i.getAmount() == null || newNumberOfPeople == null) {
+                continue;
+            }
+            Ingredient newIngredient = new Ingredient(i.getProduct(), new Amount(i.getAmount().getAmountSize(), i.getAmount().getValue() * newNumberOfPeople / this.getNumberOfPeople()), new ArrayList<>());
+            newIngredient.adjustSize();
+            newIngredient.round();
+            newIngredient.addRecipeName(this.getTitle());
+            calculatedIngredients.add(newIngredient);
+        }
+
+        return calculatedIngredients;
+    }
 }

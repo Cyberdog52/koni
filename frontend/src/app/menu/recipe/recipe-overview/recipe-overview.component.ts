@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RecipeService} from "../recipe.service";
 import {Recipe} from "../../../shared/model/menu-dtos";
 import {ToastrService} from "ngx-toastr";
+import {MenuService} from "../../menu/menu.service";
 
 @Component({
   selector: 'app-recipe-overview',
@@ -79,5 +80,15 @@ export class RecipeOverviewComponent implements OnInit {
 
   back() {
     this.router.navigateByUrl("/menu");
+  }
+
+  numberOfPeopleChanged() {
+    if (this.edit) {
+      this.save();
+    } else {
+      this.recipeService.getIngredients(this.recipe.id, this.recipe.numberOfPeople).subscribe(updatedIngredients => {
+        this.recipe.ingredients = updatedIngredients;
+      });
+    }
   }
 }

@@ -1,5 +1,5 @@
 <mat-card *ngIf="menu">
-  <mat-card-title><input class="menuTitleInput" [(ngModel)]="menu.name" title="Menutitle"></mat-card-title>
+  <mat-card-title><input type="text" class="menuTitleInput" [(ngModel)]="menu.name" title="Menutitle"></mat-card-title>
   <mat-card-content>
     <table class="table table-bordered table-responsive-md table-striped">
       <tr>
@@ -12,7 +12,7 @@
           <a>{{menuPart.recipe.title}}</a>
         </td>
         <td width="40%">
-          <a><input class="menuPeopleInput" (change)="menuPeopleChanged()" [(ngModel)]="menuPart.numberOfPeople" title="MenuPeople"></a>
+          <a><input type="number" class="menuPeopleInput" (change)="menuPeopleChanged()" [(ngModel)]="menuPart.numberOfPeople" title="MenuPeople"></a>
         </td>
         <td>
           <span>
@@ -29,7 +29,7 @@
           </mat-select>
         </td>
         <td width="40%">
-          <input type="text" class="menuPeopleInput" placeholder="0 ... 100" aria-label="Amount Number" [(ngModel)]="newRecipePeople" matInput>
+          <input type="number" class="menuPeopleInput" placeholder="0 ... 100" aria-label="Amount Number" [(ngModel)]="newRecipePeople" matInput>
         </td>
         <td  >
           <span>

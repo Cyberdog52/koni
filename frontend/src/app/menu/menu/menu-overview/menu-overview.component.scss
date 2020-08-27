@@ -7,6 +7,10 @@ input:focus {
   background-color: honeydew;
 }
 
+textarea:disabled, input:disabled {
+  color: black;
+}
+
 .table {
   width: 100%;
   text-align: left;

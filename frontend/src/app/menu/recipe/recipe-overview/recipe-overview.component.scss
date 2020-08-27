@@ -17,8 +17,12 @@ textarea {
   border: transparent;
 }
 
+textarea:disabled, input:disabled {
+  color: black;
+}
+
 .recipeNumberOfPeopleInput {
-  width: 20px;
+  width: 40px;
 }
 
 .linkToPictureInput {
