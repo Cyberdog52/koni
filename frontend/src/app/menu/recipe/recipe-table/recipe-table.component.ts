@@ -26,7 +26,7 @@ export class RecipeTableComponent implements OnInit {
   }
 
   getRecipes(): Recipe[] {
-    return Array.from( this.recipes.values());
+    return Array.from( this.recipes.values()).sort((r1, r2) => r1.title.localeCompare(r2.title));
   }
 
   getRecipe(id: number): Recipe {

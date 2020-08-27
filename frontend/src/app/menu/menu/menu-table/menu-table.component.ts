@@ -22,7 +22,7 @@ export class MenuTableComponent implements OnInit {
   }
 
   getMenus(): Menu[] {
-    return Array.from( this.menus.values());
+    return Array.from( this.menus.values()).sort((m1, m2) => m1.name.localeCompare(m2.name));
   }
 
   getMenu(id: number): Menu {
