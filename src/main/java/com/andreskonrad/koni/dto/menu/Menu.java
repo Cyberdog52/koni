@@ -61,7 +61,7 @@ public class Menu implements Serializable {
         List<Ingredient> ingredients = new ArrayList<>();
         for (MenuPart menuPart: this.menuParts) {
             Recipe recipe = menuPart.getRecipe();
-            ingredients.addAll(recipe.calculateIngredients(recipe.getNumberOfPeople()));
+            ingredients.addAll(recipe.calculateIngredients(menuPart.getNumberOfPeople()));
         }
 
         List<Ingredient> mergedIngredients = Ingredient.merge(ingredients);
