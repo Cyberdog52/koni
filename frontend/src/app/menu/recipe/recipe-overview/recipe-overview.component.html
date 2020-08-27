@@ -1,5 +1,5 @@
 <mat-card *ngIf="recipe">
-  <mat-card-title><input type="text" [disabled]="!edit" class="recipeTitleInput" [(ngModel)]="recipe.title" title="Rezepttitel"></mat-card-title>
+  <mat-card-title><input (change)="titleChanged()" type="text" [disabled]="!edit" class="recipeTitleInput" [(ngModel)]="recipe.title" title="Rezepttitel"></mat-card-title>
   <mat-card-subtitle>
     <span>Für </span>
     <input type="number" (change)="numberOfPeopleChanged()" class="recipeNumberOfPeopleInput" [(ngModel)]="recipe.numberOfPeople" title="numberOfPeople">

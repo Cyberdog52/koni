@@ -1,5 +1,5 @@
 <mat-card *ngIf="menu">
-  <mat-card-title><input type="text" class="menuTitleInput" [(ngModel)]="menu.name" title="Menutitle"></mat-card-title>
+  <mat-card-title><input (change)="titleChanged()" type="text" class="menuTitleInput" [(ngModel)]="menu.name" title="Menutitle"></mat-card-title>
   <mat-card-content>
     <table class="table table-bordered table-responsive-md table-striped">
       <tr>

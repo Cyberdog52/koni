@@ -97,4 +97,8 @@ export class MenuOverviewComponent implements OnInit {
   menuPeopleChanged() {
     this.save();
   }
+
+  titleChanged() {
+    this.save();
+  }
 }
