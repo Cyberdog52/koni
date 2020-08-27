@@ -22,12 +22,12 @@
 
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef> Editieren </th>
-        <td mat-cell *matCellDef="let menu"> <button mat-button (click)="editMenu(menu.id)"><mat-icon>edit</mat-icon></button>  </td>
+        <td mat-cell *matCellDef="let menu"> <button mat-button class="blue-button" (click)="editMenu(menu.id)"><mat-icon>edit</mat-icon></button>  </td>
       </ng-container>
 
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Löschen </th>
-        <td mat-cell *matCellDef="let menu"> <button mat-button (click)="deleteMenu(menu.id)"><mat-icon>delete_forever</mat-icon></button> </td>
+        <td mat-cell *matCellDef="let menu"> <button class="red-button" mat-button (click)="deleteMenu(menu.id)"><mat-icon>delete_forever</mat-icon></button> </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -35,7 +35,7 @@
     </table>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="createMenu()"><mat-icon class="green_icon">add_circle_outline</mat-icon><mat-icon class="green_icon">restaurant_menu</mat-icon></button>
+    <button class="green-button" mat-raised-button (click)="createMenu()"><mat-icon>add_circle_outline</mat-icon><mat-icon>restaurant_menu</mat-icon></button>
   </mat-card-actions>
 </mat-card>
 

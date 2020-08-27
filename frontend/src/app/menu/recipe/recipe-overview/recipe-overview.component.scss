@@ -55,3 +55,30 @@ textarea {
   padding-left: 4px;
   font-size: medium;
 }
+
+.green-button {
+  color: mediumseagreen;
+}
+
+.green-button:hover {
+  background-color: mediumseagreen;
+  color: white;
+}
+
+.blue-button {
+  color: lightskyblue;
+}
+
+.blue-button:hover {
+  background-color: lightskyblue;
+  color: white;
+}
+
+.red-button {
+  color: lightcoral;
+}
+
+.red-button:hover {
+  color: white;
+  background-color: lightcoral;
+}

@@ -22,7 +22,7 @@
         <tr>
           <th>Arbeitsschritte
             <span *ngIf="edit" (click)="addNewStep()">
-              <mat-icon>add_circle_outline</mat-icon>
+              <mat-icon class="green-button">add_circle_outline</mat-icon>
             </span></th>
           <th *ngIf="edit">Sortieren</th>
           <th *ngIf="edit">Löschen</th>
@@ -47,7 +47,7 @@
           </td>
           <td *ngIf="edit">
             <span>
-              <button type="button" mat-button="" (click)="removeStep(id)">Entfernen</button>
+              <button class="red-button" type="button" mat-button (click)="removeStep(id)"><mat-icon>delete_forever</mat-icon></button>
             </span>
           </td>
         </tr>
@@ -55,6 +55,6 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button="" (click)="back()">Zurück zur Übersicht</button>
+    <button class="blue-button" mat-raised-button="" (click)="back()">Zurück</button>
   </mat-card-actions>
 </mat-card>
