@@ -95,4 +95,8 @@ export class RecipeOverviewComponent implements OnInit {
   titleChanged() {
     this.save();
   }
+
+  linkChanged() {
+    this.save();
+  }
 }

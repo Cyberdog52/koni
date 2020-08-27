@@ -11,7 +11,7 @@
   </mat-card-subtitle>
   <mat-card-subtitle *ngIf="edit">
     <span>Link für Rezeptbild: </span>
-    <input class="linkToPictureInput" type="url" [(ngModel)]="recipe.linkToPicture" title="linkToPicture">
+    <input class="linkToPictureInput" (change)="linkChanged()" type="url" [(ngModel)]="recipe.linkToPicture" title="linkToPicture">
   </mat-card-subtitle>
   <mat-card-content>
     <app-ingredient-table [edit]="edit" [recipe]="recipe" (saveEvent)="save($event)"></app-ingredient-table>
