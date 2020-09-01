@@ -91,7 +91,7 @@ export class MenuOverviewComponent implements OnInit {
   }
 
   getRecipes(): Recipe[] {
-    return Array.from( this.recipes.values());
+    return Array.from( this.recipes.values()).filter(recipe => !this.menu.menuParts.some(menupart => menupart.recipe.id == recipe.id));
   }
 
   menuPeopleChanged() {

@@ -31,6 +31,7 @@ public class RecipeService {
 
     public Recipe create() {
         Recipe recipe = new Recipe();
+        recipe.setNumberOfPeople(4);
         Recipe savedRecipe =  recipeRepository.save(recipe);
         savedRecipe.setTitle("Neues Rezept " + recipe.getId());
         return recipeRepository.save(recipe);
