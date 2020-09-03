@@ -30,8 +30,11 @@ textarea:disabled, input:disabled {
 }
 
 .recipe-image {
-  max-width: 20%;
-  max-height: 20%;
+  display: block;
+  max-width:50%;
+  max-height:20%;
+  width: auto;
+  height: auto;
 }
 
 .recipeTitleInput {
