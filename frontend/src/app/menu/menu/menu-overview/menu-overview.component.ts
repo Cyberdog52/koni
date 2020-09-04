@@ -101,4 +101,8 @@ export class MenuOverviewComponent implements OnInit {
   titleChanged() {
     this.save();
   }
+
+  getMenuPartsSorted(): MenuPart [] {
+    return this.menu.menuParts.sort((menupart1, menupart2) => menupart1.recipe.title.localeCompare(menupart2.recipe.title));
+  }
 }

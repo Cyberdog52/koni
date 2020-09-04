@@ -7,7 +7,7 @@
         <th>Anzahl Personen</th>
         <th>Aktion</th>
       </tr>
-      <tr *ngFor="let menuPart of this.menu.menuParts; let index = index">
+      <tr *ngFor="let menuPart of getMenuPartsSorted(); let index = index">
         <td width="40%">
           <a>{{menuPart.recipe.title}}</a>
         </td>
