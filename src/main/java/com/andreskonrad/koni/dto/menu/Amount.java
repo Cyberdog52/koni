@@ -61,7 +61,6 @@ public class Amount implements Serializable {
         conversionQuartets.add(new Quartet<>(AmountSize.KG, AmountSize.LITTLE, 0.01, AmountSize.KG));
         conversionQuartets.add(new Quartet<>(AmountSize.KG, AmountSize.ALOT, 0.02, AmountSize.KG));
         conversionQuartets.add(new Quartet<>(AmountSize.KG, AmountSize.DEMAND, 0.01, AmountSize.KG));
-        conversionQuartets.add(new Quartet<>(AmountSize.KG, AmountSize.UNDEFINED, 0.01, AmountSize.KG));
 
         conversionQuartets.add(new Quartet<>(AmountSize.L, AmountSize.DL, 0.1, AmountSize.L));
         conversionQuartets.add(new Quartet<>(AmountSize.L, AmountSize.G, 0.001, AmountSize.L));
@@ -71,7 +70,6 @@ public class Amount implements Serializable {
         conversionQuartets.add(new Quartet<>(AmountSize.L, AmountSize.LITTLE, 0.01, AmountSize.L));
         conversionQuartets.add(new Quartet<>(AmountSize.L, AmountSize.ALOT, 0.02, AmountSize.L));
         conversionQuartets.add(new Quartet<>(AmountSize.L, AmountSize.DEMAND, 0.01, AmountSize.L));
-        conversionQuartets.add(new Quartet<>(AmountSize.L, AmountSize.UNDEFINED, 0.01, AmountSize.L));
 
         conversionQuartets.add(new Quartet<>(AmountSize.DL, AmountSize.G, 0.01, AmountSize.DL));
         conversionQuartets.add(new Quartet<>(AmountSize.DL, AmountSize.EL, 0.1, AmountSize.DL));
@@ -80,7 +78,6 @@ public class Amount implements Serializable {
         conversionQuartets.add(new Quartet<>(AmountSize.DL, AmountSize.LITTLE, 0.1, AmountSize.DL));
         conversionQuartets.add(new Quartet<>(AmountSize.DL, AmountSize.ALOT, 0.2, AmountSize.DL));
         conversionQuartets.add(new Quartet<>(AmountSize.DL, AmountSize.DEMAND, 0.1, AmountSize.DL));
-        conversionQuartets.add(new Quartet<>(AmountSize.DL, AmountSize.UNDEFINED, 0.1, AmountSize.DL));
 
         conversionQuartets.add(new Quartet<>(AmountSize.G, AmountSize.EL, 10.0, AmountSize.G));
         conversionQuartets.add(new Quartet<>(AmountSize.G, AmountSize.TL, 3.0, AmountSize.G));
@@ -88,29 +85,22 @@ public class Amount implements Serializable {
         conversionQuartets.add(new Quartet<>(AmountSize.G, AmountSize.LITTLE, 1.0, AmountSize.G));
         conversionQuartets.add(new Quartet<>(AmountSize.G, AmountSize.ALOT, 2.0, AmountSize.G));
         conversionQuartets.add(new Quartet<>(AmountSize.G, AmountSize.DEMAND, 1.0, AmountSize.G));
-        conversionQuartets.add(new Quartet<>(AmountSize.G, AmountSize.UNDEFINED, 1.0, AmountSize.G));
 
         conversionQuartets.add(new Quartet<>(AmountSize.EL, AmountSize.TL, 0.3, AmountSize.EL));
         conversionQuartets.add(new Quartet<>(AmountSize.EL, AmountSize.KL, 0.15, AmountSize.EL));
         conversionQuartets.add(new Quartet<>(AmountSize.EL, AmountSize.LITTLE, 0.5, AmountSize.EL));
         conversionQuartets.add(new Quartet<>(AmountSize.EL, AmountSize.ALOT, 1.0, AmountSize.EL));
         conversionQuartets.add(new Quartet<>(AmountSize.EL, AmountSize.DEMAND, 0.5, AmountSize.EL));
-        conversionQuartets.add(new Quartet<>(AmountSize.EL, AmountSize.UNDEFINED, 0.5, AmountSize.EL));
 
         conversionQuartets.add(new Quartet<>(AmountSize.TL, AmountSize.KL, 0.5, AmountSize.TL));
         conversionQuartets.add(new Quartet<>(AmountSize.TL, AmountSize.LITTLE, 0.5, AmountSize.TL));
         conversionQuartets.add(new Quartet<>(AmountSize.TL, AmountSize.ALOT, 1.0, AmountSize.TL));
         conversionQuartets.add(new Quartet<>(AmountSize.TL, AmountSize.DEMAND, 0.5, AmountSize.TL));
-        conversionQuartets.add(new Quartet<>(AmountSize.TL, AmountSize.UNDEFINED, 0.5, AmountSize.TL));
 
         conversionQuartets.add(new Quartet<>(AmountSize.LITTLE, AmountSize.ALOT, 2.0, AmountSize.LITTLE));
         conversionQuartets.add(new Quartet<>(AmountSize.LITTLE, AmountSize.DEMAND, 1.0, AmountSize.LITTLE));
-        conversionQuartets.add(new Quartet<>(AmountSize.LITTLE, AmountSize.UNDEFINED, 1.0, AmountSize.LITTLE));
 
         conversionQuartets.add(new Quartet<>(AmountSize.ALOT, AmountSize.DEMAND, 0.5, AmountSize.ALOT));
-        conversionQuartets.add(new Quartet<>(AmountSize.ALOT, AmountSize.UNDEFINED, 1.0, AmountSize.ALOT));
-
-        conversionQuartets.add(new Quartet<>(AmountSize.DEMAND, AmountSize.UNDEFINED, 1.0, AmountSize.DEMAND));
 
         return conversionQuartets;
     }
