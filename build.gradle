@@ -8,8 +8,10 @@ apply plugin: 'io.spring.dependency-management'
 apply from: file("$rootProject.projectDir/gradle/heroku/stage.gradle")
 
 group = 'com.andreskonrad'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+version = '1.0.0'
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 bootJar {
     into('static') {
