@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {WeatherService} from "./weather.service";
+import {FlurService} from "./flur.service";
 import {Observation} from "../shared/model/flur-dtos";
 
 @Component({
@@ -20,7 +20,7 @@ export class FlurComponent implements OnInit {
   public chartColors: Array<any> = [];
 
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: FlurService) { }
 
   ngOnInit() {
     this.getWeatherData();
@@ -32,8 +32,8 @@ export class FlurComponent implements OnInit {
     this.chartColors = [];
 
     this.weatherService.getDischarge(this.stationId).subscribe(data => {
-      this.dischargeObservations = FlurComponent.getEverySecondElement(FlurComponent.convertCsvDataToTimeSeries(data));
-      this.chartLabels = this.dischargeObservations.map(obs => obs.date.toUTCString());
+      this.dischargeObservations = FlurComponent.getEverySecondElement(data);
+      this.chartLabels = this.dischargeObservations.map(obs => obs.date);
       this.chartDatasets.push({data: this.dischargeObservations.map(obs => obs.value), label: "Abfluss"});
       this.chartColors.push({
         backgroundColor: 'rgba(0, 137, 132, .2)',
@@ -44,8 +44,8 @@ export class FlurComponent implements OnInit {
     });
 
     this.weatherService.getLevel(this.stationId).subscribe(data => {
-      this.levelObservations = FlurComponent.getEverySecondElement(FlurComponent.convertCsvDataToTimeSeries(data));
-      this.chartLabels = this.levelObservations.map(obs => obs.date.toUTCString());
+      this.levelObservations = FlurComponent.getEverySecondElement(data);
+      this.chartLabels = this.levelObservations.map(obs => obs.date);
       this.chartDatasets.push({data: this.levelObservations.map(obs => obs.value), label: "Wasserstand"});
       this.chartColors.push({
         backgroundColor: 'rgba(0,166,13,0.2)',
@@ -55,8 +55,8 @@ export class FlurComponent implements OnInit {
     });
 
     this.weatherService.getTemperature(this.stationId).subscribe(data => {
-      this.temperatureObservations = FlurComponent.convertCsvDataToTimeSeries(data);
-      this.chartLabels = this.temperatureObservations.map(obs => obs.date.toUTCString());
+      this.temperatureObservations = data;
+      this.chartLabels = this.temperatureObservations.map(obs => obs.date);
       this.chartDatasets.push({data: this.temperatureObservations.map(obs => obs.value), label: "Temperatur"});
       this.chartColors.push({
         backgroundColor: 'rgba(105, 0, 132, .2)',
@@ -76,27 +76,6 @@ export class FlurComponent implements OnInit {
       }
     }));
     return everySecondEntry;
-  }
-
-  private static convertCsvDataToTimeSeries(csvData: string) : Observation[] {
-    const observations = [];
-    const rows = csvData.split('\n');
-    delete rows[0]; // delete title row
-    rows.forEach( row => {
-      const entries = row.split(",");
-      if (entries.length != 2) {
-        return;
-      }
-      let newDate = new Date(entries[0]);
-      let value = Number.parseFloat(entries[1]);
-
-      const obs : Observation = {
-        date: newDate,
-        value: value
-      };
-      observations.push(obs);
-    });
-    return observations;
   }
 
   public chartOptions: any = {

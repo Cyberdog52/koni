@@ -1,6 +1,6 @@
 
 
 export interface Observation {
-  date: Date,
+  date: string,
   value: number
 }
