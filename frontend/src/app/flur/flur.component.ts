@@ -11,9 +11,9 @@ export class FlurComponent implements OnInit {
 
   private stationId : number = 2243;
 
-  private temperatureObservations : Observation[];
-  private dischargeObservations : Observation[];
-  private levelObservations : Observation[];
+  public temperatureObservations : Observation[];
+  public dischargeObservations : Observation[];
+  public levelObservations : Observation[];
 
   constructor(private weatherService: FlurService) { }
 
