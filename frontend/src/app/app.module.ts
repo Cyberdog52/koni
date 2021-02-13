@@ -60,6 +60,10 @@ import {MenuIngredientTableComponent} from './menu/menu/menu-ingredient-table/me
 import {CdkColumnDef} from "@angular/cdk/table";
 import {FlurComponent} from "./flur/flur.component";
 import {ChartsModule} from "angular-bootstrap-md";
+import { FlurTemperatureComponent } from './flur/flur-temperature/flur-temperature.component';
+import { FlurLevelComponent } from './flur/flur-level/flur-level.component';
+import { FlurDischargeComponent } from './flur/flur-discharge/flur-discharge.component';
+import { FlurTabBaseComponent } from './flur/flur-tab-base/flur-tab-base.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +116,11 @@ import {ChartsModule} from "angular-bootstrap-md";
     MenuMainComponent,
     IngredientTableComponent,
     MenuIngredientTableComponent,
-    FlurComponent
+    FlurComponent,
+    FlurTemperatureComponent,
+    FlurLevelComponent,
+    FlurDischargeComponent,
+    FlurTabBaseComponent
   ],
   entryComponents: [DialogDeleteMenu, DialogDeleteRecipe],
   imports: [

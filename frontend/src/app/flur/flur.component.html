@@ -1,12 +1,12 @@
-<div *ngIf="chartDatasets.length > 0" style="display: block">
-  <canvas mdbChart
-          [chartType]="'line'"
-          [datasets]="chartDatasets"
-          [labels]="chartLabels"
-          [colors]="chartColors"
-          [options]="chartOptions"
-          [legend]="true"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)">
-  </canvas>
-</div>
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Temperatur">
+    <app-flur-temperature [observations]="temperatureObservations"></app-flur-temperature>
+  </mat-tab>
+  <mat-tab label="Wasserstand">
+    <app-flur-level [observations]="levelObservations"></app-flur-level>
+  </mat-tab>
+  <mat-tab label="Abfluss">
+    <app-flur-discharge [observations]="dischargeObservations"></app-flur-discharge>
+  </mat-tab>
+</mat-tab-group>
+
