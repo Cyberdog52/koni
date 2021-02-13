@@ -1,0 +1,12 @@
+<div *ngIf="chartDatasets.length > 0" style="display: block">
+  <canvas mdbChart
+          [chartType]="'line'"
+          [datasets]="chartDatasets"
+          [labels]="chartLabels"
+          [colors]="chartColors"
+          [options]="chartOptions"
+          [legend]="true"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)">
+  </canvas>
+</div>

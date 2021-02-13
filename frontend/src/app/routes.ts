@@ -9,9 +9,11 @@ import {CocktailComponent} from "./main/cocktail/cocktail.component";
 import {MenuMainComponent} from "./menu/menu-main.component";
 import {MenuOverviewComponent} from "./menu/menu/menu-overview/menu-overview.component";
 import {RecipeOverviewComponent} from "./menu/recipe/recipe-overview/recipe-overview.component";
+import {FlurComponent} from "./flur/flur.component";
 
 export const routes: Routes = [
   {path: 'main', component: MainComponent},
+  {path: 'flur', component: FlurComponent},
   {path: 'cocktail', component: CocktailComponent},
   {path: 'menu', component: MenuMainComponent},
   {path: 'menu/:id', component: MenuOverviewComponent },

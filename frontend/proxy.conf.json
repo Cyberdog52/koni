@@ -4,5 +4,12 @@
     "secure": false,
     "logLevel": "debug"
   },
+
+  "/graphs/*": {
+    "target": "https://www.hydrodaten.admin.ch",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
   "logLevel": "debug"
 }

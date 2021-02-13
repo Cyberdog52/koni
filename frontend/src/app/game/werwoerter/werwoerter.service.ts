@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {ProfileService} from "../../shared/profile.service";
 import {Observable} from "rxjs";
-import {Game, Player} from "../../shared/model/dtos";
 import {WerwoerterGame, WerwoerterMarker, WerwoerterRole} from "../../shared/model/werwoerter-dtos";
 
 @Injectable({

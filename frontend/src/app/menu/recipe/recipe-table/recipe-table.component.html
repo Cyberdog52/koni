@@ -38,7 +38,7 @@
 
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef> Editieren </th>
-        <td mat-cell *matCellDef="let recipe"> <button class="blue-button" mat-button (click)="editRecipe(recipe.id)"><mat-icon>edit</mat-icon></button>  </td>
+        <td mat-cell *matCellDef="let recipe"> <button class="blue-button" mat-button (click)="editRecipe(recipe.id)" disabled><mat-icon>edit</mat-icon></button>  </td>
       </ng-container>
 
       <ng-container matColumnDef="view">
@@ -49,7 +49,7 @@
 
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> Löschen </th>
-        <td mat-cell *matCellDef="let recipe"> <button class="red-button" mat-button (click)="deleteRecipe(recipe.id)"><mat-icon>delete_forever</mat-icon></button> </td>
+        <td mat-cell *matCellDef="let recipe"> <button class="red-button" mat-button (click)="deleteRecipe(recipe.id)" disabled><mat-icon>delete_forever</mat-icon></button> </td>
 
       </ng-container>
 
