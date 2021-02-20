@@ -1,15 +1,17 @@
 package com.andreskonrad.koni.service;
 
+import com.andreskonrad.koni.dto.flur.Weather;
+import com.andreskonrad.koni.dto.flur.WeatherReport;
 import com.andreskonrad.koni.dto.flur.Observation;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
+import com.andreskonrad.koni.dto.flur.WeatherReportToWeatherMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriBuilder;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class FlurService {
     private int stationId = 2243;
 
     private static final String BASE_URL ="https://www.hydrodaten.admin.ch/graphs/";
+    private static final String WEATHER_URL = "http://api.daswetter.com/index.php?api_lang=de&localidad=189278&affiliate_id=yfb5k649eqof&v=3.0";
 
     public List<Observation> getDischargeObservations() {
         String uri = BASE_URL + "/" + stationId + "/" + "discharge" + "_" + stationId + ".csv";
@@ -71,5 +74,23 @@ public class FlurService {
             }
         }
         return observations;
+    }
+
+    public WeatherReport getWeatherReport() {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .GET()
+                    .uri(new URI(WEATHER_URL))
+                    .build();
+            String response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString()).body();
+            return new ObjectMapper().readValue(response, WeatherReport.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Weather getWeather() {
+        return WeatherReportToWeatherMapper.toWeather(getWeatherReport());
     }
 }

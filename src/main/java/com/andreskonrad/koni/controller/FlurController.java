@@ -1,5 +1,7 @@
 package com.andreskonrad.koni.controller;
 
+import com.andreskonrad.koni.dto.flur.Weather;
+import com.andreskonrad.koni.dto.flur.WeatherReport;
 import com.andreskonrad.koni.dto.flur.Observation;
 import com.andreskonrad.koni.service.FlurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,27 @@ public class FlurController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(observations, HttpStatus.OK);
+    }
+
+    @GetMapping("weatherReport")
+    public ResponseEntity<WeatherReport> getWeatherReport() {
+        WeatherReport weather;
+        try {
+            weather = this.flurService.getWeatherReport();
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(weather, HttpStatus.OK);
+    }
+
+    @GetMapping("weather")
+    public ResponseEntity<Weather> getWeather() {
+        Weather weather;
+        try {
+            weather = this.flurService.getWeather();
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(weather, HttpStatus.OK);
     }
 }
