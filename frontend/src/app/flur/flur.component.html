@@ -2,6 +2,15 @@
   <mat-tab label="Wassertemperatur">
     <app-flur-temperature [observations]="temperatureObservations"></app-flur-temperature>
   </mat-tab>
+  <mat-tab label="Aussentemperatur">
+    <app-weather-temperature [currentValue]="weather.temperature" [observations]="weather.temperatureObservations"></app-weather-temperature>
+  </mat-tab>
+  <mat-tab label="Wind">
+    <app-weather-wind [currentValue]="weather.wind" [observations]="weather.windObservations"></app-weather-wind>
+  </mat-tab>
+  <mat-tab label="Regen">
+    <app-weather-rain [currentValue]="weather.rain" [observations]="weather.rainObservations"></app-weather-rain>
+  </mat-tab>
   <mat-tab label="Wasserstand">
     <app-flur-level [observations]="levelObservations"></app-flur-level>
   </mat-tab>

@@ -15,6 +15,7 @@ export class FlurTabBaseComponent implements OnInit, OnChanges {
   public chartColors: Array<any> = [];
 
   @Input() observations: Observation[];
+  @Input() currentValue: number;
 
   ngOnInit() {
   }

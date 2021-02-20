@@ -64,6 +64,9 @@ import { FlurTemperatureComponent } from './flur/flur-temperature/flur-temperatu
 import { FlurLevelComponent } from './flur/flur-level/flur-level.component';
 import { FlurDischargeComponent } from './flur/flur-discharge/flur-discharge.component';
 import { FlurTabBaseComponent } from './flur/flur-tab-base/flur-tab-base.component';
+import { WeatherTemperatureComponent } from './flur/weather-temperature/weather-temperature.component';
+import { WeatherWindComponent } from './flur/weather-wind/weather-wind.component';
+import { WeatherRainComponent } from './flur/weather-rain/weather-rain.component';
 
 @NgModule({
   declarations: [
@@ -120,7 +123,10 @@ import { FlurTabBaseComponent } from './flur/flur-tab-base/flur-tab-base.compone
     FlurTemperatureComponent,
     FlurLevelComponent,
     FlurDischargeComponent,
-    FlurTabBaseComponent
+    FlurTabBaseComponent,
+    WeatherTemperatureComponent,
+    WeatherWindComponent,
+    WeatherRainComponent
   ],
   entryComponents: [DialogDeleteMenu, DialogDeleteRecipe],
   imports: [

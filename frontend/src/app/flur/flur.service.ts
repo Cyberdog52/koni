@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Observation} from "../shared/model/flur-dtos";
+import {Observation, Weather} from "../shared/model/flur-dtos";
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +12,23 @@ export class FlurService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getLevel(stationId: number) : Observable<Observation[]> {
+  public getLevel() : Observable<Observation[]> {
     let url = `${this.backendUrl}/level`;
     return this.httpClient.get<Observation[]>(url);
   }
 
-  public getDischarge(stationId: number) : Observable<Observation[]> {
+  public getDischarge() : Observable<Observation[]> {
     let url = `${this.backendUrl}/discharge`;
     return this.httpClient.get<Observation[]>(url);
   }
 
-  public getTemperature(stationId: number) : Observable<Observation[]> {
+  public getTemperature() : Observable<Observation[]> {
     let url = `${this.backendUrl}/temperature`;
     return this.httpClient.get<Observation[]>(url);
+  }
+
+  public getWeather() : Observable<Weather> {
+    let url = `${this.backendUrl}/weather`;
+    return this.httpClient.get<Weather>(url);
   }
 }
