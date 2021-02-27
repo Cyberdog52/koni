@@ -14,8 +14,8 @@ export class FlurLevelComponent extends FlurTabBaseComponent implements OnInit {
 
   ngOnInit() {
     this.chartColors.push({
-      backgroundColor: 'rgba(0,166,13,0.2)',
-      borderColor: 'rgba(60,200,125,0.7)',
+      backgroundColor: 'rgba(10,0,96,0.64)',
+      borderColor: 'rgba(41,0,81,0.91)',
       borderWidth: 2,
     });
   }

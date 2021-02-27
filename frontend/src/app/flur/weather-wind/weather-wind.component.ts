@@ -13,6 +13,11 @@ export class WeatherWindComponent extends FlurTabBaseComponent implements OnInit
   }
 
   ngOnInit() {
+    this.chartColors.push({
+      backgroundColor: 'rgba(127,137,96,0.2)',
+      borderColor: 'rgba(130,129,126,0.7)',
+      borderWidth: 2,
+    });
   }
 
 }

@@ -14,8 +14,8 @@ export class FlurDischargeComponent extends FlurTabBaseComponent implements OnIn
 
   ngOnInit() {
     this.chartColors.push({
-      backgroundColor: 'rgba(0, 137, 132, .2)',
-      borderColor: 'rgba(0, 10, 130, .7)',
+      backgroundColor: 'rgba(0,137,32,0.42)',
+      borderColor: 'rgba(0,115,8,0.84)',
       borderWidth: 2,
     });
   }

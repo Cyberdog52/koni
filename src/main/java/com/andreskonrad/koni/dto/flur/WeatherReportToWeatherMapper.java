@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -25,7 +28,7 @@ public class WeatherReportToWeatherMapper {
 
     private static double getClosestValue(List<Observation> observations) {
         List<Observation> observationsSortedByCloseness = observations.stream()
-                .sorted(Comparator.comparingLong(o -> Math.abs(o.getDate().toInstant().getEpochSecond() - Instant.now().getEpochSecond())))
+                .sorted(Comparator.comparingLong(o -> Math.abs(o.getDate().toInstant().getEpochSecond() - getCurrentInstant().getEpochSecond())))
                 .collect(Collectors.toList());
 
         if (observationsSortedByCloseness.size() == 0) {
@@ -35,11 +38,15 @@ public class WeatherReportToWeatherMapper {
             return observationsSortedByCloseness.get(0).getValue();
         }
 
-        long distanceToClosest = Math.abs(Instant.now().getEpochSecond() - observationsSortedByCloseness.get(0).getDate().toInstant().getEpochSecond());
-        long distanceToSecondClosest = Math.abs(Instant.now().getEpochSecond() - observationsSortedByCloseness.get(1).getDate().toInstant().getEpochSecond());
+        long distanceToClosest = Math.abs(getCurrentInstant().getEpochSecond() - observationsSortedByCloseness.get(0).getDate().toInstant().getEpochSecond());
+        long distanceToSecondClosest = Math.abs(getCurrentInstant().getEpochSecond() - observationsSortedByCloseness.get(1).getDate().toInstant().getEpochSecond());
 
-        double weightedValue = (observationsSortedByCloseness.get(0).getValue() * distanceToSecondClosest + observationsSortedByCloseness.get(1).getValue() * distanceToClosest) / (distanceToClosest + distanceToSecondClosest);
-        return weightedValue;
+        return (observationsSortedByCloseness.get(0).getValue() * distanceToSecondClosest + observationsSortedByCloseness.get(1).getValue() * distanceToClosest) / (distanceToClosest + distanceToSecondClosest);
+    }
+
+    private static Instant getCurrentInstant() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Europe/Zurich"));
+        return now.toInstant();
     }
 
     private static List<Observation> getWindObservations(WeatherReport report) {

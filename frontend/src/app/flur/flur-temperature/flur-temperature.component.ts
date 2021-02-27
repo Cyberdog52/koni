@@ -14,8 +14,8 @@ export class FlurTemperatureComponent extends FlurTabBaseComponent implements On
 
   ngOnInit() {
     this.chartColors.push({
-      backgroundColor: 'rgba(105, 0, 132, .2)',
-      borderColor: 'rgba(200, 99, 132, .7)',
+      backgroundColor: 'rgba(160,231,255,0.61)',
+      borderColor: 'rgba(100,190,230,0.76)',
       borderWidth: 2,
     });
   }
