@@ -1,4 +1,14 @@
-.title-value  {
-  margin-left: 50%;
-  font-size: xx-large;
+p  {
+  text-align: center;
+  font-size: 3rem;
+  font-family: "Futura Md BT", fantasy;
 }
+
+div {
+  max-width: 1000px;
+  display: block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+

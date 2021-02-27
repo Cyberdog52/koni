@@ -1,0 +1,12 @@
+<div *ngIf=weather>
+  <p class="title" style="color: #6d0009">{{getWeatherTemperature()}}</p>
+  <p class="subtitle">Aussentemperatur</p>
+  <img src="{{getWeatherImage()}}">
+  <p class="subtitle">{{getWeatherType()}}</p>
+  <p class="subtitle">{{getWeatherSubtitle()}}</p>
+
+  <p class="title" style="color: #002a6d">{{waterTemperatureString}}</p>
+  <p class="subtitle">Wassertemperatur</p>
+  <p class="subtitle">Wasserstand: {{levelString}} | Abfluss: {{dischargeString}}m<sup>3</sup>/s</p>
+</div>
+

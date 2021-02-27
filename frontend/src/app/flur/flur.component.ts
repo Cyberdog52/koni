@@ -42,4 +42,18 @@ export class FlurComponent implements OnInit {
   }
 
 
+  getWaterTemperatureString(): string {
+    const lastObservation = this.temperatureObservations[this.temperatureObservations.length-1];
+    return lastObservation.value.toFixed(1) + "°";
+  }
+
+  getWaterDischarge(): string {
+    const lastObservation = this.dischargeObservations[this.dischargeObservations.length-1];
+    return lastObservation.value.toFixed(0);
+  }
+
+  getWaterLevel(): string {
+    const lastObservation = this.levelObservations[this.levelObservations.length-1];
+    return lastObservation.value.toFixed(0) + "mm";
+  }
 }

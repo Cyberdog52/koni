@@ -1,6 +1,6 @@
-<a class="title-value">{{currentValue}}°</a>
+<p class="title-value">{{currentValue.toFixed(1)}}°</p>
 
-<div *ngIf="chartDatasets.length > 0" style="display: block">
+<div *ngIf="chartDatasets.length > 0">
   <canvas mdbChart
           [chartType]="'line'"
           [datasets]="chartDatasets"

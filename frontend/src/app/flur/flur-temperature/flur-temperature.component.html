@@ -1,7 +1,7 @@
 
-<a class="title-value">{{getTitleValue()}}</a>
+<p class="title-value">{{getTitleValue()}}</p>
 
-<div *ngIf="chartDatasets.length > 0" style="display: block">
+<div *ngIf="chartDatasets.length > 0">
   <canvas mdbChart
           [chartType]="'line'"
           [datasets]="chartDatasets"

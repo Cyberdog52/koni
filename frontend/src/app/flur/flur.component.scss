@@ -1,4 +1,10 @@
 
 .mat-tab-label {
-  width: 100%;
+  width: 90vw;
+  overflow: hidden !important;
+  font-family: "Futura Md BT", sans-serif !important;
+}
+
+.mat-tab-label-content {
+  font-family: "Futura Md BT", sans-serif;
 }

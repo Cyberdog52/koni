@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="isLoggedIn()">
   <h1>Koni</h1>
   <span class="filler"></span>
   <button  type="button" routerLink="/main" mat-button>

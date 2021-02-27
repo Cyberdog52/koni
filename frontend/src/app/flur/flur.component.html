@@ -1,4 +1,7 @@
 <mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Übersicht">
+    <app-flur-overview [weather]="weather" [waterTemperatureString]="getWaterTemperatureString()" [dischargeString]="getWaterDischarge()" [levelString]="getWaterLevel()"></app-flur-overview>
+  </mat-tab>
   <mat-tab label="Wassertemperatur">
     <app-flur-temperature [observations]="temperatureObservations"></app-flur-temperature>
   </mat-tab>

@@ -1,6 +1,6 @@
-<a class="title-value">{{getTitleValue()}}m<sup>3</sup>/s</a>
+<p class="title-value">{{getTitleValue()}}m<sup>3</sup>/s</p>
 
-<div *ngIf="chartDatasets.length > 0" style="display: block">
+<div *ngIf="chartDatasets.length > 0">
   <canvas mdbChart
           [chartType]="'line'"
           [datasets]="chartDatasets"

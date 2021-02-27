@@ -22,6 +22,6 @@ export class FlurTemperatureComponent extends FlurTabBaseComponent implements On
 
   getTitleValue(): string {
     const lastObservation = this.observations[this.observations.length-1];
-    return lastObservation.value + "°";
+    return lastObservation.value.toFixed(1) + "°";
   }
 }
