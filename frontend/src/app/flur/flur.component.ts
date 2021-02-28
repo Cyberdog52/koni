@@ -54,6 +54,6 @@ export class FlurComponent implements OnInit {
 
   getWaterLevel(): string {
     const lastObservation = this.levelObservations[this.levelObservations.length-1];
-    return lastObservation.value.toFixed(0) + "mm";
+    return lastObservation.value.toFixed(0) + "cm";
   }
 }
