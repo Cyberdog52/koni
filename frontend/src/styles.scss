@@ -1,2 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.toast-top-right {
+  top: 10vh !important;
+  right: 10vh !important;
+}

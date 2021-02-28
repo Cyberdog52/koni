@@ -33,7 +33,8 @@ export class TempelComponent implements OnInit {
   constructor(private gameService: GameService,
               private tempelGameService: TempelGameService,
               private toastrService: ToastrService,
-              private profileService: ProfileService) { }
+              private profileService: ProfileService) {
+  }
 
   ngOnInit() {
     this.tempelGame = null;
@@ -41,14 +42,14 @@ export class TempelComponent implements OnInit {
     this.getTempelGame();
   }
 
-  initializeWebSocketConnection(){
+  initializeWebSocketConnection() {
     if (this.stompClient != null) {
       return;
     }
     let ws = new SockJS(AppComponent.getSocketUrl());
     this.stompClient = Stomp.over(ws);
     let that = this;
-    this.stompClient.connect({}, function(frame) {
+    this.stompClient.connect({}, function (frame) {
       that.stompClient.unsubscribe();
       that.stompClient.subscribe("/game", (message: Stomp.Message) => {
         const messageBody = message.body;
@@ -73,8 +74,8 @@ export class TempelComponent implements OnInit {
   }
 
   private getTempelGame() {
-    this.tempelGameService.getGame(this.getGameName()).subscribe( (game: TempelGame) => {
-      this.handleChangeGameEvent(game);
+    this.tempelGameService.getGame(this.getGameName()).subscribe((game: TempelGame) => {
+        this.handleChangeGameEvent(game);
         console.log("Game: ", this.tempelGame);
       }
     )
@@ -95,9 +96,9 @@ export class TempelComponent implements OnInit {
       this.tempelGame.keyPlayer = null;
       const newOpenedCard = this.tempelGame.cards.find(tempelCard => tempelCard.id == newGame.lastOpenedCard.id);
       newOpenedCard.opened = true;
-      setTimeout(()=>{
+      setTimeout(() => {
         this.tempelGame = newGame;
-        }, 4000)
+      }, 4000)
     } else {
       this.tempelGame = newGame;
     }
@@ -113,11 +114,13 @@ export class TempelComponent implements OnInit {
     if (messages == null || messages.length == 0) {
       return;
     }
-    let newMessages = messages.filter(message => {return !this.shownMessageIds.includes(message.id)});
+    let newMessages = messages.filter(message => {
+      return !this.shownMessageIds.includes(message.id)
+    });
     newMessages = newMessages.sort((m1, m2) => m1.id - m2.id);
 
     if (newMessages.length > 3) {
-      newMessages = newMessages.slice(newMessages.length -3, newMessages.length);
+      newMessages = newMessages.slice(newMessages.length - 3, newMessages.length);
       messages
         .forEach(tempelMessage => {
           this.shownMessageIds.push(tempelMessage.id);
@@ -135,8 +138,8 @@ export class TempelComponent implements OnInit {
     if (tempelMessage.openedCardType != null) {
       switch (tempelMessage.openedCardType) {
         case TempelCardType.GOLD: {
-          this.toastrService.success( tempelMessage.message, "Gold!", {
-            positionClass: 'toast-bottom-right',
+          this.toastrService.success(tempelMessage.message, "Gold!", {
+            positionClass: 'toast-top-right',
             timeOut: 8000,
             closeButton: true
           });
@@ -144,15 +147,15 @@ export class TempelComponent implements OnInit {
         }
         case TempelCardType.FALLE: {
           this.toastrService.error(tempelMessage.message, "Falle!", {
-            positionClass: 'toast-bottom-right',
+            positionClass: 'toast-top-right',
             timeOut: 8000,
             closeButton: true
           });
           break;
         }
         case TempelCardType.LEER: {
-          this.toastrService.warning( tempelMessage.message, "Leer!", {
-            positionClass: 'toast-bottom-right',
+          this.toastrService.warning(tempelMessage.message, "Leer!", {
+            positionClass: 'toast-top-right',
             timeOut: 8000,
             closeButton: true
           });
@@ -161,8 +164,8 @@ export class TempelComponent implements OnInit {
 
       }
     } else {
-      this.toastrService.info(tempelMessage.message , "Info", {
-        positionClass: 'toast-bottom-right',
+      this.toastrService.info(tempelMessage.message, "Info", {
+        positionClass: 'toast-top-right',
         timeOut: 4000,
         closeButton: true
       });
@@ -171,12 +174,14 @@ export class TempelComponent implements OnInit {
 
   getRoleText(): string {
     switch (this.tempelGame.playerToTempelRoleMap[this.profileService.getCurrentIdentity().name]) {
-      case TempelRole.BUEB: return "Du bist ein Schatzjäger. ";
-      case TempelRole.MEITLI: return "Du bist eine Wächterin. ";
+      case TempelRole.BUEB:
+        return "Du bist ein Schatzjäger. ";
+      case TempelRole.MEITLI:
+        return "Du bist eine Wächterin. ";
     }
   }
 
-  getCardsText() : string {
+  getCardsText(): string {
     const playerName = this.profileService.getCurrentIdentity().name;
     const myCards = this.tempelGame.cards.filter(card => card.assignedPlayer != null).filter(card => card.assignedPlayer.name == playerName);
     const myGold = myCards.filter(card => card.tempelCardType == TempelCardType.GOLD).length;
@@ -190,15 +195,6 @@ export class TempelComponent implements OnInit {
     return this.tempelGame.round;
   }
 
-  getTotalCountText(): string {
-    const openedCards = this.tempelGame.cards.filter(card => card.opened);
-    const openedGold = openedCards.filter(card => card.tempelCardType == TempelCardType.GOLD).length;
-    const openedFallen = openedCards.filter(card => card.tempelCardType == TempelCardType.FALLE).length;
-    const openedLeer = openedCards.filter(card => card.tempelCardType == TempelCardType.LEER).length;
-
-    return "Gold: " + openedGold + "/" + this.tempelGame.totalGold + "\nFalle: " + openedFallen + "/" + this.tempelGame.totalFalle +  "\n Leer: " + openedLeer + "/" + this.tempelGame.totalLeer;
-  }
-
   getSelectablePlayers(): Player[] {
     const playerName = this.profileService.getCurrentIdentity().name;
     return this.tempelGame.game.players.filter(player => player.name != playerName);
@@ -208,7 +204,7 @@ export class TempelComponent implements OnInit {
     return player.name;
   }
 
-  hasKey() : boolean{
+  hasKey(): boolean {
     if (this.tempelGame == null || this.tempelGame.keyPlayer == null || this.gameFinished()) {
       return false;
     }
@@ -220,7 +216,7 @@ export class TempelComponent implements OnInit {
     if (this.tempelGame == null || this.tempelGame.keyPlayer == null || this.gameFinished()) {
       return "";
     }
-    return this.tempelGame.keyPlayer.name + " hat den Schlüssel. "
+    return this.tempelGame.keyPlayer.name;
   }
 
   gameFinished() {
@@ -259,7 +255,7 @@ export class TempelComponent implements OnInit {
       .filter(card => card.assignedPlayer != null).filter(card => card.assignedPlayer.name == player.name).sort((card1, card2) => card1.id - card2.id);
   }
 
-  getImageURL(card: TempelCard) : string {
+  getImageURL(card: TempelCard): string {
     const playerName = this.profileService.getCurrentIdentity().name;
     if (!card.opened) {
       if (this.hasKey() && this.mouseOverCard != null && this.mouseOverCard.id == card.id && playerName != card.assignedPlayer.name) {
@@ -283,15 +279,22 @@ export class TempelComponent implements OnInit {
   }
 
   getKeyUrl() {
-    return "../../../assets/tempel/key.jpg"
+    return "../../../assets/tempel/key.png"
   }
 
   getRoleImageUrl() {
-    switch (this.tempelGame.playerToTempelRoleMap[this.profileService.getCurrentIdentity().name]) {
-      case TempelRole.BUEB: return "../../../assets/tempel/bueb.jpg";
-      case TempelRole.MEITLI: return "../../../assets/tempel/meitli.jpg";
+    return this.getImageUrlForPlayerName(this.profileService.getCurrentIdentity().name);
+  }
+
+  getImageUrlForPlayerName(name: string): string {
+    switch (this.tempelGame.playerToTempelRoleMap[name]) {
+      case TempelRole.BUEB:
+        return "../../../assets/tempel/bueb.png";
+      case TempelRole.MEITLI:
+        return "../../../assets/tempel/meitli.png";
     }
   }
+
 
   openCardIfHasKey(player: Player, card: TempelCard) {
     const playerName = this.profileService.getCurrentIdentity().name;
@@ -315,22 +318,24 @@ export class TempelComponent implements OnInit {
     }
     const playerName = this.profileService.getCurrentIdentity().name;
     const ownPlayer = this.tempelGame.game.players.find(player => player.name == playerName);
+
     function shuffle(array) {
       return array.sort(() => Math.random() - 0.5);
     }
+
     return shuffle(this.getCardsForPlayer(ownPlayer));
   }
 
   getOpenImageURL(card: TempelCard): string {
     switch (card.tempelCardType) {
       case TempelCardType.GOLD: {
-        return "../../../assets/tempel/schatz.jpg"
+        return "../../../assets/tempel/schatz.png"
       }
       case TempelCardType.FALLE: {
-        return "../../../assets/tempel/falle.jpg"
+        return "../../../assets/tempel/falle.png"
       }
       case TempelCardType.LEER: {
-        return "../../../assets/tempel/leer.jpg"
+        return "../../../assets/tempel/leer.png"
       }
 
     }
@@ -344,4 +349,42 @@ export class TempelComponent implements OnInit {
     });
     this.resetState();
   }
+
+  getGoldUrl() {
+    return "../../../assets/tempel/schatz.png";
+  }
+
+  getFalleUrl() {
+    return "../../../assets/tempel/falle.png";
+  }
+
+  getLeerUrl() {
+    return "../../../assets/tempel/leer.png";
+  }
+
+  getGoldText() {
+    const openedCards = this.tempelGame.cards.filter(card => card.opened);
+    const openedGold = openedCards.filter(card => card.tempelCardType == TempelCardType.GOLD).length;
+
+    return openedGold + "/" + this.tempelGame.totalGold;
+  }
+
+  getFalleText() {
+    const openedCards = this.tempelGame.cards.filter(card => card.opened);
+    const openedFallen = openedCards.filter(card => card.tempelCardType == TempelCardType.FALLE).length;
+
+    return openedFallen + "/" + this.tempelGame.totalFalle;
+  }
+
+  getLeerText() {
+    const openedCards = this.tempelGame.cards.filter(card => card.opened);
+    const openedLeer = openedCards.filter(card => card.tempelCardType == TempelCardType.LEER).length;
+
+    return openedLeer + "/" + this.tempelGame.totalLeer;
+  }
+
+  getPlayers() {
+
+  }
 }
+
