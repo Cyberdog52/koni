@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
 
   public static getSocketUrl(): string {
     if (environment.production) {
-      return 'http://konigames.herokuapp.com/socket';
+      return 'http://andreskonrad.herokuapp.com/socket';
     } else {
       return 'http://localhost:8080/socket';
     }
