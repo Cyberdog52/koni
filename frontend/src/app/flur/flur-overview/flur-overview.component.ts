@@ -27,7 +27,7 @@ export class FlurOverviewComponent implements OnInit {
   }
 
   getWeatherSubtitle(): string {
-    return "Wind: " + this.weather.wind.toFixed(0) + "km/h" + " | Regen: " + this.weather.rain + "mm";
+    return "Wind: " + this.weather.wind.toFixed(0) + "km/h" + " | Regen: " + this.weather.rain.toFixed(0) + "mm";
   }
 
   getWeatherImage() {
