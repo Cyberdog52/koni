@@ -1,7 +1,0 @@
-<mat-list>
-  <mat-list-item *ngFor="let history of getHistory()">
-    <img matListAvatar src="{{getImageForPlayer(history.player.name)}}" alt="Avatar">
-    <leiterli-move-visualisation matLine [history]="history"></leiterli-move-visualisation>
-    <h3 matLine>{{history.player.name}}</h3>
-  </mat-list-item>
-</mat-list>
