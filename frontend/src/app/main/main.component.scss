@@ -1,6 +1,41 @@
-.main-card {
-  width: 90%;
-  margin: 20px 20px 20px 20px;
+.full-screen {
+  width: 100vw;
+  height: 100vh;
+  background-color: #070034;
+}
+
+.container {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+  width: 95%;
+  background-color: transparent;
+  border-color: transparent;
+  max-width: 1400px;
+}
+
+.row {
+  margin-top: 2vh;
+}
+
+.mat-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #e0e1ee;
+}
+
+.mat-card-title {
+  text-align: center;
+  font-weight: lighter;
+  font-size: xx-large;
+}
+
+.mat-card-content {
+  display: flex;
+  justify-content: center;
+  padding-top: 4px;
+
 }
 
 .content-card {
@@ -11,4 +46,6 @@
 .mat-card-image {
   margin-top: 4px !important;
   max-width: 400px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
 }
