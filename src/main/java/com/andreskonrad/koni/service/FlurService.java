@@ -23,11 +23,11 @@ public class FlurService {
 
     private int stationId = 2243;
 
-    private static final String BASE_URL ="https://www.hydrodaten.admin.ch/graphs/";
+    private static final String BASE_URL ="https://www.hydrodaten.admin.ch/lhg/az/dwh/csv/BAFU_";
     private static final String WEATHER_URL = "http://api.daswetter.com/index.php?api_lang=de&localidad=189278&affiliate_id=yfb5k649eqof&v=3.0";
 
     public List<Observation> getDischargeObservations() {
-        String uri = BASE_URL + "/" + stationId + "/" + "discharge" + "_" + stationId + ".csv";
+        String uri = BASE_URL + stationId + "_AbflussRadarBruecke.csv";
         RestTemplate restTemplate = new RestTemplate();
         String csvContent = restTemplate.getForObject(uri, String.class);
 
@@ -36,7 +36,7 @@ public class FlurService {
 
     public List<Observation> getTemparatureObservations() {
 
-        String uri = BASE_URL + "/" + stationId + "/" + "temperature" + "_" + stationId + ".csv";
+        String uri = BASE_URL + stationId + "_Wassertemperatur.csv";
         RestTemplate restTemplate = new RestTemplate();
         String csvContent = restTemplate.getForObject(uri, String.class);
 
@@ -44,7 +44,7 @@ public class FlurService {
     }
 
     public List<Observation> getLevelObservations() {
-        String uri = BASE_URL + "/" + stationId + "/" + "level" + "_" + stationId + ".csv";
+        String uri = BASE_URL + stationId +  "_PegelRadarBruecke.csv";
         RestTemplate restTemplate = new RestTemplate();
         String csvContent = restTemplate.getForObject(uri, String.class);;
 
