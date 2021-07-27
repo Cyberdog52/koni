@@ -28,6 +28,7 @@ import { WeatherTemperatureComponent } from './flur/weather-temperature/weather-
 import { WeatherWindComponent } from './flur/weather-wind/weather-wind.component';
 import { WeatherRainComponent } from './flur/weather-rain/weather-rain.component';
 import { FlurOverviewComponent } from './flur/flur-overview/flur-overview.component';
+import { RandomRelayComponent } from './random-relay/random-relay.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { FlurOverviewComponent } from './flur/flur-overview/flur-overview.compon
     WeatherTemperatureComponent,
     WeatherWindComponent,
     WeatherRainComponent,
-    FlurOverviewComponent
+    FlurOverviewComponent,
+    RandomRelayComponent
   ],
   imports: [
     BrowserModule,
