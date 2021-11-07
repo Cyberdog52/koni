@@ -13,8 +13,13 @@ export class HousepointsComponent implements OnInit, OnDestroy {
 
   constructor(private housePointService: HousePointsService) { }
 
+  maxPixel = 580.0;
+  maxPoints = 580;
+  scaleFactor = 1.0;
+
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   housePoints: HousePointResponse;
+
 
   ngOnInit(): void {
     this.setIntervalToPullHousePoints();
@@ -31,6 +36,27 @@ export class HousepointsComponent implements OnInit, OnDestroy {
           console.log("nothing changed");
           return;
         }
+
+        if (response.gryffindor > this.maxPoints) {
+          this.maxPoints = response.gryffindor;
+          this.scaleFactor = this.maxPixel / this.maxPoints;
+        }
+
+        if (response.slytherin > this.maxPoints) {
+          this.maxPoints = response.slytherin;
+          this.scaleFactor = this.maxPixel / this.maxPoints;
+        }
+
+        if (response.hufflepuff > this.maxPoints) {
+          this.maxPoints = response.hufflepuff;
+          this.scaleFactor = this.maxPixel / this.maxPoints;
+        }
+
+        if (response.ravenclaw > this.maxPoints) {
+          this.maxPoints = response.ravenclaw;
+          this.scaleFactor = this.maxPixel / this.maxPoints;
+        }
+
         console.log(response);
         this.housePoints = response;
       });
@@ -39,5 +65,41 @@ export class HousepointsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next(true);
     this.destroyed$.complete();
+  }
+
+  getGryffindorHeight(): string {
+    return Math.floor(this.housePoints.gryffindor * this.scaleFactor) + 'px';
+  }
+
+  getGryffindorMarginTop(): string {
+    const padding = 655 - Math.floor(this.housePoints.gryffindor * this.scaleFactor);
+    return  padding + 'px';
+  }
+
+  getSlytherinHeight(): string {
+    return Math.floor(this.housePoints.slytherin * this.scaleFactor) + 'px';
+  }
+
+  getSlytherinMarginTop(): string {
+    const padding = 655 - Math.floor(this.housePoints.slytherin * this.scaleFactor);
+    return  padding + 'px';
+  }
+
+  getRavenclawHeight(): string {
+    return Math.floor(this.housePoints.ravenclaw * this.scaleFactor) + 'px';
+  }
+
+  getRavenclawMarginTop(): string {
+    const padding = 655 - Math.floor(this.housePoints.ravenclaw * this.scaleFactor);
+    return  padding + 'px';
+  }
+
+  getHufflepuffHeight(): string {
+    return Math.floor(this.housePoints.ravenclaw * this.scaleFactor) + 'px';
+  }
+
+  getHufflepuffMarginTop(): string {
+    const padding = 655 - Math.floor(this.housePoints.ravenclaw * this.scaleFactor);
+    return  padding + 'px';
   }
 }

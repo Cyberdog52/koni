@@ -19,7 +19,7 @@ import {CompletelyRandomCocktailComponent} from './cocktail/completely-random-co
 import {FilterCocktailComponent} from './cocktail/filter-cocktail/filter-cocktail.component';
 import {CdkColumnDef} from "@angular/cdk/table";
 import {FlurComponent} from "./flur/flur.component";
-import {ChartsModule} from "angular-bootstrap-md";
+import {ChartsModule, MDBBootstrapModule} from "angular-bootstrap-md";
 import { FlurTemperatureComponent } from './flur/flur-temperature/flur-temperature.component';
 import { FlurLevelComponent } from './flur/flur-level/flur-level.component';
 import { FlurDischargeComponent } from './flur/flur-discharge/flur-discharge.component';
@@ -32,6 +32,7 @@ import { RandomRelayComponent } from './random-relay/random-relay.component';
 import {HousepointsComponent} from "./housepoints/housepoints.component";
 import { HousepointsAdminComponent } from './housepoints/housepoints-admin/housepoints-admin.component';
 import { HousepointsHistoryComponent } from './housepoints/housepoints-history/housepoints-history.component';
+import {NgbModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,10 @@ import { HousepointsHistoryComponent } from './housepoints/housepoints-history/h
     MatIconModule,
     MatDialogModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
+    MDBBootstrapModule,
+    NgbModule,
+    NgbPaginationModule
   ],
   providers: [
     CdkColumnDef,
