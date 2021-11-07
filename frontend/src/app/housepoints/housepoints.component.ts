@@ -95,11 +95,11 @@ export class HousepointsComponent implements OnInit, OnDestroy {
   }
 
   getHufflepuffHeight(): string {
-    return Math.floor(this.housePoints.ravenclaw * this.scaleFactor) + 'px';
+    return Math.floor(this.housePoints.hufflepuff * this.scaleFactor) + 'px';
   }
 
   getHufflepuffMarginTop(): string {
-    const padding = 655 - Math.floor(this.housePoints.ravenclaw * this.scaleFactor);
+    const padding = 655 - Math.floor(this.housePoints.hufflepuff * this.scaleFactor);
     return  padding + 'px';
   }
 }
