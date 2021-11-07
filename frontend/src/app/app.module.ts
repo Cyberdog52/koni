@@ -29,6 +29,9 @@ import { WeatherWindComponent } from './flur/weather-wind/weather-wind.component
 import { WeatherRainComponent } from './flur/weather-rain/weather-rain.component';
 import { FlurOverviewComponent } from './flur/flur-overview/flur-overview.component';
 import { RandomRelayComponent } from './random-relay/random-relay.component';
+import {HousepointsComponent} from "./housepoints/housepoints.component";
+import { HousepointsAdminComponent } from './housepoints/housepoints-admin/housepoints-admin.component';
+import { HousepointsHistoryComponent } from './housepoints/housepoints-history/housepoints-history.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { RandomRelayComponent } from './random-relay/random-relay.component';
     WeatherWindComponent,
     WeatherRainComponent,
     FlurOverviewComponent,
-    RandomRelayComponent
+    RandomRelayComponent,
+    HousepointsComponent,
+    HousepointsAdminComponent,
+    HousepointsHistoryComponent,
   ],
   imports: [
     BrowserModule,

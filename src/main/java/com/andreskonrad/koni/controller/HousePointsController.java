@@ -22,11 +22,11 @@ public class HousePointsController {
         this.housePointService = housePointService;
     }
 
-    @GetMapping("house/{house}")
-    public ResponseEntity<HousePointResponse> getPoints(@PathVariable House house) {
+    @GetMapping("summary")
+    public ResponseEntity<HousePointResponse> getPoints() {
         HousePointResponse response;
         try {
-            response = this.housePointService.getPoints(house);
+            response = this.housePointService.getPoints();
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -44,7 +44,7 @@ public class HousePointsController {
         return new ResponseEntity<>(histories, HttpStatus.OK);
     }
 
-    @PostMapping("update")
+    @PostMapping("history")
     public ResponseEntity<List<HousePointHistory>> updateHistory(@RequestBody HousePointHistory history) {
         List<HousePointHistory> histories;
         try {

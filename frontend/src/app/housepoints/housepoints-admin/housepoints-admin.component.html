@@ -1,0 +1,6 @@
+<mat-select [(value)]="selectedHouse" placeholder="Haus wählen...">
+  <mat-option *ngFor="let key of houses" [value]="key">{{key}}</mat-option>
+</mat-select>
+<input type="number" matInput [(ngModel)]="selectedPoints"/>
+<input matInput [(ngModel)]="selectedReason"/>
+<button mat-raised-button (click)="update()">Speichern</button>

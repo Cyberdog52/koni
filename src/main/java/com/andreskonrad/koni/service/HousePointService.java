@@ -13,13 +13,12 @@ import java.util.Map;
 @Service
 public class HousePointService {
 
-    private Map<House, Integer> housePointMap = new HashMap<>(Map.of(House.GRIFFINDOR, 0, House.SLYTHERIN, 0, House.HUFFLEPUFF, 0, House.RAVENCLAW, 0));
+    private Map<House, Integer> housePointMap = new HashMap<>(Map.of(House.GRYFFINDOR, 0, House.SLYTHERIN, 0, House.HUFFLEPUFF, 0, House.RAVENCLAW, 0));
 
     private List<HousePointHistory> historyList = new ArrayList<>();
 
-    public HousePointResponse getPoints(House house) {
-        int points = housePointMap.get(house);
-        return new HousePointResponse(points);
+    public HousePointResponse getPoints() {
+        return new HousePointResponse(housePointMap.get(House.GRYFFINDOR), housePointMap.get(House.SLYTHERIN), housePointMap.get(House.HUFFLEPUFF), housePointMap.get(House.RAVENCLAW));
     }
 
     public List<HousePointHistory> getHistory() {

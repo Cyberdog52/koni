@@ -8,5 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HousePointResponse {
-    private int points;
+    private int gryffindor;
+    private int slytherin;
+    private int hufflepuff;
+    private int ravenclaw;
 }
