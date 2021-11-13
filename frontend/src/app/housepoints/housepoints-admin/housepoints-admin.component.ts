@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {House, HousePointHistory} from "../../shared/model/housepoints-dtos";
 import {HousePointsService} from "../housepoints.service";
 import {take} from "rxjs/operators";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-housepoints-admin',
@@ -10,12 +11,14 @@ import {take} from "rxjs/operators";
 })
 export class HousepointsAdminComponent implements OnInit {
 
-  houses : string[] = ["GRYFFINDOR", "SLYTHERIN", "HUFFLEPUFF", "RAVENCLAW"];
-  selectedHouse : string;
+  houses : House[] = [House.SLYTHERIN, House.RAVENCLAW, House.GRYFFINDOR, House.HUFFLEPUFF];
+  selectedHouse : House;
   selectedPoints: number = 0;
   selectedReason: string = '';
+  houseEnum = House;
 
-  constructor(private housePointsService : HousePointsService) {
+  constructor(private housePointsService : HousePointsService,
+              private toastrService: ToastrService) {
 
   }
 
@@ -36,6 +39,7 @@ export class HousepointsAdminComponent implements OnInit {
       .pipe(take(1))
       .subscribe(response => {
         console.log("Saved history: ", response);
+        this.toastrService.success("Gespeichert");
       });
 
     this.selectedHouse = null;
@@ -43,4 +47,11 @@ export class HousepointsAdminComponent implements OnInit {
     this.selectedReason = '';
   }
 
+  addPoints(number: number) {
+    this.selectedPoints += number;
+  }
+
+  selectHouse(house: House) {
+    this.selectedHouse = house;
+  }
 }

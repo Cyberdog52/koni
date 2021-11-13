@@ -7,7 +7,7 @@ import {interval, ReplaySubject} from "rxjs";
 @Component({
   selector: 'housepoints',
   templateUrl: './housepoints.component.html',
-  styleUrls: ['./housepoints.component.css']
+  styleUrls: ['./housepoints.component.scss']
 })
 export class HousepointsComponent implements OnInit, OnDestroy {
 

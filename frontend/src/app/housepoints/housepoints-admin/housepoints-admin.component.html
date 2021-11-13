@@ -1,6 +1,67 @@
-<mat-select [(value)]="selectedHouse" placeholder="Haus wählen...">
-  <mat-option *ngFor="let key of houses" [value]="key">{{key}}</mat-option>
-</mat-select>
-<input type="number" matInput [(ngModel)]="selectedPoints"/>
-<input matInput [(ngModel)]="selectedReason"/>
-<button mat-raised-button (click)="update()">Speichern</button>
+<div class="full-size" [ngClass]="{
+      'slytherin': houseEnum.SLYTHERIN === selectedHouse,
+      'ravenclaw': houseEnum.RAVENCLAW === selectedHouse,
+      'gryffindor': houseEnum.GRYFFINDOR === selectedHouse,
+      'hufflepuff': houseEnum.HUFFLEPUFF === selectedHouse
+    }">
+  <div class="container">
+    <form>
+      <div class="row">
+        <div class="col-12">
+          <h1>
+            {{selectedHouse}}
+          </h1>
+        </div>
+
+        <div class="col-6">
+          <button class="house-button" mat-raised-button (click)="selectHouse(houseEnum.SLYTHERIN)">Slytherin</button>
+        </div>
+        <div class="col-6">
+          <button class="house-button" mat-raised-button (click)="selectHouse(houseEnum.RAVENCLAW)">Ravenclaw</button>
+        </div>
+        <div class="col-6">
+          <button class="house-button" mat-raised-button (click)="selectHouse(houseEnum.GRYFFINDOR)">Gryffindor</button>
+        </div>
+        <div class="col-6">
+          <button class="house-button" mat-raised-button (click)="selectHouse(houseEnum.HUFFLEPUFF)">Hufflepuff</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <input class="selectedPointsInput" name="selectedPoints" type="number" [value]="selectedPoints" [(ngModel)]="selectedPoints" [ngClass]="{
+      'slytherin': houseEnum.SLYTHERIN === selectedHouse,
+      'ravenclaw': houseEnum.RAVENCLAW === selectedHouse,
+      'gryffindor': houseEnum.GRYFFINDOR === selectedHouse,
+      'hufflepuff': houseEnum.HUFFLEPUFF === selectedHouse
+    }"/>
+        </div>
+        <div class="col-3">
+          <button class="points-button" mat-raised-button (click)="addPoints(1)">1</button>
+        </div>
+        <div class="col-3">
+          <button class="points-button" mat-raised-button (click)="addPoints(5)">5</button>
+        </div>
+        <div class="col-3">
+          <button class="points-button" mat-raised-button (click)="addPoints(10)">10</button>
+        </div>
+        <div class="col-3">
+          <button class="points-button" mat-raised-button (click)="addPoints(20)">20</button>
+        </div>
+      </div>
+      <div class="row">
+        <input class="reason-input" name="reason" matInput [(ngModel)]="selectedReason" [ngClass]="{
+      'slytherin': houseEnum.SLYTHERIN === selectedHouse,
+      'ravenclaw': houseEnum.RAVENCLAW === selectedHouse,
+      'gryffindor': houseEnum.GRYFFINDOR === selectedHouse,
+      'hufflepuff': houseEnum.HUFFLEPUFF === selectedHouse
+    }"/>
+      </div>
+      <div class="row">
+        <button class="save-button" mat-raised-button (click)="update()">Speichern</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+

@@ -1,29 +1,38 @@
 <mat-spinner *ngIf="housePoints == null"></mat-spinner>
-<div class="container" *ngIf="housePoints">
-  <div class="row top-row">
-    <div class="col slytherin">
-      <div class="row justify-content-center"><h1>{{housePoints.slytherin}}</h1></div>
-      <div class="row justify-content-center">
-        <img class="glitter" src="../../assets/housepoints/green-glitter.jpg"  [ngStyle]="{height: getSlytherinHeight(), 'margin-top':getSlytherinMarginTop()}">
+<div class="full-size" *ngIf="housePoints">
+  <div class="snow layer1 a"></div>
+  <div class="snow layer1"></div>
+  <div class="snow layer2 a"></div>
+  <div class="snow layer2"></div>
+  <div class="snow layer3 a"></div>
+  <div class="snow layer3"></div>
+  <div class="container">
+    <div class="row top-row">
+      <div class="col slytherin">
+        <div class="row justify-content-center"><h1>{{housePoints.slytherin}}</h1></div>
+        <div class="row justify-content-center">
+          <img class="glitter" src="../../assets/housepoints/green-glitter.jpg"  [ngStyle]="{height: getSlytherinHeight(), 'margin-top':getSlytherinMarginTop()}">
+        </div>
       </div>
-    </div>
-    <div class="col ravenclaw">
-      <div class="row justify-content-center"><h1>{{housePoints.ravenclaw}}</h1></div>
-      <div class="row justify-content-center">
-        <img class="glitter" src="../../assets/housepoints/blue-glitter.jpg"  [ngStyle]="{height: getRavenclawHeight(), 'margin-top':getRavenclawMarginTop()}">
+      <div class="col ravenclaw">
+        <div class="row justify-content-center"><h1>{{housePoints.ravenclaw}}</h1></div>
+        <div class="row justify-content-center">
+          <img class="glitter" src="../../assets/housepoints/blue-glitter.jpg"  [ngStyle]="{height: getRavenclawHeight(), 'margin-top':getRavenclawMarginTop()}">
+        </div>
       </div>
-    </div>
-    <div class="col gryffindor">
-      <div class="row justify-content-center"><h1>{{housePoints.gryffindor}}</h1></div>
-      <div class="row justify-content-center">
-        <img class="glitter" src="../../assets/housepoints/red-glitter.jpg"  [ngStyle]="{height: getGryffindorHeight(), 'margin-top':getGryffindorMarginTop()}">
+      <div class="col gryffindor">
+        <div class="row justify-content-center"><h1>{{housePoints.gryffindor}}</h1></div>
+        <div class="row justify-content-center">
+          <img class="glitter" src="../../assets/housepoints/red-glitter.jpg"  [ngStyle]="{height: getGryffindorHeight(), 'margin-top':getGryffindorMarginTop()}">
+        </div>
       </div>
-    </div>
-    <div class="col hufflepuff">
-      <div class="row justify-content-center"><h1>{{housePoints.hufflepuff}}</h1></div>
-      <div class="row justify-content-center">
-        <img class="glitter" src="../../assets/housepoints/yellow-glitter.jpg"  [ngStyle]="{height: getHufflepuffHeight(), 'margin-top':getHufflepuffMarginTop()}">
+      <div class="col hufflepuff">
+        <div class="row justify-content-center"><h1>{{housePoints.hufflepuff}}</h1></div>
+        <div class="row justify-content-center">
+          <img class="glitter" src="../../assets/housepoints/yellow-glitter.jpg"  [ngStyle]="{height: getHufflepuffHeight(), 'margin-top':getHufflepuffMarginTop()}">
+        </div>
       </div>
     </div>
   </div>
 </div>
+
