@@ -66,6 +66,7 @@ $s3: $s3 + random(1000)*0.1vw + " " + random(1000)*0.1vh + " " + 0 + " " + rando
   animation-name: fall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+  z-index: 1000;
 }
 .layer1 {
   width: 1.5rem;
@@ -98,5 +99,5 @@ $s3: $s3 + random(1000)*0.1vw + " " + random(1000)*0.1vh + " " + 0 + " " + rando
   animation-delay: -5s;
 }
 @keyframes fall {
-  100% {transform: translateY(200vh); }
+  100% {transform: translateY(200vh);}
 }
