@@ -41,12 +41,12 @@ button {
 .selectedPointsInput {
   text-align: center;
   height: 20vh;
-  line-height: 200px;
-  padding:15px 10px;
-  font-size: 10vh;
+  max-height: 10vh;
+  font-size: 8vh;
   border: none;
   width: 100%;
   background-color: transparent;
+  margin-top: 2vh;
   margin-bottom: 2vh;
 }
 
