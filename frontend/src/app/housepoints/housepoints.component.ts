@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {HousePointsService} from "./housepoints.service";
-import {HousePointResponse} from "../shared/model/housepoints-dtos";
+import {House, HousePointHistory, HousePointResponse} from "../shared/model/housepoints-dtos";
 import {mergeMap, take, takeUntil} from "rxjs/operators";
 import {interval, ReplaySubject} from "rxjs";
 
@@ -10,6 +10,7 @@ import {interval, ReplaySubject} from "rxjs";
   styleUrls: ['./housepoints.component.scss']
 })
 export class HousepointsComponent implements OnInit, OnDestroy {
+  housePointHistory: HousePointHistory[] = [];
 
   constructor(private housePointService: HousePointsService) { }
 
@@ -22,6 +23,7 @@ export class HousepointsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    document.body.style.backgroundColor = "black";
     this.setIntervalToPullHousePoints();
   }
 
@@ -59,6 +61,8 @@ export class HousepointsComponent implements OnInit, OnDestroy {
 
         console.log(response);
         this.housePoints = response;
+
+        this.loadHistory();
       });
   }
 
@@ -101,5 +105,22 @@ export class HousepointsComponent implements OnInit, OnDestroy {
   getHufflepuffMarginTop(): string {
     const padding = 655 - Math.floor(this.housePoints.hufflepuff * this.scaleFactor);
     return  padding + 'px';
+  }
+
+  loadHistory(): void {
+    this.housePointService.getHistory().subscribe(history => {
+      this.housePointHistory = history.slice(Math.max(history.length - 3, 0)).reverse();
+    })
+  }
+
+  getBadgeUrlForHouse(house: House): string {
+
+    switch(house) {
+      case House.GRYFFINDOR: return "../../assets/housepoints/gryffindor.png";
+      case House.SLYTHERIN: return "../../assets/housepoints/slytherin.png";
+      case House.HUFFLEPUFF: return "../../assets/housepoints/hufflepuff.png";
+      case House.RAVENCLAW: return "../../assets/housepoints/ravenclaw.png";
+    }
+
   }
 }

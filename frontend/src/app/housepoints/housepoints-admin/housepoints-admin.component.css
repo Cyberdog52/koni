@@ -41,7 +41,7 @@ button {
 .selectedPointsInput {
   text-align: center;
   height: 20vh;
-  max-height: 10vh;
+  max-height: 16vh;
   font-size: 8vh;
   border: none;
   width: 100%;
@@ -68,9 +68,8 @@ button {
 }
 
 .save-button {
-  height: 20vw;
-  font-size: 3vh;
-  max-height: 5vh;
+  height: 10vh;
+  font-size: 5vh;
 }
 
 .slytherin {

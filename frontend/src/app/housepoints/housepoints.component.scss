@@ -1,5 +1,5 @@
 
-.container {
+.points-container {
   margin-top: 2vh;
   height: 1024px;
   max-width: 1024px;
@@ -43,6 +43,44 @@
 
 .full-size {
   background-color: #0e0302;
+}
+
+mat-list {
+  position: absolute;
+  right: 10vw;
+  top: 10vh;
+  height: 80vh;
+  width: 10vw;
+}
+
+mat-list-item {
+  width: 10vw;
+  min-height: 20vh;
+  margin-top: 5vh;
+}
+
+.history-container {
+}
+
+.badge-row {
+  min-height: 5vh;
+  width: 100%;
+}
+
+.house-image {
+  width: 100%;
+}
+
+.badge-points {
+  text-align: center;
+  font-size: 4vh;
+  color: rgba(250, 250, 250, 0.8);
+}
+
+.badge-reason {
+  text-align: center;
+  font-size: 2vh;
+  color: rgba(250, 250, 250, 0.8);
 }
 
 $s1:"";

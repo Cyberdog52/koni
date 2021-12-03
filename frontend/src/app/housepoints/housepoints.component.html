@@ -6,7 +6,7 @@
   <div class="snow layer2"></div>
   <div class="snow layer3 a"></div>
   <div class="snow layer3"></div>
-  <div class="container">
+  <div class="container points-container">
     <div class="row top-row">
       <div class="col slytherin">
         <div class="row justify-content-center"><h1>{{housePoints.slytherin}}</h1></div>
@@ -34,5 +34,22 @@
       </div>
     </div>
   </div>
+  <mat-list>
+    <mat-list-item *ngFor="let historyItem of housePointHistory">
+      <div class="container history-container">
+        <div class="row badge-row justify-content-center">
+          <div class="col-12">
+            <img class="house-image" src="{{getBadgeUrlForHouse(historyItem.house)}}">
+          </div>
+          <div class="col-12">
+            <h1 class="badge-points">{{historyItem.points}}</h1>
+          </div>
+          <div class="col-12">
+            <h1 class="badge-reason">{{historyItem.reason}}</h1>
+          </div>
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-list>
 </div>
 
